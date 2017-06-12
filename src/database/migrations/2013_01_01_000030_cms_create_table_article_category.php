@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CmsCreateTableCategory extends Migration {
+class CmsCreateTableArticleCategory extends Migration {
 
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CmsCreateTableCategory extends Migration {
      */
     public function up()
     {
-        Schema::create('category', function(Blueprint $table)
+        Schema::create('article_category', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             
@@ -24,13 +24,13 @@ class CmsCreateTableCategory extends Migration {
             $table->json('data_lang')->nullable();
             $table->json('data')->nullable();
             
-            $table->foreign('lang_id', 'fk01_category')
+            $table->primary(['id', 'lang_id'], 'pk01_article_category');
+            $table->foreign('lang_id', 'fk01_article_category')
                 ->references('id')
                 ->on('lang')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
-            
-            $table->primary(['id', 'lang_id'], 'pk01_category');
+
         });
     }
 
@@ -41,7 +41,7 @@ class CmsCreateTableCategory extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('article_category');
     }
 
 }
