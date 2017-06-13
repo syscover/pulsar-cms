@@ -2,7 +2,7 @@
 
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
-use Syscover\Admin\Models\Lang;
+use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class Category
@@ -11,7 +11,9 @@ use Syscover\Admin\Models\Lang;
 
 class Category extends CoreModel
 {
-	protected $table        = 'category';
+    use Translatable;
+
+	protected $table        = 'article_category';
     protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'sort', 'data_lang', 'data'];
     public $timestamps      = false;
     protected $casts        = [
@@ -32,10 +34,5 @@ class Category extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
-    }
-
-    public function lang()
-    {
-        return $this->belongsTo(Lang::class, 'lang_id');
     }
 }

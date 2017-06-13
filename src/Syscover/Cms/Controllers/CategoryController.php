@@ -32,11 +32,9 @@ class CategoryController extends CoreController
         $object = Category::create([
             'id'                    => $id,
             'lang_id'               => $request->input('lang_id'),
-            'parent_id'             => $request->input('parent_id'),
             'name'                  => $request->input('name'),
             'slug'                  => $request->input('slug'),
-            'active'                => $request->input('active'),
-            'description'           => $request->input('description'),
+            'sort'                  => $request->input('sort'),
             'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $idLang)
         ]);
 
@@ -57,11 +55,9 @@ class CategoryController extends CoreController
     public function update(Request $request, $id, $lang)
     {
         Category::where('id', $id)->where('lang_id', $lang)->update([
-            'parent_id'             => $request->input('parent_id'),
             'name'                  => $request->input('name'),
             'slug'                  => $request->input('slug'),
-            'active'                => $request->input('active'),
-            'description'           => $request->input('description'),
+            'sort'                  => $request->input('sort')
         ]);
 
         $object = Category::where('id', $id)->where('lang_id', $lang)->first();
