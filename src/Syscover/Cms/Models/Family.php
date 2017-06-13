@@ -14,9 +14,18 @@ class Family extends CoreModel
     use CustomizableFields;
 
 	protected $table        = 'article_family';
-    protected $fillable     = ['id', 'name', 'editor_id', 'field_group_id', 'data'];
+    protected $fillable     = ['id', 'name', 'editor_id', 'field_group_id', 'date', 'title', 'slug', 'link', 'categories', 'sort', 'tags', 'article_parent', 'attachments', 'data'];
     public $timestamps      = false;
     protected $casts        = [
+        'date' => 'boolean',
+        'title' => 'boolean',
+        'slug' => 'boolean',
+        'link' => 'boolean',
+        'categories' => 'boolean',
+        'sort' => 'boolean',
+        'tags' => 'boolean',
+        'article_parent' => 'boolean',
+        'attachments' => 'boolean',
         'data' => 'array'
     ];
     public $with = [

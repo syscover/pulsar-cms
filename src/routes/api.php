@@ -4,46 +4,25 @@ Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
 
     /*
     |----------------------------------
-    | USERS
+    | SECTIONS
     |----------------------------------
     */
-    Route::get('api/v1/admin/user',                                         ['as' => 'adminUser',                           'uses' => 'Syscover\Admin\Controllers\UserController@index']);
-    Route::get('api/v1/admin/user/{id}',                                    ['as' => 'showAdminUser',                       'uses' => 'Syscover\Admin\Controllers\UserController@show']);
-    Route::post('api/v1/admin/user',                                        ['as' => 'storeAdminUser',                      'uses' => 'Syscover\Admin\Controllers\UserController@store']);
-    Route::post('api/v1/admin/user/search',                                 ['as' => 'searchAdminUser',                     'uses' => 'Syscover\Admin\Controllers\UserController@search']);
-    Route::put('api/v1/admin/user/{id}',                                    ['as' => 'updateAdminUser',                     'uses' => 'Syscover\Admin\Controllers\UserController@update']);
-    Route::delete('api/v1/admin/user/{id}',                                 ['as' => 'destroyAdminUser',                    'uses' => 'Syscover\Admin\Controllers\UserController@destroy']);
+    Route::get('api/v1/cms/section',                                         ['as' => 'cmsSection',                     'uses' => 'Syscover\Cms\Controllers\SectionController@index']);
+    Route::get('api/v1/cms/section/{id}',                                    ['as' => 'showCmsSection',                 'uses' => 'Syscover\Cms\Controllers\SectionController@show']);
+    Route::post('api/v1/cms/section',                                        ['as' => 'storeCmsSection',                'uses' => 'Syscover\Cms\Controllers\SectionController@store']);
+    Route::post('api/v1/cms/section/search',                                 ['as' => 'searchCmsSection',               'uses' => 'Syscover\Cms\Controllers\SectionController@search']);
+    Route::put('api/v1/cms/section/{id}',                                    ['as' => 'updateCmsSection',               'uses' => 'Syscover\Cms\Controllers\SectionController@update']);
+    Route::delete('api/v1/cms/section/{id}',                                 ['as' => 'destroyCmsSection',              'uses' => 'Syscover\Cms\Controllers\SectionController@destroy']);
 
     /*
     |----------------------------------
-    | LANGS
+    | ARTICLE FAMILIES
     |----------------------------------
     */
-    Route::get('api/v1/admin/lang',                                         ['as' => 'adminLang',                           'uses' => 'Syscover\Admin\Controllers\LangController@index']);
-    Route::get('api/v1/admin/lang/{id}',                                    ['as' => 'showAdminLang',                       'uses' => 'Syscover\Admin\Controllers\LangController@show']);
-    Route::post('api/v1/admin/lang',                                        ['as' => 'storeAdminLang',                      'uses' => 'Syscover\Admin\Controllers\LangController@store']);
-    Route::post('api/v1/admin/lang/search',                                 ['as' => 'searchAdminLang',                     'uses' => 'Syscover\Admin\Controllers\LangController@search']);
-    Route::put('api/v1/admin/lang/{id}',                                    ['as' => 'updateAdminLang',                     'uses' => 'Syscover\Admin\Controllers\LangController@update']);
-    Route::delete('api/v1/admin/lang/{id}',                                 ['as' => 'destroyAdminLang',                    'uses' => 'Syscover\Admin\Controllers\LangController@destroy']);
-
-    /*
-    |----------------------------------
-    | COUNTRIES
-    |----------------------------------
-    */
-    Route::get('api/v1/admin/country/{lang?}',                              ['as' => 'adminCountry',                         'uses' => 'Syscover\Admin\Controllers\CountryController@index']);
-    Route::get('api/v1/admin/country/{id}/{lang}',                          ['as' => 'showAdminCountry',                     'uses' => 'Syscover\Admin\Controllers\CountryController@show']);
-    Route::post('api/v1/admin/country/search',                              ['as' => 'searchAdminCountry',                   'uses' => 'Syscover\Admin\Controllers\CountryController@search']);
-    Route::post('api/v1/admin/country',                                     ['as' => 'storeAdminCountry',                    'uses' => 'Syscover\Admin\Controllers\CountryController@store']);
-    Route::put('api/v1/admin/country/{id}/{lang}',                          ['as' => 'updateAdminCountry',                   'uses' => 'Syscover\Admin\Controllers\CountryController@update']);
-    Route::delete('api/v1/admin/country/{id}/{lang?}',                      ['as' => 'destroyAdminCountry',                  'uses' => 'Syscover\Admin\Controllers\CountryController@destroy']);
+    Route::get('api/v1/cms/family',                                         ['as' => 'cmsFamily',                       'uses' => 'Syscover\Cms\Controllers\FamilyController@index']);
+    Route::get('api/v1/cms/family/{id}',                                    ['as' => 'showCmsFamily',                   'uses' => 'Syscover\Cms\Controllers\FamilyController@show']);
+    Route::post('api/v1/cms/family',                                        ['as' => 'storeCmsFamily',                  'uses' => 'Syscover\Cms\Controllers\FamilyController@store']);
+    Route::post('api/v1/cms/family/search',                                 ['as' => 'searchCmsFamily',                 'uses' => 'Syscover\Cms\Controllers\FamilyController@search']);
+    Route::put('api/v1/cms/family/{id}',                                    ['as' => 'updateCmsFamily',                 'uses' => 'Syscover\Cms\Controllers\FamilyController@update']);
+    Route::delete('api/v1/cms/family/{id}',                                 ['as' => 'destroyCmsFamily',                'uses' => 'Syscover\Cms\Controllers\FamilyController@destroy']);
 });
-
-/*
-|----------------------------------
-| ATTACHMENTS
-|----------------------------------
-*/
-Route::post('api/v1/admin/attachment-upload',                           ['as' => 'adminAttachmentUpload',               'uses' => 'Syscover\Admin\Controllers\AttachmentController@index']);
-Route::post('api/v1/admin/attachment-upload/crop',                      ['as' => 'cropAdminAttachmentUpload',           'uses' => 'Syscover\Admin\Controllers\AttachmentController@crop']);
-Route::post('api/v1/admin/attachment-upload/delete',                    ['as' => 'destroyAdminAttachmentUpload',        'uses' => 'Syscover\Admin\Controllers\AttachmentController@destroy']);

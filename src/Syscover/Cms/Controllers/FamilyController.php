@@ -1,4 +1,4 @@
-<?php namespace Syscover\Admin\Controllers;
+<?php namespace Syscover\Cms\Controllers;
 
 use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
@@ -17,37 +17,21 @@ class FamilyController extends CoreController
      */
     public function store(Request $request)
     {
-        // set custom fields
-        $properties = [];
-        if($request->has('field_group_id'))
-        {
-            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
-            foreach ($fields as $field)
-            {
-                $properties[$field->name] = $request->input($field->name);
-            }
-        }
-
         // create object
         $object = Family::create([
             'name'              => $request->input('name'),
-            'editor_id'         => $request->input('name'),
+            'editor_id'         => $request->input('editor_id'),
             'field_group_id'    => $request->input('field_group_id'),
-            'data'              => [
-                'morphology'    => [
-                    'date'          => $request->input('date'),
-                    'title'         => $request->input('title'),
-                    'slug'          => $request->input('slug'),
-                    'link'          => $request->input('link'),
-                    'categories'    => $request->input('categories'),
-                    'sort'          => $request->input('sort'),
-                    'tags'          => $request->input('tags')
-                ],
-                'properties'        => $properties
-            ]
+            'date'              => $request->input('date'),
+            'title'             => $request->input('title'),
+            'slug'              => $request->input('slug'),
+            'link'              => $request->input('link'),
+            'categories'        => $request->input('categories'),
+            'sort'              => $request->input('sort'),
+            'tags'              => $request->input('tags'),
+            'article_parent'    => $request->input('article_parent'),
+            'attachments'       => $request->input('attachments')
         ]);
-
-
 
         $response['status'] = "success";
         $response['data']   = $object;
@@ -64,34 +48,20 @@ class FamilyController extends CoreController
      */
     public function update(Request $request, $id)
     {
-        // set custom fields
-        $properties = [];
-        if($request->has('field_group_id'))
-        {
-            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
-            foreach ($fields as $field)
-            {
-                $properties[$field->name] = $request->input($field->name);
-            }
-        }
-
         // update object
         Family::where('id', $id)->update([
             'name'              => $request->input('name'),
-            'editor_id'         => $request->input('name'),
+            'editor_id'         => $request->input('editor_id'),
             'field_group_id'    => $request->input('field_group_id'),
-            'data'              => json_encode([
-                'morphology'    => [
-                    'date'          => $request->input('date'),
-                    'title'         => $request->input('title'),
-                    'slug'          => $request->input('slug'),
-                    'link'          => $request->input('link'),
-                    'categories'    => $request->input('categories'),
-                    'sort'          => $request->input('sort'),
-                    'tags'          => $request->input('tags')
-                ],
-                'properties'        => $properties
-            ])
+            'date'              => $request->input('date'),
+            'title'             => $request->input('title'),
+            'slug'              => $request->input('slug'),
+            'link'              => $request->input('link'),
+            'categories'        => $request->input('categories'),
+            'sort'              => $request->input('sort'),
+            'tags'              => $request->input('tags'),
+            'article_parent'    => $request->input('article_parent'),
+            'attachments'       => $request->input('attachments')
         ]);
 
         $object = Family::find($request->input('id'));

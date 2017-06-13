@@ -68,6 +68,6 @@ class CmsCreateTableArticle extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('013_article');
+        Schema::dropIfExists('article');
     }
 }
