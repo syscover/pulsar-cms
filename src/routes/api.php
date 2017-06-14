@@ -4,6 +4,18 @@ Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
 
     /*
     |----------------------------------
+    | ARTICLES
+    |----------------------------------
+    */
+    Route::get('api/v1/cms/article/{lang?}',                               ['as' => 'cmsArticle',                       'uses' => 'Syscover\Cms\Controllers\ArticleController@index']);
+    Route::get('api/v1/cms/article/{id}/{lang}',                           ['as' => 'showCmsArticle',                   'uses' => 'Syscover\Cms\Controllers\ArticleController@show']);
+    Route::post('api/v1/cms/article/search',                               ['as' => 'searchCmsArticle',                 'uses' => 'Syscover\Cms\Controllers\ArticleController@search']);
+    Route::post('api/v1/cms/article',                                      ['as' => 'storeCmsArticle',                  'uses' => 'Syscover\Cms\Controllers\ArticleController@store']);
+    Route::put('api/v1/cms/article/{id}/{lang}',                           ['as' => 'updateCmsArticle',                 'uses' => 'Syscover\Cms\Controllers\ArticleController@update']);
+    Route::delete('api/v1/cms/article/{id}/{lang?}',                       ['as' => 'destroyCmsArticle',                'uses' => 'Syscover\Cms\Controllers\ArticleController@destroy']);
+
+    /*
+    |----------------------------------
     | CATEGORIES
     |----------------------------------
     */

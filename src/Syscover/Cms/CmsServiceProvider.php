@@ -15,7 +15,10 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
 
         // register migrations
-        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+
+        // register translations
+        $this->loadTranslationsFrom(__DIR__ .  '/../../lang', 'cms');
 
         // register seeds
         $this->publishes([
