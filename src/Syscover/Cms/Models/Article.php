@@ -1,5 +1,6 @@
 <?php namespace Syscover\Cms\Models;
 
+use Carbon\Carbon;
 use Syscover\Admin\Models\User;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
@@ -15,13 +16,14 @@ class Article extends CoreModel
     use Translatable;
 
 	protected $table        = 'article';
-    protected $fillable     = ['id', 'lang_id', 'parent_article_id', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'publish_text', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'article', 'data_lang', 'data'];
+    protected $fillable     = ['id', 'lang_id', 'parent_article_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'article', 'data_lang', 'data'];
+    public $incrementing    = false;
     public $timestamps      = false;
     protected $casts        = [
         'data_lang' => 'array',
         'data'      => 'array'
     ];
-    public $with            = ['lang', 'author', 'family'];
+    public $with            = ['lang', 'author', 'family', 'categories', 'tags'];
 
     private static $rules   = [
         'name' => 'required|between:2,100'
@@ -45,5 +47,20 @@ class Article extends CoreModel
     public function family()
     {
         return $this->belongsTo(Family::class, 'family_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'articles_categories', 'article_id', 'category_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'articles_tags', 'article_id', 'tag_id');
+    }
+
+    public function getPublishAttribute($value)
+    {
+        return (new Carbon($value))->toW3cString();
     }
 }

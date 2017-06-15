@@ -5,26 +5,20 @@ use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Traits\Translatable;
 
 /**
- * Class Category
+ * Class Tag
  * @package Syscover\Market\Models
  */
 
-class Category extends CoreModel
+class Tag extends CoreModel
 {
     use Translatable;
 
-	protected $table        = 'article_category';
-    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'sort', 'data_lang', 'data'];
-    public $incrementing    = false;
+	protected $table        = 'tag';
+    protected $fillable     = ['id', 'lang_id', 'name'];
     public $timestamps      = false;
-    protected $casts        = [
-        'data_lang' => 'array',
-        'data'      => 'array'
-    ];
     public $with            = ['lang'];
-
     private static $rules   = [
-        'name' => 'required|between:2,100'
+        'name' => 'required|between:1,255'
     ];
 
     public static function validate($data)

@@ -15,7 +15,7 @@ return [
     //***   Status
     //******************************************************************************************************************
     'statuses'      => [
-        (object)['id' => 0, 'name' => 'cms::pulsar.draft'],
-        (object)['id' => 1, 'name' => 'cms::pulsar.publish']
+        (object)['id' => 1, 'name' => 'cms::pulsar.draft'],
+        (object)['id' => 2, 'name' => 'cms::pulsar.publish']
     ]
 ];

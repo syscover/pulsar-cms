@@ -18,20 +18,20 @@ class CmsCreateTableArticle extends Migration {
             
             $table->integer('id')->unsigned();
             $table->string('lang_id', 2);
+            $table->string('name'); // name of the article
             $table->integer('parent_article_id')->unsigned()->nullable(); // set parent article if you need group articles
             $table->integer('author_id')->unsigned();
             $table->string('section_id', 30);
             $table->integer('family_id')->unsigned()->nullable(); // element to set default article configuration
             $table->tinyInteger('status_id')->unsigned();  // 0 = draft 1 = publish
-            $table->integer('publish')->unsigned();     // date when will be publish
-            $table->string('publish_text');             // date publish in text format
-            $table->integer('date')->unsigned()->nullable(); // date of article
+            $table->timestamp('publish');     // date when will be publish
+            $table->timestamp('date')->nullable(); // date of article
             $table->string('title', 510)->nullable();
             $table->string('slug')->nullable();
             $table->string('link')->nullable();
             $table->boolean('blank')->nullable();
             $table->integer('sort')->unsigned()->nullable(); // article sort
-            $table->longText('article');
+            $table->longText('article')->nullable();
             $table->json('data_lang')->nullable();
             $table->json('data')->nullable();
 
