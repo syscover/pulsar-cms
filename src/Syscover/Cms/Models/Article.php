@@ -1,6 +1,7 @@
 <?php namespace Syscover\Cms\Models;
 
 use Carbon\Carbon;
+use Syscover\Admin\Models\Attachment;
 use Syscover\Admin\Models\User;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +24,15 @@ class Article extends CoreModel
         'data_lang' => 'array',
         'data'      => 'array'
     ];
-    public $with            = ['lang', 'author', 'family', 'categories', 'tags'];
+    public $with            = [
+        'lang',
+        //'attachments',
+        'author',
+        'family',
+        'categories',
+        'tags'
+    ];
+    public $lazyRelations       = ['attachments'];
 
     private static $rules   = [
         'name' => 'required|between:2,100'
@@ -52,6 +61,13 @@ class Article extends CoreModel
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'articles_categories', 'article_id', 'category_id');
+    }
+
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'object')
+            ->where('attachment.lang_id', $this->lang_id)
+            ->orderBy('sort', 'asc');
     }
 
     public function tags()

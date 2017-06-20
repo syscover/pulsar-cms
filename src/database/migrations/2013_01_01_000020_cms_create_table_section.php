@@ -20,6 +20,9 @@ class CmsCreateTableSection extends Migration {
             $table->string('name');
             $table->integer('article_family_id')->unsigned()->nullable();
 
+            $table->timestamps();
+            $table->softDeletes();
+
             $table->foreign('article_family_id', 'fk01_section')
                 ->references('id')
                 ->on('article_family')

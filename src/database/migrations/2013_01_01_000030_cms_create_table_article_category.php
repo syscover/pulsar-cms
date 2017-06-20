@@ -23,6 +23,9 @@ class CmsCreateTableArticleCategory extends Migration {
             $table->integer('sort')->unsigned()->nullable();
             $table->json('data_lang')->nullable();
             $table->json('data')->nullable();
+
+            $table->timestamps();
+            $table->softDeletes();
             
             $table->primary(['id', 'lang_id'], 'pk01_article_category');
             $table->foreign('lang_id', 'fk01_article_category')

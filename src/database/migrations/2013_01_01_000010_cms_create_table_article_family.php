@@ -35,6 +35,9 @@ class CmsCreateTableArticleFamily extends Migration {
             $table->boolean('attachments')->default(false);
             $table->json('data')->nullable();
 
+            $table->timestamps();
+            $table->softDeletes();
+
             $table->foreign('field_group_id', 'fk01_article_family')
                 ->references('id')
                 ->on('field_group')

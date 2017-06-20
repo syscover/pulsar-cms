@@ -20,6 +20,9 @@ class CmsCreateTableTag extends Migration {
             $table->string('lang_id', 2);
             $table->string('name')->nullable();
 
+            $table->timestamps();
+            $table->softDeletes();
+
             $table->foreign('lang_id', 'fk01_tag')
                 ->references('id')
                 ->on('lang')

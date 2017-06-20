@@ -2,6 +2,8 @@
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Syscover\Admin\Models\Field;
+use Syscover\Admin\Services\AttachmentService;
 use Syscover\Cms\Models\Tag;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Cms\Models\Article;
@@ -18,6 +20,17 @@ class ArticleController extends CoreController
      */
     public function store(Request $request)
     {
+        // get custom fields
+        $data = [];
+        if($request->has('field_group_id'))
+        {
+            $fields = Field::where('field_group_id', $request->input('field_group_id'))->get();
+            foreach ($fields as $field)
+            {
+                $data['properties'][$field->name] = $request->input($field->name);
+            }
+        }
+
         // check if there is id
         if($request->has('id'))
         {
@@ -48,7 +61,8 @@ class ArticleController extends CoreController
             'blank'                 => $request->input('blank'),
             'sort'                  => $request->input('sort'),
             'article'               => $request->input('article'),
-            'data_lang'             => Article::addLangDataRecord($request->input('lang_id'), $idLang)
+            'data_lang'             => Article::addLangDataRecord($request->input('lang_id'), $idLang),
+            'data'                  => $data
         ]);
 
         // get object with builder, to get every relations
@@ -56,6 +70,16 @@ class ArticleController extends CoreController
 
         $this->setTags($object, $request);
         $this->setCategories($object, $request);
+
+        // set attachments
+        if(is_array($request->input('attachments')))
+        {
+            // first save libraries to get id
+            $attachments = AttachmentService::storeAttachmentsLibrary($request->input('attachments'));
+
+            // then save attachments
+            AttachmentService::storeAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', $this->model, $object->id,  $object->lang_id);
+        }
 
         $response['status'] = "success";
         $response['data']   = $object;
@@ -73,6 +97,17 @@ class ArticleController extends CoreController
      */
     public function update(Request $request, $id, $lang)
     {
+        // get custom fields
+        $data = [];
+        if(isset($request->input('family')['field_group_id']))
+        {
+            $fields = Field::where('field_group_id', $request->input('family')['field_group_id'])->get();
+            foreach ($fields as $field)
+            {
+                $data['properties'][$field->name] = $request->input($field->name);
+            }
+        }
+
         Article::where('id', $id)->where('lang_id', $lang)->update([
             'name'                  => $request->input('name'),
             'parent_article_id'     => $request->input('parent_article_id'),
@@ -87,13 +122,24 @@ class ArticleController extends CoreController
             'link'                  => $request->input('link'),
             'blank'                 => $request->input('blank'),
             'sort'                  => $request->input('sort'),
-            'article'               => $request->input('article')
+            'article'               => $request->input('article'),
+            'data'                  => json_encode($data)
         ]);
 
         $object = Article::where('id', $id)->where('lang_id', $lang)->first();
 
         $this->setTags($object, $request);
         $this->setCategories($object, $request);
+
+        // set attachments
+        if(is_array($request->input('attachments')))
+        {
+            // first save libraries to get id
+            $attachments = AttachmentService::storeAttachmentsLibrary($request->input('attachments'));
+
+            // then save attachments
+            AttachmentService::updateAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', $this->model, $object->id,  $object->lang_id);
+        }
 
         $response['status'] = "success";
         $response['data']   = $object;

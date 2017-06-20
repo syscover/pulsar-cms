@@ -35,6 +35,9 @@ class CmsCreateTableArticle extends Migration {
             $table->json('data_lang')->nullable();
             $table->json('data')->nullable();
 
+            $table->timestamps();
+            $table->softDeletes();
+
             $table->foreign('lang_id', 'fk01_article')
                 ->references('id')
                 ->on('lang')
