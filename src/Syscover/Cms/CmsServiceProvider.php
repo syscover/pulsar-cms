@@ -1,4 +1,4 @@
-<?php namespace Syscover\Admin;
+<?php namespace Syscover\Cms;
 
 use Illuminate\Support\ServiceProvider;
 
