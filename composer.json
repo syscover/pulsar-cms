@@ -14,6 +14,9 @@
     "autoload": {
         "psr-4": {
             "Syscover\\Cms\\": "src/Syscover/Cms"
-        }
+        },
+        "classmap": [
+            "src/Syscover/Cms"
+        ]
     }
 }
