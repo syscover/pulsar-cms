@@ -1,6 +1,7 @@
 <?php namespace Syscover\Cms;
 
 use Illuminate\Support\ServiceProvider;
+use Syscover\Cms\GraphQL\CmsGraphQLServiceProvider;
 
 class CmsServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,10 @@ class CmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/pulsar.cms.php' => config_path('pulsar.cms.php'),
         ]);
+
+        // register GraphQL types and schema
+        CmsGraphQLServiceProvider::bootGraphQLTypes();
+        CmsGraphQLServiceProvider::bootGraphQLSchema();
 	}
 
 	/**
