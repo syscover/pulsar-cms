@@ -23,9 +23,9 @@ class CmsGraphQLServiceProvider
             ],
             'mutation' => [
                 // FAMILY
-//                'cmsAddFamily'              => \Syscover\Cms\GraphQL\Mutations\AddFamilyMutation::class,
-//                'cmsUpdateFamily'           => \Syscover\Cms\GraphQL\Mutations\UpdateFamilyMutation::class,
-//                'cmsDeleteFamily'           => \Syscover\Cms\GraphQL\Mutations\DeleteFamilyMutation::class,
+                'cmsAddFamily'              => \Syscover\Cms\GraphQL\Mutations\AddFamilyMutation::class,
+                'cmsUpdateFamily'           => \Syscover\Cms\GraphQL\Mutations\UpdateFamilyMutation::class,
+                'cmsDeleteFamily'           => \Syscover\Cms\GraphQL\Mutations\DeleteFamilyMutation::class,
             ]
         ]));
     }

@@ -1,6 +1,7 @@
 <?php namespace Syscover\Cms\Models;
 
 use Illuminate\Support\Facades\Validator;
+use Syscover\Admin\Models\FieldGroup;
 use Syscover\Core\Models\CoreModel;
 use Syscover\Admin\Traits\CustomizableFields;
 
@@ -42,5 +43,10 @@ class Family extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    public function fieldGroup()
+    {
+        return $this->belongsTo(FieldGroup::class, 'field_group_id');
     }
 }
