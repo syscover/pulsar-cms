@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Cms\Models\Category;
+use Syscover\Cms\Models\Article;
 
-class CategoriesPaginationQuery extends Query
+class ArticlesPaginationQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'CategoriesPaginationQuery',
-        'description'   => 'Query to get categories list'
+        'name'          => 'ArticlesPaginationQuery',
+        'description'   => 'Query to get articles list'
     ];
 
     public function type()
     {
-        return GraphQL::type('CmsCategoryPagination');
+        return GraphQL::type('CmsArticlePagination');
     }
 
     public function args()
@@ -36,13 +36,13 @@ class CategoriesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Category::builder(), $args['sql'], $args['lang']);
+        $query = SQLService::getQueryFiltered(Article::builder(), $args['sql'], $args['lang']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(Category::builder(), $args['lang']);
+        $total = SQLService::countPaginateTotalRecords(Article::builder(), $args['lang']);
 
         return (Object) [
             'total'     => $total,

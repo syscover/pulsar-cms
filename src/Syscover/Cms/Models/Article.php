@@ -26,7 +26,6 @@ class Article extends CoreModel
     ];
     public $with            = [
         'lang',
-        //'attachments',
         'author',
         'family',
         'categories',

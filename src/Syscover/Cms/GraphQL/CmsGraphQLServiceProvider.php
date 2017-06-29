@@ -21,6 +21,10 @@ class CmsGraphQLServiceProvider
         GraphQL::addType(\Syscover\Cms\GraphQL\Types\CategoryType::class, 'CmsCategory');
         GraphQL::addType(\Syscover\Cms\GraphQL\Inputs\CategoryInput::class, 'CmsCategoryInput');
 
+        // ARTICLE
+        GraphQL::addType(\Syscover\Cms\GraphQL\Types\ArticlePaginationType::class, 'CmsArticlePagination');
+        GraphQL::addType(\Syscover\Cms\GraphQL\Types\ArticleType::class, 'CmsArticle');
+        GraphQL::addType(\Syscover\Cms\GraphQL\Inputs\ArticleInput::class, 'CmsArticleInput');
     }
 
     public static function bootGraphQLSchema()
@@ -41,6 +45,11 @@ class CmsGraphQLServiceProvider
                 'cmsCategoriesPagination'   => \Syscover\Cms\GraphQL\Queries\CategoriesPaginationQuery::class,
                 'cmsCategories'             => \Syscover\Cms\GraphQL\Queries\CategoriesQuery::class,
                 'cmsCategory'               => \Syscover\Cms\GraphQL\Queries\CategoryQuery::class,
+
+                // ARTICLE
+                'cmsArticlesPagination'     => \Syscover\Cms\GraphQL\Queries\ArticlesPaginationQuery::class,
+                'cmsArticles'               => \Syscover\Cms\GraphQL\Queries\ArticlesQuery::class,
+                'cmsArticle'                => \Syscover\Cms\GraphQL\Queries\ArticleQuery::class,
             ],
             'mutation' => [
                 // FAMILY
@@ -57,6 +66,11 @@ class CmsGraphQLServiceProvider
                 'cmsAddCategory'            => \Syscover\Cms\GraphQL\Mutations\AddCategoryMutation::class,
                 'cmsUpdateCategory'         => \Syscover\Cms\GraphQL\Mutations\UpdateCategoryMutation::class,
                 'cmsDeleteCategory'         => \Syscover\Cms\GraphQL\Mutations\DeleteCategoryMutation::class,
+
+                // ARTICLE
+                'cmsAddArticle'             => \Syscover\Cms\GraphQL\Mutations\AddArticleMutation::class,
+                'cmsUpdateArticle'          => \Syscover\Cms\GraphQL\Mutations\UpdateArticleMutation::class,
+                'cmsDeleteArticle'          => \Syscover\Cms\GraphQL\Mutations\DeleteArticleMutation::class,
             ]
         ]));
     }

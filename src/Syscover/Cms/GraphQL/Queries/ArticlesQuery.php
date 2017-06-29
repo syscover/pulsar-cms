@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Cms\Models\Category;
+use Syscover\Cms\Models\Article;
 
-class CategoryQuery extends Query
+class ArticlesQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'CategoryQuery',
-        'description'   => 'Query to get a category'
+        'name'          => 'ArticlesQuery',
+        'description'   => 'Query to get articles.'
     ];
 
     public function type()
     {
-        return GraphQL::type('CmsCategory');
+        return Type::listOf(GraphQL::type('CmsArticle'));
     }
 
     public function args()
@@ -31,8 +31,14 @@ class CategoryQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Category::builder(), $args['sql']);
+        $query = Article::builder();
 
-        return $query->first();
+        if(isset($args['sql']))
+        {
+            $query = SQLService::getQueryFiltered($query, $args['sql']);
+            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
+        }
+
+        return $query->get();
     }
 }
