@@ -68,8 +68,7 @@ class FamilyType extends GraphQLType {
             'data' => [
                 'type' => Type::boolean(),
                 'description' => 'Data to include content extra'
-            ],
-
+            ]
         ];
     }
 }

@@ -5,11 +5,11 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 use Syscover\Core\Services\SQLService;
 
-class FamilyPaginationType extends GraphQLType
+class CategoryPaginationType extends GraphQLType
 {
     protected $attributes = [
-        'name'          => 'FamilyPaginationType',
-        'description'   => 'Pagination for family objects.'
+        'name'          => 'CategoryPaginationType',
+        'description'   => 'Pagination for category objects.'
     ];
 
     public function fields()
@@ -23,20 +23,20 @@ class FamilyPaginationType extends GraphQLType
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'N records filtered'
             ],
-            'families' => [
+            'categories' => [
                 'args' => [
                     'sql' => [
                         'type' => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
                         'description' => 'Field to add SQL operations'
                     ]
                 ],
-                'type' => Type::listOf(GraphQL::type('CmsFamily')),
-                'description' => 'List of families filtered'
+                'type' => Type::listOf(GraphQL::type('CmsCategory')),
+                'description' => 'List of categories filtered'
             ]
         ];
     }
 
-    public function resolveFamiliesField($root, $args)
+    public function resolveCategoriesField($root, $args)
     {
         // get query ordered and limited
         $query = SQLService::getQueryOrderedAndLimited($root->query, $args['sql']);
