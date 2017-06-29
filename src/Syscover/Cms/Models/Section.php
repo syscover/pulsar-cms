@@ -27,7 +27,8 @@ class Section extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query;
+        return $query->leftJoin('article_family', 'section.article_family_id', '=', 'article_family.id')
+            ->select('article_family.*', 'section.*', 'article_family.name as article_family_name', 'section.name as section_name');;
     }
 
     public function family()

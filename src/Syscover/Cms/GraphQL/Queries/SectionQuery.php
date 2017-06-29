@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Cms\Models\Family;
+use Syscover\Cms\Models\Section;
 
-class FamiliesQuery extends Query
+class SectionQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'FamiliesQuery',
-        'description'   => 'Query to get families.'
+        'name'          => 'SectionQuery',
+        'description'   => 'Query to get sections.'
     ];
 
     public function type()
     {
-        return Type::listOf(GraphQL::type('CmsFamily'));
+        return GraphQL::type('CmsSection');
     }
 
     public function args()
@@ -31,14 +31,8 @@ class FamiliesQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = Family::builder();
+        $query = SQLService::getQueryFiltered(Section::builder(), $args['sql']);
 
-        if(isset($args['sql']))
-        {
-            $query = SQLService::getQueryFiltered($query, $args['sql']);
-            $query = SQLService::getQueryOrderedAndLimited($query, $args['sql']);
-        }
-
-        return $query->get();
+        return $query->first();
     }
 }

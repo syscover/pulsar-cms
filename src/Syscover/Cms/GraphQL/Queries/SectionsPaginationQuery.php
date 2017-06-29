@@ -4,18 +4,18 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 use Syscover\Core\Services\SQLService;
-use Syscover\Cms\Models\Family;
+use Syscover\Cms\Models\Section;
 
-class FamiliesPaginationQuery extends Query
+class SectionsPaginationQuery extends Query
 {
     protected $attributes = [
-        'name'          => 'FamiliesPaginationQuery',
-        'description'   => 'Query to get families list'
+        'name'          => 'SectionsPaginationQuery',
+        'description'   => 'Query to get sections list.'
     ];
 
     public function type()
     {
-        return GraphQL::type('CmsFamilyPagination');
+        return GraphQL::type('CmsSectionPagination');
     }
 
     public function args()
@@ -31,13 +31,13 @@ class FamiliesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Family::builder(), $args['sql']);
+        $query = SQLService::getQueryFiltered(Section::builder(), $args['sql']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(Family::builder());
+        $total = SQLService::countPaginateTotalRecords(Section::builder());
 
         return (Object) [
             'total'     => $total,

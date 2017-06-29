@@ -5,7 +5,6 @@ use Folklore\GraphQL\Support\Type as GraphQLType;
 
 class FamilyType extends GraphQLType {
 
-    // to documentation
     protected $attributes = [
         'name'          => 'Family',
         'description'   => 'Family that user can to do in application.'
