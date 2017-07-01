@@ -60,7 +60,7 @@ class UpdateSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        Section::where('id', $args['section']['id'])
+        Section::where('id', $args['idOld'])
             ->update($args['section']);
 
         return Section::find($args['section']['id']);
