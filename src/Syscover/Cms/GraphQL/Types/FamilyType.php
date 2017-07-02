@@ -1,5 +1,6 @@
 <?php namespace Syscover\Cms\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -70,5 +71,9 @@ class FamilyType extends GraphQLType {
                 'description' => 'Data to include content extra'
             ]
         ];
+    }
+
+    public function interfaces() {
+        return [GraphQL::type('CoreObjectInterface')];
     }
 }

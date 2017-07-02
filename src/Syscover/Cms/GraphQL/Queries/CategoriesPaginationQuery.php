@@ -15,7 +15,7 @@ class CategoriesPaginationQuery extends Query
 
     public function type()
     {
-        return GraphQL::type('CmsCategoryPagination');
+        return GraphQL::type('CoreObjectPagination');
     }
 
     public function args()

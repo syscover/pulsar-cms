@@ -32,4 +32,8 @@ class SectionType extends GraphQLType {
             ]
         ];
     }
+
+    public function interfaces() {
+        return [GraphQL::type('CoreObjectInterface')];
+    }
 }

@@ -7,22 +7,18 @@ class CmsGraphQLServiceProvider
     public static function bootGraphQLTypes()
     {
         // FAMILY
-        GraphQL::addType(\Syscover\Cms\GraphQL\Types\FamilyPaginationType::class, 'CmsFamilyPagination');
         GraphQL::addType(\Syscover\Cms\GraphQL\Types\FamilyType::class, 'CmsFamily');
         GraphQL::addType(\Syscover\Cms\GraphQL\Inputs\FamilyInput::class, 'CmsFamilyInput');
 
         // SECTION
-        GraphQL::addType(\Syscover\Cms\GraphQL\Types\SectionPaginationType::class, 'CmsSectionPagination');
         GraphQL::addType(\Syscover\Cms\GraphQL\Types\SectionType::class, 'CmsSection');
         GraphQL::addType(\Syscover\Cms\GraphQL\Inputs\SectionInput::class, 'CmsSectionInput');
 
         // CATEGORY
-        GraphQL::addType(\Syscover\Cms\GraphQL\Types\CategoryPaginationType::class, 'CmsCategoryPagination');
         GraphQL::addType(\Syscover\Cms\GraphQL\Types\CategoryType::class, 'CmsCategory');
         GraphQL::addType(\Syscover\Cms\GraphQL\Inputs\CategoryInput::class, 'CmsCategoryInput');
 
         // ARTICLE
-        GraphQL::addType(\Syscover\Cms\GraphQL\Types\ArticlePaginationType::class, 'CmsArticlePagination');
         GraphQL::addType(\Syscover\Cms\GraphQL\Types\ArticleType::class, 'CmsArticle');
         GraphQL::addType(\Syscover\Cms\GraphQL\Inputs\ArticleInput::class, 'CmsArticleInput');
     }

@@ -1,5 +1,6 @@
 <?php namespace Syscover\Cms\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -82,5 +83,9 @@ class ArticleType extends GraphQLType {
                 'description' => 'JSON string that contain information about object translations'
             ]
         ];
+    }
+
+    public function interfaces() {
+        return [GraphQL::type('CoreObjectInterface')];
     }
 }
