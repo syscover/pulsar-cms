@@ -16,8 +16,8 @@ class FamilyMutation extends Mutation
     public function args()
     {
         return [
-            'family' => [
-                'name' => 'family',
+            'object' => [
+                'name' => 'object',
                 'type' => Type::nonNull(GraphQL::type('CmsFamilyInput'))
             ],
         ];
@@ -33,7 +33,7 @@ class AddFamilyMutation extends FamilyMutation
 
     public function resolve($root, $args)
     {
-        return Family::create($args['family']);
+        return Family::create($args['object']);
     }
 }
 
@@ -46,10 +46,10 @@ class UpdateFamilyMutation extends FamilyMutation
 
     public function resolve($root, $args)
     {
-        Family::where('id', $args['family']['id'])
-            ->update($args['family']);
+        Family::where('id', $args['object']['id'])
+            ->update($args['object']);
 
-        return Family::find($args['family']['id']);
+        return Family::find($args['object']['id']);
     }
 }
 

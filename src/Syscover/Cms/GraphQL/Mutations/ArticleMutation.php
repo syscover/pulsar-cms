@@ -16,8 +16,8 @@ class ArticleMutation extends Mutation
     public function args()
     {
         return [
-            'article' => [
-                'name' => 'article',
+            'object' => [
+                'name' => 'object',
                 'type' => Type::nonNull(GraphQL::type('CmsArticleInput'))
             ],
         ];
@@ -33,9 +33,9 @@ class AddArticleMutation extends ArticleMutation
 
     public function resolve($root, $args)
     {
-        $args['article']['data_lang'] = Article::addLangDataRecord($args['article']['lang_id'], $args['article']['id']);
+        $args['object']['data_lang'] = Article::addLangDataRecord($args['object']['lang_id'], $args['object']['id']);
 
-        return Article::create($args['article']);
+        return Article::create($args['object']);
     }
 }
 
@@ -48,11 +48,11 @@ class UpdateArticleMutation extends ArticleMutation
 
     public function resolve($root, $args)
     {
-        Article::where('id', $args['article']['id'])
-            ->where('lang_id', $args['article']['lang_id'])
-            ->update($args['article']);
+        Article::where('id', $args['object']['id'])
+            ->where('lang_id', $args['object']['lang_id'])
+            ->update($args['object']);
 
-        return Article::find($args['article']['id']);
+        return Article::find($args['object']['id']);
     }
 }
 
