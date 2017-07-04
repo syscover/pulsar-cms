@@ -1,17 +1,22 @@
 <?php namespace Syscover\Cms\GraphQL\Inputs;
 
 use GraphQL\Type\Definition\Type;
-use Syscover\Cms\GraphQL\Types\SectionType;
+use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class SectionInput extends SectionType
+class SectionInput extends GraphQLType
 {
+    protected $attributes = [
+        'name'          => 'SectionInput',
+        'description'   => 'Section of webpage to implement in cms'
+    ];
+
     protected $inputObject = true;
 
     public function fields()
     {
         return [
             'id' => [
-                'type' => Type::string(),
+                'type' => Type::id(),
                 'description' => 'The id of section'
             ],
             'name' => [

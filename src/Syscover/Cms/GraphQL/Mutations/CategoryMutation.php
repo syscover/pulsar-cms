@@ -33,6 +33,14 @@ class AddCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
+        if(! isset($args['object']['id']))
+        {
+            $id = Category::max('id');
+            $id++;
+
+            $args['object']['id'] = $id;
+        }
+
         $args['object']['data_lang'] = Category::addLangDataRecord($args['object']['lang_id'], $args['object']['id']);
 
         return Category::create($args['object']);

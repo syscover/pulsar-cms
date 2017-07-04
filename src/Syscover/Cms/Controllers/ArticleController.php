@@ -34,14 +34,12 @@ class ArticleController extends CoreController
         // check if there is id
         if($request->has('id'))
         {
-            $id     = $request->input('id');
-            $idLang = $id;
+            $id = $request->input('id');
         }
         else
         {
             $id = Article::max('id');
             $id++;
-            $idLang = null;
         }
 
         $object = Article::create([
@@ -61,7 +59,7 @@ class ArticleController extends CoreController
             'blank'                 => $request->input('blank'),
             'sort'                  => $request->input('sort'),
             'article'               => $request->input('article'),
-            'data_lang'             => Article::addLangDataRecord($request->input('lang_id'), $idLang),
+            'data_lang'             => Article::addLangDataRecord($request->input('lang_id'), $id),
             'data'                  => $data
         ]);
 

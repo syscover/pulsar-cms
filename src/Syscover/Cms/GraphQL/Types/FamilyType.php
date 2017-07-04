@@ -15,7 +15,7 @@ class FamilyType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::int(),
+                'type' => Type::nonNull(Type::id()),
                 'description' => 'The id of family'
             ],
             'name' => [

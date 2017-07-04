@@ -19,14 +19,12 @@ class CategoryController extends CoreController
         // check if there is id
         if($request->has('id'))
         {
-            $id     = $request->input('id');
-            $idLang = $id;
+            $id = $request->input('id');
         }
         else
         {
             $id = Category::max('id');
             $id++;
-            $idLang = null;
         }
 
         $object = Category::create([
@@ -35,7 +33,7 @@ class CategoryController extends CoreController
             'name'                  => $request->input('name'),
             'slug'                  => $request->input('slug'),
             'sort'                  => $request->input('sort'),
-            'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $idLang)
+            'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $id)
         ]);
 
         $response['status'] = "success";
