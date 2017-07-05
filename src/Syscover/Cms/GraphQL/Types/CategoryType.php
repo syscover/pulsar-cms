@@ -19,7 +19,7 @@ class CategoryType extends GraphQLType {
                 'description' => 'The id of category'
             ],
             'lang_id' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::nonNull(Type::id()),
                 'description' => 'lang of category'
             ],
             'name' => [

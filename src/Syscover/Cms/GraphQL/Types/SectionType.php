@@ -23,7 +23,7 @@ class SectionType extends GraphQLType {
                 'description' => 'The name of section'
             ],
             'article_family_id' => [
-                'type' => Type::int(),
+                'type' => Type::id(),
                 'description' => 'Article family who belong this section'
             ],
             'family' => [

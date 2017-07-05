@@ -19,7 +19,7 @@ class ArticleType extends GraphQLType {
                 'description' => 'The id of article'
             ],
             'lang_id' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::nonNull(Type::id()),
                 'description' => 'lang of article'
             ],
             'parent_article_id' => [
@@ -31,19 +31,19 @@ class ArticleType extends GraphQLType {
                 'description' => 'The name of article'
             ],
             'author_id' => [
-                'type' => Type::int(),
+                'type' => Type::id(),
                 'description' => 'The author of article'
             ],
             'section_id' => [
-                'type' => Type::string(),
+                'type' => Type::id(),
                 'description' => 'The section of article to set your position in website'
             ],
             'family_id' => [
-                'type' => Type::int(),
+                'type' => Type::id(),
                 'description' => 'The family of article to set our morphology'
             ],
             'status_id' => [
-                'type' => Type::int(),
+                'type' => Type::id(),
                 'description' => 'The status of article, you can publish or draft your article'
             ],
             'publish' => [

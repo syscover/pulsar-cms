@@ -24,11 +24,11 @@ class FamilyInput extends GraphQLType
                 'description' => 'The name of family'
             ],
             'editor_id' => [
-                'type' => Type::int(),
+                'type' => Type::id(),
                 'description' => 'Activate editor in article'
             ],
             'field_group_id' => [
-                'type' => Type::int(),
+                'type' => Type::id(),
                 'description' => 'Activate custom fields in article'
             ],
             'date' => [
