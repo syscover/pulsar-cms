@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
+use Syscover\Core\GraphQL\Types\DateJSType;
 
 class ArticleType extends GraphQLType {
 
@@ -81,6 +82,10 @@ class ArticleType extends GraphQLType {
             'data_lang' => [
                 'type' => Type::listOf(Type::string()),
                 'description' => 'JSON string that contain information about object translations'
+            ],
+            'attachments' => [
+                'type' => Type::listOf(GraphQL::type('AdminAttachment')),
+                'description' => 'List of attachments that has this article'
             ]
         ];
     }

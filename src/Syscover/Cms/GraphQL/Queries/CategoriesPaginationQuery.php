@@ -21,10 +21,10 @@ class CategoriesPaginationQuery extends Query
     public function args()
     {
         return [
-            'lang' => [
-                'name'          => 'lang',
-                'type'          => Type::string(),
-                'description'   => 'to filter by lang'
+            'filters' => [
+                'name'          => 'filters',
+                'type'          => Type::listOf(GraphQL::type('CoreSQLQueryInput')),
+                'description'   => 'to filter queries'
             ],
             'sql' => [
                 'name'          => 'sql',
@@ -36,13 +36,13 @@ class CategoriesPaginationQuery extends Query
 
     public function resolve($root, $args)
     {
-        $query = SQLService::getQueryFiltered(Category::builder(), $args['sql'], $args['lang']);
+        $query = SQLService::getQueryFiltered(Category::builder(), $args['sql'], $args['filters']);
 
         // count records filtered
         $filtered = $query->count();
 
         // N total records
-        $total = SQLService::countPaginateTotalRecords(Category::builder(), $args['lang']);
+        $total = SQLService::countPaginateTotalRecords(Category::builder(), $args['filters']);
 
         return (Object) [
             'total'     => $total,

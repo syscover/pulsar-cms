@@ -32,7 +32,9 @@ class ArticleQuery extends Query
     public function resolve($root, $args)
     {
         $query = SQLService::getQueryFiltered(Article::builder(), $args['sql']);
+        $object = $query->first();
+        $object->load('attachments');
 
-        return $query->first();
+        return $object;
     }
 }

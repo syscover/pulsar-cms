@@ -1,5 +1,6 @@
 <?php namespace Syscover\Cms\GraphQL\Inputs;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -47,6 +48,14 @@ class ArticleInput extends GraphQLType
                 'type' => Type::id(),
                 'description' => 'The status of article, you can publish or draft your article'
             ],
+            'categories_id' => [
+                'type' => Type::listOf(Type::id()),
+                'description' => 'Id categories'
+            ],
+            'tags' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'Id categories'
+            ],
             'publish' => [
                 'type' => Type::string(),
                 'description' => 'Set the date to publish your article'
@@ -78,6 +87,10 @@ class ArticleInput extends GraphQLType
             'article' => [
                 'type' => Type::string(),
                 'description' => 'Article'
+            ],
+            'attachments' => [
+                'type' => Type::listOf(GraphQL::type('AdminAttachmentInput')),
+                'description' => 'Id categories'
             ],
             'data_lang' => [
                 'type' => Type::listOf(Type::string()),
