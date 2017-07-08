@@ -36,9 +36,6 @@ class AddArticleMutation extends ArticleMutation
 
     public function resolve($root, $args)
     {
-//        var_dump($args['object']['publish']);
-//        exit;
-
         // get custom fields
         $data = [];
         if(isset($args['object']['field_group_id']))
@@ -61,20 +58,15 @@ class AddArticleMutation extends ArticleMutation
             $id++;
         }
 
-        //var_dump($args);
+        // set values to transform
         $args['object']['id'] = $id;
         $args['object']['publish'] = empty($args['object']['publish'])? null : (new Carbon($args['object']['publish'], config('app.timezone')))->toDateTimeString();
         $args['object']['date'] = empty($args['object']['date'])? null : (new Carbon($args['object']['date'], config('app.timezone')))->toDateTimeString();
         $args['object']['data_lang'] = Article::addLangDataRecord($args['object']['lang_id'], $id);
         $args['object']['data'] = $data;
 
-
-        //exit;
-
         // create new object
         $object = Article::create($args['object']);
-
-
 
         // get object with builder, to get every relations
         $object = Article::builder()->where('id', $object->id)->where('lang_id', $object->lang_id)->first();
@@ -102,11 +94,50 @@ class UpdateArticleMutation extends ArticleMutation
 
     public function resolve($root, $args)
     {
-        Article::where('id', $args['object']['id'])
-            ->where('lang_id', $args['object']['lang_id'])
-            ->update($args['object']);
+        // get custom fields
+        $data = [];
+        if(isset($args['object']['field_group_id']))
+        {
+            $fields = Field::where('field_group_id', $args['object']['field_group_id'])->get();
+            foreach ($fields as $field)
+            {
+                // $data['properties'][$field->name] = $request->input($field->name);
+            }
+        }
 
-        return Article::find($args['object']['id']);
+        Article::where('id', $args['object']['id'])->where('lang_id', $args['object']['lang_id'])->update([
+            'name'                  => $args['object']['name'],
+            'parent_article_id'     => $args['object']['parent_article_id'],
+            'author_id'             => $args['object']['author_id'],
+            'section_id'            => $args['object']['section_id'],
+            'family_id'             => $args['object']['family_id'],
+            'status_id'             => $args['object']['status_id'],
+            'publish'               => empty($args['object']['publish'])? null : (new Carbon($args['object']['publish'], config('app.timezone')))->toDateTimeString(),
+            'date'                  => empty($args['object']['date'])? null : (new Carbon($args['object']['date'], config('app.timezone')))->toDateTimeString(),
+            'title'                 => $args['object']['title'],
+            'slug'                  => $args['object']['slug'],
+            'link'                  => $args['object']['link'],
+            'blank'                 => $args['object']['blank'],
+            'sort'                  => $args['object']['sort'],
+            'article'               => $args['object']['article'],
+            'data'                  => json_encode($data)
+        ]);
+
+        $object = Article::where('id', $args['object']['id'])
+            ->where('lang_id', $args['object']['lang_id'])
+            ->first();
+
+        // set attachments
+        if(is_array($args['object']['attachments']))
+        {
+            // first save libraries to get id
+            $attachments = AttachmentService::storeAttachmentsLibrary($args['object']['attachments']);
+
+            // then save attachments
+            AttachmentService::updateAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $object->id,  $object->lang_id);
+        }
+
+        return $object;
     }
 }
 
