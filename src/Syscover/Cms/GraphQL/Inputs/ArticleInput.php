@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
+use Syscover\Core\GraphQL\Types\ObjectType;
 
 class ArticleInput extends GraphQLType
 {
@@ -43,6 +44,10 @@ class ArticleInput extends GraphQLType
             'family_id' => [
                 'type' => Type::id(),
                 'description' => 'The family of article to set our morphology'
+            ],
+            'field_group_id' => [
+                'type' => Type::id(),
+                'description' => 'The file group that has this article'
             ],
             'status_id' => [
                 'type' => Type::id(),
@@ -91,6 +96,10 @@ class ArticleInput extends GraphQLType
             'attachments' => [
                 'type' => Type::listOf(GraphQL::type('AdminAttachmentInput')),
                 'description' => 'Id categories'
+            ],
+            'customFields' => [
+                'type' => app(ObjectType::class),
+                'description' => 'Properties from custom fields'
             ],
             'data_lang' => [
                 'type' => Type::listOf(Type::string()),

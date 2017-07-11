@@ -3,7 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use Syscover\Core\GraphQL\Types\DateJSType;
+use Syscover\Core\GraphQL\Types\ObjectType;
 
 class ArticleType extends GraphQLType {
 
@@ -81,6 +81,10 @@ class ArticleType extends GraphQLType {
             ],
             'data_lang' => [
                 'type' => Type::listOf(Type::string()),
+                'description' => 'JSON string that contain information about object translations'
+            ],
+            'data' => [
+                'type' => app(ObjectType::class),
                 'description' => 'JSON string that contain information about object translations'
             ],
             'attachments' => [

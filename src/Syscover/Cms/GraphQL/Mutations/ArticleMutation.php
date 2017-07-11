@@ -43,7 +43,7 @@ class AddArticleMutation extends ArticleMutation
             $fields = Field::where('field_group_id', $args['object']['field_group_id'])->get();
             foreach ($fields as $field)
             {
-               // $data['properties'][$field->name] = $request->input($field->name);
+                $data['properties'][$field->name] = $args['object']['customFields'][$field->name];
             }
         }
 
@@ -101,7 +101,7 @@ class UpdateArticleMutation extends ArticleMutation
             $fields = Field::where('field_group_id', $args['object']['field_group_id'])->get();
             foreach ($fields as $field)
             {
-                // $data['properties'][$field->name] = $request->input($field->name);
+                $data['properties'][$field->name] = $args['object'][$field->name];
             }
         }
 
