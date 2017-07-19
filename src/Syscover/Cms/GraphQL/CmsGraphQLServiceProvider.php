@@ -21,6 +21,9 @@ class CmsGraphQLServiceProvider
         // ARTICLE
         GraphQL::addType(\Syscover\Cms\GraphQL\Types\ArticleType::class, 'CmsArticle');
         GraphQL::addType(\Syscover\Cms\GraphQL\Inputs\ArticleInput::class, 'CmsArticleInput');
+
+        // TAG
+        GraphQL::addType(\Syscover\Cms\GraphQL\Types\TagType::class, 'CmsTag');
     }
 
     public static function bootGraphQLSchema()

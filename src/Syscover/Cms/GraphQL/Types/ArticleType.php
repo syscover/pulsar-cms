@@ -9,7 +9,7 @@ class ArticleType extends GraphQLType {
 
     protected $attributes = [
         'name'          => 'Article',
-        'description'   => 'Article that user can to do in application.'
+        'description'   => 'Article that user can to do in application'
     ];
 
     public function fields()
@@ -63,6 +63,10 @@ class ArticleType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Final section of the url to access the article'
             ],
+            'categories' => [
+                'type' => Type::listOf(GraphQL::type('CmsCategory')),
+                'description' => 'Categories'
+            ],
             'link' => [
                 'type' => Type::string(),
                 'description' => 'Link to add in article'
@@ -74,6 +78,10 @@ class ArticleType extends GraphQLType {
             'sort' => [
                 'type' => Type::int(),
                 'description' => 'Sort the article'
+            ],
+            'tags' => [
+                'type' => Type::listOf(GraphQL::type('CmsTag')),
+                'description' => 'Tags of article'
             ],
             'article' => [
                 'type' => Type::string(),

@@ -7,6 +7,7 @@ use Folklore\GraphQL\Support\Mutation;
 use Syscover\Admin\Models\Field;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Core\Services\SQLService;
+use Syscover\Cms\Models\Tag;
 use Syscover\Cms\Models\Article;
 
 class ArticleMutation extends Mutation
@@ -25,6 +26,30 @@ class ArticleMutation extends Mutation
             ],
         ];
     }
+
+    public static function setCategories($object, $args)
+    {
+        $object->categories()->sync($args['object']['categories_id']);
+    }
+
+    public static function setTags($object, $args)
+    {
+        if(is_array($args['object']['tags']) && count($args['object']['tags']) > 0)
+        {
+            $tagsArray  = array_unique($args['object']['tags']);
+            $tagsId       = [];
+            foreach ($tagsArray as $tag)
+            {
+                $tagObj = Tag::create([
+                    'lang_id'   => $args['object']['lang_id'],
+                    'name'      => $tag
+                ]);
+                $tagsId[] = $tagObj->id;
+            }
+
+            $object->tags()->sync($tagsId);
+        }
+    }
 }
 
 class AddArticleMutation extends ArticleMutation
@@ -38,6 +63,8 @@ class AddArticleMutation extends ArticleMutation
     {
         // get custom fields
         $data = [];
+
+        /*
         if(isset($args['object']['field_group_id']))
         {
             $fields = Field::where('field_group_id', $args['object']['field_group_id'])->get();
@@ -45,6 +72,11 @@ class AddArticleMutation extends ArticleMutation
             {
                 $data['properties'][$field->name] = $args['object']['customFields'][$field->name];
             }
+        }*/
+
+        if(isset($args['object']['field_group_id']))
+        {
+            $data['customFields'] = $args['object']['customFields'];
         }
 
         // check if there is id
@@ -70,6 +102,9 @@ class AddArticleMutation extends ArticleMutation
 
         // get object with builder, to get every relations
         $object = Article::builder()->where('id', $object->id)->where('lang_id', $object->lang_id)->first();
+
+        $this->setTags($object, $args);
+        $this->setCategories($object, $args);
 
         // set attachments
         if(is_array($args['object']['attachments']))
@@ -126,6 +161,8 @@ class UpdateArticleMutation extends ArticleMutation
         $object = Article::where('id', $args['object']['id'])
             ->where('lang_id', $args['object']['lang_id'])
             ->first();
+
+        $this->setTags($object, $args);
 
         // set attachments
         if(is_array($args['object']['attachments']))
