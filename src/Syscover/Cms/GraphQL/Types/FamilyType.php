@@ -8,7 +8,7 @@ class FamilyType extends GraphQLType {
 
     protected $attributes = [
         'name'          => 'Family',
-        'description'   => 'Family that user can to do in application.'
+        'description'   => 'Family that user can to do in application'
     ];
 
     public function fields()

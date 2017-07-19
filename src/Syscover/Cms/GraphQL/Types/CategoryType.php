@@ -8,7 +8,7 @@ class CategoryType extends GraphQLType {
 
     protected $attributes = [
         'name'          => 'Category',
-        'description'   => 'Category that user can to do in application.'
+        'description'   => 'Category that user can to do in application'
     ];
 
     public function fields()
