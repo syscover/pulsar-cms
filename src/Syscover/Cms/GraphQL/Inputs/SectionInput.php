@@ -16,7 +16,7 @@ class SectionInput extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::id(),
+                'type' => Type::string(),
                 'description' => 'The id of section'
             ],
             'name' => [
@@ -24,7 +24,7 @@ class SectionInput extends GraphQLType
                 'description' => 'The name of section'
             ],
             'article_family_id' => [
-                'type' => Type::id(),
+                'type' => Type::int(),
                 'description' => 'Article family who belong this section'
             ]
         ];

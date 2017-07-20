@@ -16,7 +16,7 @@ class FamilyInput extends GraphQLType
     {
         return [
             'id' => [
-                'type' => Type::id(),
+                'type' => Type::int(),
                 'description' => 'The id of family'
             ],
             'name' => [
@@ -24,11 +24,11 @@ class FamilyInput extends GraphQLType
                 'description' => 'The name of family'
             ],
             'editor_id' => [
-                'type' => Type::id(),
+                'type' => Type::int(),
                 'description' => 'Activate editor in article'
             ],
             'field_group_id' => [
-                'type' => Type::id(),
+                'type' => Type::int(),
                 'description' => 'Activate custom fields in article'
             ],
             'date' => [

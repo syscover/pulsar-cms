@@ -15,11 +15,11 @@ class TagType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::id()),
+                'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of category'
             ],
             'lang_id' => [
-                'type' => Type::nonNull(Type::id()),
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'lang of category'
             ],
             'name' => [

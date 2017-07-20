@@ -15,7 +15,7 @@ class SectionType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::id()),
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'The id of section'
             ],
             'name' => [
@@ -23,7 +23,7 @@ class SectionType extends GraphQLType {
                 'description' => 'The name of section'
             ],
             'article_family_id' => [
-                'type' => Type::id(),
+                'type' => Type::int(),
                 'description' => 'Article family who belong this section'
             ],
             'family' => [
