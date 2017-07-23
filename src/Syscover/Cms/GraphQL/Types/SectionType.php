@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
+use Syscover\Core\GraphQL\Types\AnyType;
 
 class SectionType extends GraphQLType {
 
@@ -15,7 +16,7 @@ class SectionType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::nonNull(app(AnyType::class)),
                 'description' => 'The id of section'
             ],
             'name' => [

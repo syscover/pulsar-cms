@@ -94,8 +94,8 @@ class ArticleInput extends GraphQLType
                 'description' => 'Article'
             ],
             'attachments' => [
-                'type' => Type::listOf(GraphQL::type('AdminAttachmentInput')),
-                'description' => 'Id categories'
+                'type' => Type::listOf(app(ObjectType::class)),
+                'description' => 'List of attachments added to article'
             ],
             'customFields' => [
                 'type' => app(ObjectType::class),

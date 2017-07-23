@@ -64,16 +64,6 @@ class AddArticleMutation extends ArticleMutation
         // get custom fields
         $data = [];
 
-        /*
-        if(isset($args['object']['field_group_id']))
-        {
-            $fields = Field::where('field_group_id', $args['object']['field_group_id'])->get();
-            foreach ($fields as $field)
-            {
-                $data['properties'][$field->name] = $args['object']['customFields'][$field->name];
-            }
-        }*/
-
         if(isset($args['object']['field_group_id']))
         {
             $data['customFields'] = $args['object']['customFields'];
@@ -131,13 +121,10 @@ class UpdateArticleMutation extends ArticleMutation
     {
         // get custom fields
         $data = [];
+
         if(isset($args['object']['field_group_id']))
         {
-            $fields = Field::where('field_group_id', $args['object']['field_group_id'])->get();
-            foreach ($fields as $field)
-            {
-                $data['properties'][$field->name] = $args['object'][$field->name];
-            }
+            $data['customFields'] = $args['object']['customFields'];
         }
 
         Article::where('id', $args['object']['id'])->where('lang_id', $args['object']['lang_id'])->update([
@@ -163,6 +150,7 @@ class UpdateArticleMutation extends ArticleMutation
             ->first();
 
         $this->setTags($object, $args);
+        $this->setCategories($object, $args);
 
         // set attachments
         if(is_array($args['object']['attachments']))
@@ -201,7 +189,11 @@ class DeleteArticleMutation extends ArticleMutation
 
     public function resolve($root, $args)
     {
+        // destroy object
         $object = SQLService::destroyRecord($args['id'], Article::class, $args['lang']);
+
+        // destroy attachments
+        AttachmentService::deleteAttachments($args['id'], Article::class, $args['lang']);
 
         return $object;
     }

@@ -4,6 +4,7 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 use Syscover\Core\GraphQL\Types\ObjectType;
+use Syscover\Core\GraphQL\Types\AnyType;
 
 class ArticleType extends GraphQLType {
 
@@ -16,7 +17,7 @@ class ArticleType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::nonNull(app(AnyType::class)),
                 'description' => 'The id of article'
             ],
             'lang_id' => [
