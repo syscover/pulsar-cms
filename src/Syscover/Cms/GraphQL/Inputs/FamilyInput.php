@@ -7,7 +7,7 @@ class FamilyInput extends GraphQLType
 {
     protected $attributes = [
         'name'          => 'FamilyInput',
-        'description'   => 'Family that user can to do in application.'
+        'description'   => 'Family that user can to do in application'
     ];
 
     protected $inputObject = true;

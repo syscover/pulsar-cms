@@ -9,7 +9,7 @@ class ArticleInput extends GraphQLType
 {
     protected $attributes = [
         'name'          => 'ArticleInput',
-        'description'   => 'Article that user can to do in application.'
+        'description'   => 'Article that user can to do in application'
     ];
 
     protected $inputObject = true;

@@ -7,7 +7,7 @@ class CategoryInput extends GraphQLType
 {
     protected $attributes = [
         'name'          => 'CategoryInput',
-        'description'   => 'Category that user can to do in application.'
+        'description'   => 'Category that user can to do in application'
     ];
 
     protected $inputObject = true;
