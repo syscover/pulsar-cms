@@ -10,7 +10,7 @@ class ArticlesQuery extends Query
 {
     protected $attributes = [
         'name'          => 'ArticlesQuery',
-        'description'   => 'Query to get articles.'
+        'description'   => 'Query to get articles'
     ];
 
     public function type()

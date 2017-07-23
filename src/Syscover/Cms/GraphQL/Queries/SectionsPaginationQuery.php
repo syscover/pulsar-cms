@@ -10,7 +10,7 @@ class SectionsPaginationQuery extends Query
 {
     protected $attributes = [
         'name'          => 'SectionsPaginationQuery',
-        'description'   => 'Query to get sections list.'
+        'description'   => 'Query to get sections list'
     ];
 
     public function type()

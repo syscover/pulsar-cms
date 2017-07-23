@@ -10,7 +10,7 @@ class CategoriesQuery extends Query
 {
     protected $attributes = [
         'name'          => 'CategoriesQuery',
-        'description'   => 'Query to get categories.'
+        'description'   => 'Query to get categories'
     ];
 
     public function type()
