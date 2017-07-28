@@ -40,6 +40,10 @@ class ArticleType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'The section of article to set your position in website'
             ],
+            'section' => [
+                'type' => Type::listOf(GraphQL::type('CmsSection')),
+                'description' => 'Section object'
+            ],
             'family_id' => [
                 'type' => Type::int(),
                 'description' => 'The family of article to set our morphology'
