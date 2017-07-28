@@ -41,7 +41,7 @@ class ArticleType extends GraphQLType {
                 'description' => 'The section of article to set your position in website'
             ],
             'section' => [
-                'type' => Type::listOf(GraphQL::type('CmsSection')),
+                'type' => GraphQL::type('CmsSection'),
                 'description' => 'Section object'
             ],
             'family_id' => [
