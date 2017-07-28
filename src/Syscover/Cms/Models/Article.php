@@ -27,6 +27,7 @@ class Article extends CoreModel
     public $with            = [
         'lang',
         'author',
+        'section',
         'family',
         'categories',
         'tags'
@@ -44,12 +45,18 @@ class Article extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query;
+        return $query->leftJoin('section', 'article.section_id', '=', 'section.id')
+            ->select('section.*', 'article.*', 'section.name as section_name', 'article.name as article_name');
     }
 
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(User::class, 'section_id');
     }
 
     public function family()
