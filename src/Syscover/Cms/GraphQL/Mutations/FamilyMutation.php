@@ -65,7 +65,7 @@ class DeleteFamilyMutation extends FamilyMutation
         return [
             'id' => [
                 'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::nonNull(Type::int())
             ]
         ];
     }
