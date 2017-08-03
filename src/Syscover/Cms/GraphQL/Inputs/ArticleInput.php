@@ -3,7 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use Syscover\Core\GraphQL\Types\ObjectType;
+use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
 
 class ArticleInput extends GraphQLType
 {
