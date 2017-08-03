@@ -1,9 +1,7 @@
 <?php namespace Syscover\Cms\GraphQL\Types;
 
-use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use Syscover\Core\GraphQL\ScalarTypes\AnyType;
 
 class FamilyType extends GraphQLType {
 
@@ -16,7 +14,7 @@ class FamilyType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(app(AnyType::class)),
+                'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of family'
             ],
             'name' => [
@@ -72,9 +70,5 @@ class FamilyType extends GraphQLType {
                 'description' => 'Data to include content extra'
             ]
         ];
-    }
-
-    public function interfaces() {
-        return [GraphQL::type('CoreObjectInterface')];
     }
 }

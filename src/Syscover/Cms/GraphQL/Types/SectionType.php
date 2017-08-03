@@ -3,20 +3,19 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
-use Syscover\Core\GraphQL\ScalarTypes\AnyType;
 
 class SectionType extends GraphQLType {
 
     protected $attributes = [
         'name'          => 'Section',
-        'description'   => 'Section of webpage to implement in cms'
+        'description'   => 'Section of web page to implement in cms'
     ];
 
     public function fields()
     {
         return [
             'id' => [
-                'type' => Type::nonNull(app(AnyType::class)),
+                'type' => Type::nonNull(Type::string()),
                 'description' => 'The id of section'
             ],
             'name' => [
@@ -32,9 +31,5 @@ class SectionType extends GraphQLType {
                 'description' => 'Family of section'
             ]
         ];
-    }
-
-    public function interfaces() {
-        return [GraphQL::type('CoreObjectInterface')];
     }
 }

@@ -4,7 +4,6 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 use Syscover\Core\GraphQL\ScalarTypes\ObjectType;
-use Syscover\Core\GraphQL\ScalarTypes\AnyType;
 
 class ArticleType extends GraphQLType {
 
@@ -17,7 +16,7 @@ class ArticleType extends GraphQLType {
     {
         return [
             'id' => [
-                'type' => Type::nonNull(app(AnyType::class)),
+                'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of article'
             ],
             'lang_id' => [
@@ -105,9 +104,5 @@ class ArticleType extends GraphQLType {
                 'description' => 'List of attachments that has this article'
             ]
         ];
-    }
-
-    public function interfaces() {
-        return [GraphQL::type('CoreObjectInterface')];
     }
 }
