@@ -191,8 +191,7 @@ class DeleteArticleMutation extends ArticleMutation
         if(base_lang() === $object->lang_id) $object->categories()->detach();
 
         // delete and detach tags
-        Tag::whereIn('id', $object->tags->pluck('id'))
-            ->delete();
+        Tag::whereIn('id', $object->tags->pluck('id'))->delete();
         $object->tags()->detach();
 
         // destroy attachments
