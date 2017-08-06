@@ -4,7 +4,6 @@ use Carbon\Carbon;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
-use Syscover\Admin\Models\Field;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Core\Services\SQLService;
 use Syscover\Cms\Models\Tag;
@@ -61,23 +60,15 @@ class AddArticleMutation extends ArticleMutation
 
     public function resolve($root, $args)
     {
-        // get custom fields
-        $data = [];
-
-        if(isset($args['object']['field_group_id']))
-        {
-            $data['customFields'] = $args['object']['customFields'];
-        }
-
         // check if there is id
-        if($args['object']['id'])
-        {
-            $id = $args['object']['id'];
-        }
-        else
+        if(empty($args['object']['id']))
         {
             $id = Article::max('id');
             $id++;
+        }
+        else
+        {
+            $id = $args['object']['id'];
         }
 
         // set values to transform
@@ -85,7 +76,9 @@ class AddArticleMutation extends ArticleMutation
         $args['object']['publish'] = empty($args['object']['publish'])? null : (new Carbon($args['object']['publish'], config('app.timezone')))->toDateTimeString();
         $args['object']['date'] = empty($args['object']['date'])? null : (new Carbon($args['object']['date'], config('app.timezone')))->toDateTimeString();
         $args['object']['data_lang'] = Article::addLangDataRecord($args['object']['lang_id'], $id);
-        $args['object']['data'] = $data;
+
+        // get custom fields
+        if(isset($args['object']['field_group_id'])) $args['object']['data']['customFields'] = $args['object']['customFields'];
 
         // create new object
         $object = Article::create($args['object']);
@@ -124,11 +117,7 @@ class UpdateArticleMutation extends ArticleMutation
     {
         // get custom fields
         $data = [];
-
-        if(isset($args['object']['field_group_id']))
-        {
-            $data['customFields'] = $args['object']['customFields'];
-        }
+        if(isset($args['object']['field_group_id'])) $data['customFields'] = $args['object']['customFields'];
 
         Article::where('id', $args['object']['id'])->where('lang_id', $args['object']['lang_id'])->update([
             'name'                  => $args['object']['name'],
@@ -194,6 +183,9 @@ class DeleteArticleMutation extends ArticleMutation
     {
         // destroy object
         $object = SQLService::destroyRecord($args['id'], Article::class, $args['lang']);
+
+        //$object->categories()->detach();
+        //$object->tags()->detach();
 
         // destroy attachments
         AttachmentService::deleteAttachments($args['id'], Article::class, $args['lang']);

@@ -59,7 +59,7 @@ class ArticleInput extends GraphQLType
             ],
             'tags' => [
                 'type' => Type::listOf(Type::string()),
-                'description' => 'Id categories'
+                'description' => 'Id tags'
             ],
             'publish' => [
                 'type' => Type::string(),
