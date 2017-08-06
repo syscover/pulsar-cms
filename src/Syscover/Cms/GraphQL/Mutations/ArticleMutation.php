@@ -31,22 +31,25 @@ class ArticleMutation extends Mutation
         $object->categories()->sync($args['object']['categories_id']);
     }
 
-    public static function setTags($object, $args)
+    public static function setTags($object, $args, $destroyPreviousTags = false)
     {
+        if($destroyPreviousTags && $object->tags->count() > 0)
+        {
+            Tag::whereIn('id', $object->tags->pluck('id'))
+                ->delete();
+        }
+
         if(is_array($args['object']['tags']) && count($args['object']['tags']) > 0)
         {
-            $tagsArray  = array_unique($args['object']['tags']);
-            $tagsId       = [];
-            foreach ($tagsArray as $tag)
+            $tags = [];
+            foreach (array_unique($args['object']['tags']) as $tag)
             {
-                $tagObj = Tag::create([
+                $tags[] = new Tag([
                     'lang_id'   => $args['object']['lang_id'],
                     'name'      => $tag
                 ]);
-                $tagsId[] = $tagObj->id;
             }
-
-            $object->tags()->sync($tagsId);
+            $object->tags()->saveMany($tags);
         }
     }
 }
@@ -89,7 +92,7 @@ class AddArticleMutation extends ArticleMutation
             ->where('article.lang_id', $object->lang_id)
             ->first();
 
-        $this->setTags($object, $args);
+        $this->setTags($object, $args, false);
         $this->setCategories($object, $args);
 
         // set attachments
@@ -141,7 +144,7 @@ class UpdateArticleMutation extends ArticleMutation
             ->where('article.lang_id', $args['object']['lang_id'])
             ->first();
 
-        $this->setTags($object, $args);
+        $this->setTags($object, $args, true);
         $this->setCategories($object, $args);
 
         // set attachments
@@ -184,8 +187,13 @@ class DeleteArticleMutation extends ArticleMutation
         // destroy object
         $object = SQLService::destroyRecord($args['id'], Article::class, $args['lang']);
 
-        //$object->categories()->detach();
-        //$object->tags()->detach();
+        // detach categories only if delete base land object
+        if(base_lang() === $object->lang_id) $object->categories()->detach();
+
+        // delete and detach tags
+        Tag::whereIn('id', $object->tags->pluck('id'))
+            ->delete();
+        $object->tags()->detach();
 
         // destroy attachments
         AttachmentService::deleteAttachments($args['id'], Article::class, $args['lang']);
