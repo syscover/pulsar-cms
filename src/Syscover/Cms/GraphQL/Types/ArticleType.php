@@ -105,4 +105,9 @@ class ArticleType extends GraphQLType {
             ]
         ];
     }
+
+    public function resolveCategoriesField($object, $args)
+    {
+        return $object->categories->where('lang_id', $object->lang_id);
+    }
 }
