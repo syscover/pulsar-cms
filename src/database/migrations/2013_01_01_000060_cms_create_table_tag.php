@@ -12,23 +12,25 @@ class CmsCreateTableTag extends Migration {
      */
     public function up()
     {
-        Schema::create('tag', function(Blueprint $table)
+        if(! Schema::hasTable('cms_tag'))
         {
-            $table->engine = 'InnoDB';
-            
-            $table->increments('id')->unsigned();
-            $table->string('lang_id', 2);
-            $table->string('name')->nullable();
+            Schema::create('cms_tag', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
 
-            $table->timestamps();
-            $table->softDeletes();
+                $table->increments('id')->unsigned();
+                $table->string('lang_id', 2);
+                $table->string('name')->nullable();
 
-            $table->foreign('lang_id', 'fk01_tag')
-                ->references('id')
-                ->on('lang')
-                ->onDelete('restrict')
-                ->onUpdate('cascade');
-        });
+                $table->timestamps();
+                $table->softDeletes();
+
+                $table->foreign('lang_id', 'fk01_cms_tag')
+                    ->references('id')
+                    ->on('admin_lang')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
+            });
+        }
     }
 
     /**
@@ -38,6 +40,6 @@ class CmsCreateTableTag extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('tag');
+        Schema::dropIfExists('cms_tag');
     }
 }

@@ -20,7 +20,7 @@ class SectionController extends CoreController
         $object = Section::create([
             'id'                => $request->input('id'),
             'name'              => $request->input('name'),
-            'article_family_id' => $request->input('article_family_id')
+            'article_family_id' => $request->input('family_id')
         ]);
 
         $response['status'] = "success";
@@ -42,7 +42,7 @@ class SectionController extends CoreController
         Section::where('id', $id)->update([
             'id'                => $request->input('id'),
             'name'              => $request->input('name'),
-            'article_family_id' => $request->input('article_family_id')
+            'article_family_id' => $request->input('family_id')
         ]);
 
         $object = Section::find($request->input('id'));

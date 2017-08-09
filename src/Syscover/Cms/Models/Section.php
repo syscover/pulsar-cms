@@ -5,13 +5,13 @@ use Syscover\Core\Models\CoreModel;
 
 /**
  * Class Section
- * @package Syscover\Pulsar\Models
+ * @package Syscover\Cms\Models
  */
 
 class Section extends CoreModel
 {
-	protected $table        = 'section';
-    protected $fillable     = ['id', 'name', 'article_family_id'];
+	protected $table        = 'cms_section';
+    protected $fillable     = ['id', 'name', 'family_id'];
     public $incrementing    = false;
     public $timestamps      = false;
     public $with = [
@@ -27,12 +27,12 @@ class Section extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->leftJoin('article_family', 'section.article_family_id', '=', 'article_family.id')
-            ->select('article_family.*', 'section.*', 'article_family.name as article_family_name', 'section.name as section_name');
+        return $query->leftJoin('cms_family', 'cms_section.family_id', '=', 'cms_family.id')
+            ->select('cms_family.*', 'cms_section.*', 'cms_family.name as family_name', 'cms_section.name as section_name');
     }
 
     public function family()
     {
-        return $this->belongsTo(Family::class, 'article_family_id');
+        return $this->belongsTo(Family::class, 'family_id');
     }
 }

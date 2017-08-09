@@ -88,8 +88,8 @@ class AddArticleMutation extends ArticleMutation
 
         // get object with builder, to get every relations
         $object = Article::builder()
-            ->where('article.id', $object->id)
-            ->where('article.lang_id', $object->lang_id)
+            ->where('cms_article.id', $object->id)
+            ->where('cms_article.lang_id', $object->lang_id)
             ->first();
 
         $this->setTags($object, $args, false);
@@ -140,8 +140,8 @@ class UpdateArticleMutation extends ArticleMutation
             'data'                  => json_encode($data)
         ]);
 
-        $object = Article::where('article.id', $args['object']['id'])
-            ->where('article.lang_id', $args['object']['lang_id'])
+        $object = Article::where('cms_article.id', $args['object']['id'])
+            ->where('cms_article.lang_id', $args['object']['lang_id'])
             ->first();
 
         $this->setTags($object, $args, true);

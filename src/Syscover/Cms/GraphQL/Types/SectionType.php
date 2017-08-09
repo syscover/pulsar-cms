@@ -22,7 +22,7 @@ class SectionType extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of section'
             ],
-            'article_family_id' => [
+            'family_id' => [
                 'type' => Type::int(),
                 'description' => 'Article family who belong this section'
             ],

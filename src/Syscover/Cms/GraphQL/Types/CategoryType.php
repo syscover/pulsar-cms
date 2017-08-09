@@ -1,5 +1,6 @@
 <?php namespace Syscover\Cms\GraphQL\Types;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
@@ -28,6 +29,14 @@ class CategoryType extends GraphQLType {
             'slug' => [
                 'type' => Type::string(),
                 'description' => 'The name of category'
+            ],
+            'section_id' => [
+                'type' => Type::string(),
+                'description' => 'The section of category to set your position in website'
+            ],
+            'section' => [
+                'type' => GraphQL::type('CmsSection'),
+                'description' => 'Section object'
             ],
             'sort' => [
                 'type' => Type::int(),

@@ -7,14 +7,14 @@ use Syscover\Admin\Traits\CustomizableFields;
 
 /**
  * Class Family
- * @package Syscover\Pulsar\Models
+ * @package Syscover\Cms\Models
  */
 
 class Family extends CoreModel
 {
     use CustomizableFields;
 
-	protected $table        = 'article_family';
+	protected $table        = 'cms_family';
     protected $fillable     = ['id', 'name', 'editor_id', 'field_group_id', 'date', 'title', 'slug', 'link', 'categories', 'sort', 'tags', 'article_parent', 'attachments', 'data'];
     public $timestamps      = false;
     protected $casts        = [

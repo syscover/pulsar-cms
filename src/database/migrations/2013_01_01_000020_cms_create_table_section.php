@@ -12,25 +12,27 @@ class CmsCreateTableSection extends Migration {
      */
     public function up()
     {
-        Schema::create('section', function(Blueprint $table)
+        if(! Schema::hasTable('cms_section'))
         {
-            $table->engine = 'InnoDB';
-            
-            $table->string('id', 30);
-            $table->string('name');
-            $table->integer('article_family_id')->unsigned()->nullable();
+            Schema::create('cms_section', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
 
-            $table->timestamps();
-            $table->softDeletes();
+                $table->string('id', 30);
+                $table->string('name');
+                $table->integer('family_id')->unsigned()->nullable();
 
-            $table->foreign('article_family_id', 'fk01_section')
-                ->references('id')
-                ->on('article_family')
-                ->onDelete('restrict')
-                ->onUpdate('cascade');
-            
-            $table->primary('id', 'pk01_section');
-        });
+                $table->timestamps();
+                $table->softDeletes();
+
+                $table->foreign('family_id', 'fk01_cms_section')
+                    ->references('id')
+                    ->on('cms_family')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
+
+                $table->primary('id', 'pk01_cms_section');
+            });
+        }
     }
 
     /**
@@ -40,6 +42,6 @@ class CmsCreateTableSection extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('section');
+        Schema::dropIfExists('cms_section');
     }
 }

@@ -6,22 +6,22 @@ use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class Category
- * @package Syscover\Market\Models
+ * @package Syscover\Cms\Models
  */
 
 class Category extends CoreModel
 {
     use Translatable;
 
-	protected $table        = 'article_category';
-    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'sort', 'data_lang', 'data'];
+	protected $table        = 'cms_category';
+    protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'section_id', 'sort', 'data_lang', 'data'];
     public $incrementing    = false;
     public $timestamps      = false;
     protected $casts        = [
         'data_lang' => 'array',
         'data'      => 'array'
     ];
-    public $with            = ['lang'];
+    public $with            = ['lang', 'section'];
 
     private static $rules   = [
         'name' => 'required|between:2,100'
@@ -35,5 +35,10 @@ class Category extends CoreModel
     public function scopeBuilder($query)
     {
         return $query;
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class, 'section_id');
     }
 }

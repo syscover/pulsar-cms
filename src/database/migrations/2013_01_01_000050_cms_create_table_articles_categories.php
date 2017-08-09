@@ -12,14 +12,17 @@ class CmsCreateTableArticlesCategories extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('articles_categories', function(Blueprint $table){
-            $table->engine = 'InnoDB';
-			
-            $table->integer('article_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+        if(! Schema::hasTable('cms_articles_categories'))
+        {
+            Schema::create('cms_articles_categories', function (Blueprint $table) {
+                $table->engine = 'InnoDB';
 
-            $table->primary(['article_id', 'category_id'], 'pk01_articles_categories');
-        });
+                $table->integer('article_id')->unsigned();
+                $table->integer('category_id')->unsigned();
+
+                $table->primary(['article_id', 'category_id'], 'pk01_cms_articles_categories');
+            });
+        }
 	}
 
 	/**
@@ -29,6 +32,6 @@ class CmsCreateTableArticlesCategories extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('articles_categories');
+        Schema::dropIfExists('cms_articles_categories');
 	}
 }

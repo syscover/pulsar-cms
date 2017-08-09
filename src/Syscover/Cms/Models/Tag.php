@@ -6,14 +6,14 @@ use Syscover\Admin\Traits\Translatable;
 
 /**
  * Class Tag
- * @package Syscover\Market\Models
+ * @package Syscover\Cms\Models
  */
 
 class Tag extends CoreModel
 {
     use Translatable;
 
-	protected $table        = 'tag';
+	protected $table        = 'cms_tag';
     protected $fillable     = ['id', 'lang_id', 'name'];
     public $timestamps      = false;
     public $with            = ['lang'];

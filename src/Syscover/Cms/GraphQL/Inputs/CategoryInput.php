@@ -31,6 +31,10 @@ class CategoryInput extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The name of category'
             ],
+            'section_id' => [
+                'type' => Type::string(),
+                'description' => 'The section of category to set your position in website'
+            ],
             'sort' => [
                 'type' => Type::int(),
                 'description' => 'Activate sort in article'
