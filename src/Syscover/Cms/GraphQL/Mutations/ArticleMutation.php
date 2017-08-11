@@ -4,7 +4,6 @@ use Carbon\Carbon;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
-use Illuminate\Support\Facades\Log;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Core\Services\SQLService;
 use Syscover\Cms\Models\Tag;
@@ -95,6 +94,7 @@ class AddArticleMutation extends ArticleMutation
 
         // parse html and manage img of wysiwyg
         $html = AttachmentService::manageWysiwygAttachment($object->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $object->id);
+
         if($html != null)
         {
             $object->article = $html;
@@ -155,6 +155,7 @@ class UpdateArticleMutation extends ArticleMutation
 
         // parse html and manage img of wysiwyg
         $html = AttachmentService::manageWysiwygAttachment($object->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $object->id);
+
         if($html != null)
         {
             $object->article = $html;
