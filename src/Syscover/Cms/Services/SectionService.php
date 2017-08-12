@@ -5,7 +5,7 @@ use Syscover\Cms\Models\Section;
 class SectionService
 {
     /**
-     * @param $object   array   contain properties of section
+     * @param array     $object     contain properties of section
      * @return $this|\Illuminate\Database\Eloquent\Model
      */
     public static function createService($object)
@@ -14,8 +14,8 @@ class SectionService
     }
 
     /**
-     * @param $object   array   contain properties of section
-     * @param $id       int     old id of section
+     * @param array     $object     contain properties of section
+     * @param int       $id         old id of section
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
     public static function updateService($object, $id)
