@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Cms\Models\Section;
+use Syscover\Cms\Services\SectionService;
 
 class SectionController extends CoreController
 {
@@ -16,15 +17,8 @@ class SectionController extends CoreController
      */
     public function store(Request $request)
     {
-        // create object
-        $object = Section::create([
-            'id'                => $request->input('id'),
-            'name'              => $request->input('name'),
-            'article_family_id' => $request->input('family_id')
-        ]);
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = SectionService::createService($request->all());
 
         return response()->json($response);
     }
@@ -38,17 +32,8 @@ class SectionController extends CoreController
      */
     public function update(Request $request, $id)
     {
-        // update object
-        Section::where('id', $id)->update([
-            'id'                => $request->input('id'),
-            'name'              => $request->input('name'),
-            'article_family_id' => $request->input('family_id')
-        ]);
-
-        $object = Section::find($request->input('id'));
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = SectionService::updateService($request->all(), $id);
 
         return response()->json($response);
     }

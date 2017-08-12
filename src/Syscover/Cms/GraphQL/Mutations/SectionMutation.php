@@ -5,6 +5,9 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Core\Services\SQLService;
 use Syscover\Cms\Models\Section;
+use Syscover\Cms\Services\SectionService;
+
+
 
 class SectionMutation extends Mutation
 {
@@ -33,7 +36,7 @@ class AddSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        return Section::create($args['object']);
+        return SectionService::createService($args['object']);
     }
 }
 
@@ -60,10 +63,7 @@ class UpdateSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        Section::where('id', $args['idOld'])
-            ->update($args['object']);
-
-        return Section::find($args['object']['id']);
+        return SectionService::updateService($args['object'], $args['idOld']);
     }
 }
 
