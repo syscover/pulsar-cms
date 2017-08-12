@@ -18,7 +18,7 @@ class SectionController extends CoreController
     public function store(Request $request)
     {
         $response['status'] = "success";
-        $response['data']   = SectionService::createService($request->all());
+        $response['data']   = SectionService::create($request->all());
 
         return response()->json($response);
     }
@@ -33,7 +33,7 @@ class SectionController extends CoreController
     public function update(Request $request, $id)
     {
         $response['status'] = "success";
-        $response['data']   = SectionService::updateService($request->all(), $id);
+        $response['data']   = SectionService::update($request->all(), $id);
 
         return response()->json($response);
     }

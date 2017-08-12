@@ -36,7 +36,7 @@ class AddSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        return SectionService::createService($args['object']);
+        return SectionService::create($args['object']);
     }
 }
 
@@ -63,7 +63,7 @@ class UpdateSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        return SectionService::updateService($args['object'], $args['idOld']);
+        return SectionService::update($args['object'], $args['idOld']);
     }
 }
 
