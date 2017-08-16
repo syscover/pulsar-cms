@@ -21,9 +21,13 @@ class FamilyType extends GraphQLType {
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of family'
             ],
-            'editor_id' => [
+            'excerpt_editor_id' => [
                 'type' => Type::int(),
-                'description' => 'Activate editor in article'
+                'description' => 'Activate excerpt editor'
+            ],
+            'article_editor_id' => [
+                'type' => Type::int(),
+                'description' => 'Activate article editor'
             ],
             'field_group_id' => [
                 'type' => Type::int(),

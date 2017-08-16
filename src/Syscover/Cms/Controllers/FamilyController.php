@@ -17,24 +17,8 @@ class FamilyController extends CoreController
      */
     public function store(Request $request)
     {
-        // create object
-        $object = Family::create([
-            'name'              => $request->input('name'),
-            'editor_id'         => $request->input('editor_id'),
-            'field_group_id'    => $request->input('field_group_id'),
-            'date'              => $request->input('date'),
-            'title'             => $request->input('title'),
-            'slug'              => $request->input('slug'),
-            'link'              => $request->input('link'),
-            'categories'        => $request->input('categories'),
-            'sort'              => $request->input('sort'),
-            'tags'              => $request->input('tags'),
-            'article_parent'    => $request->input('article_parent'),
-            'attachments'       => $request->input('attachments')
-        ]);
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = FamilyService::create($request->all());
 
         return response()->json($response);
     }
@@ -48,26 +32,8 @@ class FamilyController extends CoreController
      */
     public function update(Request $request, $id)
     {
-        // update object
-        Family::where('id', $id)->update([
-            'name'              => $request->input('name'),
-            'editor_id'         => $request->input('editor_id'),
-            'field_group_id'    => $request->input('field_group_id'),
-            'date'              => $request->input('date'),
-            'title'             => $request->input('title'),
-            'slug'              => $request->input('slug'),
-            'link'              => $request->input('link'),
-            'categories'        => $request->input('categories'),
-            'sort'              => $request->input('sort'),
-            'tags'              => $request->input('tags'),
-            'article_parent'    => $request->input('article_parent'),
-            'attachments'       => $request->input('attachments')
-        ]);
-
-        $object = Family::find($request->input('id'));
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = FamilyService::update($request->all(), $id);
 
         return response()->json($response);
     }

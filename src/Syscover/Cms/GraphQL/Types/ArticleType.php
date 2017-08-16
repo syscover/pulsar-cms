@@ -87,6 +87,10 @@ class ArticleType extends GraphQLType {
                 'type' => Type::listOf(GraphQL::type('CmsTag')),
                 'description' => 'Tags of article'
             ],
+            'excerpt' => [
+                'type' => Type::string(),
+                'description' => 'Article'
+            ],
             'article' => [
                 'type' => Type::string(),
                 'description' => 'Article'

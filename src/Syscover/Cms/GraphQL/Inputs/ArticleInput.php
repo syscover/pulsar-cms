@@ -89,6 +89,10 @@ class ArticleInput extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'Sort the article'
             ],
+            'excerpt' => [
+                'type' => Type::string(),
+                'description' => 'Article excerpt'
+            ],
             'article' => [
                 'type' => Type::string(),
                 'description' => 'Article'

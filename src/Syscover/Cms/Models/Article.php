@@ -17,7 +17,7 @@ class Article extends CoreModel
     use Translatable;
 
 	protected $table        = 'cms_article';
-    protected $fillable     = ['id', 'lang_id', 'parent_article_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'article', 'data_lang', 'data'];
+    protected $fillable     = ['id', 'lang_id', 'parent_article_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
     public $incrementing    = false;
     public $timestamps      = false;
     protected $casts        = [

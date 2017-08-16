@@ -23,7 +23,8 @@ class CmsCreateTableFamily extends Migration {
                 // 1 - Wysiwyg
                 // 2 - ContentBuilder
                 // 3 - TextArea
-                $table->tinyInteger('editor_id')->unsigned()->nullable();
+                $table->tinyInteger('excerpt_editor_id')->unsigned()->nullable();
+                $table->tinyInteger('article_editor_id')->unsigned()->nullable();
                 $table->integer('field_group_id')->unsigned()->nullable();
                 $table->boolean('date')->default(false);
                 $table->boolean('title')->default(false);

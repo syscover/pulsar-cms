@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
+use Syscover\Cms\Services\FamilyService;
 use Syscover\Core\Services\SQLService;
 use Syscover\Cms\Models\Family;
 
@@ -33,7 +34,7 @@ class AddFamilyMutation extends FamilyMutation
 
     public function resolve($root, $args)
     {
-        return Family::create($args['object']);
+        return FamilyService::create($args['object']);
     }
 }
 
@@ -46,10 +47,7 @@ class UpdateFamilyMutation extends FamilyMutation
 
     public function resolve($root, $args)
     {
-        Family::where('id', $args['object']['id'])
-            ->update($args['object']);
-
-        return Family::find($args['object']['id']);
+        return FamilyService::update($args['object'], $args['object']['id']);
     }
 }
 
