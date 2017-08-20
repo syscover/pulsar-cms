@@ -16,7 +16,6 @@ class Family extends CoreModel
 
 	protected $table        = 'cms_family';
     protected $fillable     = ['id', 'name', 'excerpt_editor_id', 'article_editor_id', 'field_group_id', 'date', 'title', 'slug', 'link', 'categories', 'sort', 'tags', 'article_parent', 'attachments', 'data'];
-    public $timestamps      = false;
     protected $casts        = [
         'date' => 'boolean',
         'title' => 'boolean',

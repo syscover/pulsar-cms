@@ -15,7 +15,6 @@ class Tag extends CoreModel
 
 	protected $table        = 'cms_tag';
     protected $fillable     = ['id', 'lang_id', 'name'];
-    public $timestamps      = false;
     public $with            = ['lang'];
     private static $rules   = [
         'name' => 'required|between:1,255'

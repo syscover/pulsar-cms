@@ -13,7 +13,6 @@ class Section extends CoreModel
 	protected $table        = 'cms_section';
     protected $fillable     = ['id', 'name', 'family_id'];
     public $incrementing    = false;
-    public $timestamps      = false;
     public $with = [
         'family'
     ];

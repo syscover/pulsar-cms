@@ -16,7 +16,6 @@ class Category extends CoreModel
 	protected $table        = 'cms_category';
     protected $fillable     = ['id', 'lang_id', 'name', 'slug', 'section_id', 'sort', 'data_lang', 'data'];
     public $incrementing    = false;
-    public $timestamps      = false;
     protected $casts        = [
         'data_lang' => 'array',
         'data'      => 'array'
