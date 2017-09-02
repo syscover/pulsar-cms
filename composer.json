@@ -18,5 +18,12 @@
         "classmap": [
             "src/Syscover/Cms"
         ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Syscover\\Cms\\CmsServiceProvider"
+            ]
+        }
     }
 }

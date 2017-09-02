@@ -14,31 +14,23 @@ Pulsar is an application that generates a control panel where you start creating
 composer require syscover/pulsar-cms
 ```
 
-**2 - Register service provider, on file config/app.php add to providers array**
-```
-/*
- * Pulsar Application Service Providers...
- */
-Syscover\Cms\CmsServiceProvider::class,
-```
-
-**3 - Execute publish command**
+**2 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Cms\CmsServiceProvider"
 ```
 
-**4 - Execute optimize command load new classes**
+**3 - Execute optimize command load new classes**
 ```
 php artisan optimize
 ```
 
-**5 - And execute migrations and seed database**
+**4 - And execute migrations and seed database**
 ```
 php artisan migrate
 php artisan db:seed --class="CmsTableSeeder"
 ```
 
-**6 - Execute command to load all updates**
+**5 - Execute command to load all updates**
 ```
 php artisan migrate --path=database/migrations/updates
 ```
