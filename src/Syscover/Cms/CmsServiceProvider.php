@@ -33,7 +33,7 @@ class CmsServiceProvider extends ServiceProvider
 
         // register config files
         $this->publishes([
-            __DIR__ . '/../../config/pulsar.cms.php' => config_path('pulsar.cms.php'),
+            __DIR__ . '/../../config/pulsar-cms.php' => config_path('pulsar-cms.php'),
         ]);
 
         // register GraphQL types and schema
