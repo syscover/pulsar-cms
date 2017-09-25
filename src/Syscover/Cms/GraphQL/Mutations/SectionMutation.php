@@ -7,8 +7,6 @@ use Syscover\Core\Services\SQLService;
 use Syscover\Cms\Models\Section;
 use Syscover\Cms\Services\SectionService;
 
-
-
 class SectionMutation extends Mutation
 {
     public function type()

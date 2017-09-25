@@ -25,7 +25,7 @@ class SectionService
         Section::where('id', $id)->update([
             'id'                => $object->get('id'),
             'name'              => $object->get('name'),
-            'article_family_id' => $object->get('family_id')
+            'family_id'         => $object->get('family_id')
         ]);
 
         return Section::find($object->get('id'));
