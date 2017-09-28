@@ -35,7 +35,6 @@ class CmsCreateTableFamily extends Migration {
                 $table->boolean('tags')->default(false);
                 $table->boolean('article_parent')->default(false);
                 $table->boolean('attachments')->default(false);
-                $table->json('attachment_families')->nullable();
                 $table->json('data')->nullable();
 
                 $table->timestamps();

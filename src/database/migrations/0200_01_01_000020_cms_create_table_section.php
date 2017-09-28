@@ -20,6 +20,7 @@ class CmsCreateTableSection extends Migration {
                 $table->string('id', 30);
                 $table->string('name');
                 $table->integer('family_id')->unsigned()->nullable();
+                $table->json('attachment_families')->nullable();
 
                 $table->timestamps();
                 $table->softDeletes();

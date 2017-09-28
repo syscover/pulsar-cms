@@ -23,9 +23,10 @@ class SectionService
         $object = collect($object);
 
         Section::where('id', $id)->update([
-            'id'                => $object->get('id'),
-            'name'              => $object->get('name'),
-            'family_id'         => $object->get('family_id')
+            'id'                    => $object->get('id'),
+            'name'                  => $object->get('name'),
+            'family_id'             => $object->get('family_id'),
+            'attachment_families'   => json_encode($object->get('attachment_families'))
         ]);
 
         return Section::find($object->get('id'));

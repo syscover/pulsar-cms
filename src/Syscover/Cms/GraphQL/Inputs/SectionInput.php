@@ -26,7 +26,11 @@ class SectionInput extends GraphQLType
             'family_id' => [
                 'type' => Type::int(),
                 'description' => 'Article family who belong this section'
-            ]
+            ],
+            'attachment_families' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'Attachments families that can to be attachment'
+            ],
         ];
     }
 }

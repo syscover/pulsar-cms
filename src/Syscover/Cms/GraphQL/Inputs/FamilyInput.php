@@ -71,10 +71,6 @@ class FamilyInput extends GraphQLType
                 'type' => Type::boolean(),
                 'description' => 'Activate attachments in article'
             ],
-            'attachment_families' => [
-                'type' => Type::listOf(Type::string()),
-                'description' => 'Attachments families that can to be attachment'
-            ],
             'data' => [
                 'type' => Type::boolean(),
                 'description' => 'Data to include content extra'

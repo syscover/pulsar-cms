@@ -29,6 +29,10 @@ class SectionType extends GraphQLType {
             'family' => [
                 'type' => GraphQL::type('CmsFamily'),
                 'description' => 'Family of section'
+            ],
+            'attachment_families' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'Attachments families that can to be attachment'
             ]
         ];
     }

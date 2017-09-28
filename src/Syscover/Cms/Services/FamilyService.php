@@ -36,8 +36,7 @@ class FamilyService
                 'sort'                  => $object->get('sort'),
                 'tags'                  => $object->get('tags'),
                 'article_parent'        => $object->get('article_parent'),
-                'attachments'           => $object->get('attachments'),
-                'attachment_families'   => json_encode($object->get('attachment_families'))
+                'attachments'           => $object->get('attachments')
             ]);
 
         return Family::find($id);

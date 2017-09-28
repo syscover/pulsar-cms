@@ -12,10 +12,10 @@ class CmsUpdateV1 extends Migration
 	 */
 	public function up()
 	{
-		if(! Schema::hasColumn('cms_family', 'attachment_families'))
+		if(! Schema::hasColumn('cms_section', 'attachment_families'))
 		{
-			Schema::table('cms_family', function (Blueprint $table) {
-                $table->json('attachment_families')->nullable()->after('attachments');
+			Schema::table('cms_section', function (Blueprint $table) {
+                $table->json('attachment_families')->nullable()->after('family_id');
 			});
 		}
 	}
