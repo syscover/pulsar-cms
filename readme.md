@@ -37,5 +37,5 @@ php artisan db:seed --class="CmsTableSeeder"
 
 **5 - Execute command to load all updates**
 ```
-php artisan migrate --path=database/migrations/updates
+php artisan migrate --path=vendor/syscover/pulsar-cms/src/database/migrations/updates
 ```

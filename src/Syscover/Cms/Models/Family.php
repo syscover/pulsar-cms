@@ -15,7 +15,7 @@ class Family extends CoreModel
     use CustomizableFields;
 
 	protected $table        = 'cms_family';
-    protected $fillable     = ['id', 'name', 'excerpt_editor_id', 'article_editor_id', 'field_group_id', 'date', 'title', 'slug', 'link', 'categories', 'sort', 'tags', 'article_parent', 'attachments', 'data'];
+    protected $fillable     = ['id', 'name', 'excerpt_editor_id', 'article_editor_id', 'field_group_id', 'date', 'title', 'slug', 'link', 'categories', 'sort', 'tags', 'article_parent', 'attachments', 'attachment_families', 'data'];
     protected $casts        = [
         'date' => 'boolean',
         'title' => 'boolean',
