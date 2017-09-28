@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Admin\Models\User;
+use Syscover\Admin\Traits\Slugable;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Traits\Translatable;
@@ -14,7 +15,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class Article extends CoreModel
 {
-    use Translatable;
+    use Translatable, Slugable;
 
 	protected $table        = 'cms_article';
     protected $fillable     = ['id', 'lang_id', 'parent_article_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
