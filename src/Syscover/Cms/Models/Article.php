@@ -8,7 +8,6 @@ use Syscover\Admin\Traits\Slugable;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Traits\Translatable;
-use Syscover\Core\Traits\HasAttribute;
 
 /**
  * Class Article
@@ -17,7 +16,6 @@ use Syscover\Core\Traits\HasAttribute;
 
 class Article extends CoreModel
 {
-    use HasAttribute;
     use CustomizableValues, Translatable, Slugable;
 
 	protected $table        = 'cms_article';
