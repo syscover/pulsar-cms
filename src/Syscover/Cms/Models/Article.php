@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Admin\Models\User;
+use Syscover\Admin\Traits\CustomizableValues;
 use Syscover\Admin\Traits\Slugable;
 use Syscover\Core\Models\CoreModel;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +16,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class Article extends CoreModel
 {
-    use Translatable, Slugable;
+    use CustomizableValues, Translatable, Slugable;
 
 	protected $table        = 'cms_article';
     protected $fillable     = ['id', 'lang_id', 'parent_article_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
@@ -84,5 +85,15 @@ class Article extends CoreModel
     public function getPublishAttribute($value)
     {
         return (new Carbon($value))->toW3cString();
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->data['customFields'][$name]))
+        {
+            return $this->data['customFields'][$name];
+        }
+
+        return null;
     }
 }
