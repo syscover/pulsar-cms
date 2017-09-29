@@ -86,14 +86,4 @@ class Article extends CoreModel
     {
         return (new Carbon($value))->toW3cString();
     }
-
-    public function __get($name)
-    {
-        if (isset($this->data['customFields'][$name]))
-        {
-            return $this->data['customFields'][$name];
-        }
-
-        return null;
-    }
 }
