@@ -48,7 +48,7 @@ class ArticleService
         }
 
         ArticleService::setTags($article, $object, false);
-        ArticleService::setCategories($article, $object);
+        $article->categories()->sync($object['categories_id']);
 
         // set attachments
         if(is_array($object['attachments']))
@@ -111,7 +111,7 @@ class ArticleService
         }
 
         ArticleService::setTags($article, $object, true);
-        ArticleService::setCategories($article, $object);
+        $article->categories()->sync($object['categories_id']);
 
         // set attachments
         if(is_array($object['attachments']))
@@ -124,13 +124,6 @@ class ArticleService
         }
 
         return $article;
-    }
-
-
-
-    private static function setCategories($article, $object)
-    {
-        $article->categories()->sync($object['categories_id']);
     }
 
     private static function setTags($article, $object, $destroyPreviousTags = false)
