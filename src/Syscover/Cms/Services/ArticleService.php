@@ -21,6 +21,9 @@ class ArticleService
             $object['id'] = $id;
         }
 
+        //preg_replace('/\(.*\)/g','', $object['publish']);
+        //preg_replace('/\(.*\)/g','', $object['date']);
+
         // set values to transform
         $object['publish'] = empty($object['publish'])? null : (new Carbon($object['publish'], config('app.timezone')))->toDateTimeString();
         $object['date'] = empty($object['date'])? null : (new Carbon($object['date'], config('app.timezone')))->toDateTimeString();
@@ -80,7 +83,7 @@ class ArticleService
             ->where('lang_id', $object->get('lang_id'))
             ->update([
                 'name'                  => $object->get('name'),
-                'parent_article_id'     => $object->get('parent_article_id'),
+                'parent_id'             => $object->get('parent_id'),
                 'author_id'             => $object->get('author_id'),
                 'section_id'            => $object->get('section_id'),
                 'family_id'             => $object->get('family_id'),

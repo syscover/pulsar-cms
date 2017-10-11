@@ -25,7 +25,7 @@ class ArticleInput extends GraphQLType
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'lang of article'
             ],
-            'parent_article_id' => [
+            'parent_id' => [
                 'type' => Type::int(),
                 'description' => 'parent id article to relation a article with other'
             ],

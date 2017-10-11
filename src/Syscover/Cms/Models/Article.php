@@ -19,7 +19,7 @@ class Article extends CoreModel
     use CustomizableValues, Translatable, Slugable;
 
 	protected $table        = 'cms_article';
-    protected $fillable     = ['id', 'lang_id', 'parent_article_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
+    protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
     public $incrementing    = false;
     protected $casts        = [
         'data_lang' => 'array',
@@ -80,6 +80,12 @@ class Article extends CoreModel
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'cms_articles_tags', 'article_id', 'tag_id');
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'parent_id', 'id')
+            ->builder();
     }
 
     public function getPublishAttribute($value)

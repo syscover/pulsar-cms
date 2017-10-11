@@ -20,7 +20,7 @@ class CmsCreateTableArticle extends Migration {
                 $table->integer('id')->unsigned();
                 $table->string('lang_id', 2);
                 $table->string('name'); // name of the article
-                $table->integer('parent_article_id')->unsigned()->nullable(); // set parent article if you need group articles
+                $table->integer('parent_id')->unsigned()->nullable(); // set parent article if you need group articles
                 $table->integer('author_id')->unsigned();
                 $table->string('section_id', 30);
                 $table->integer('family_id')->unsigned()->nullable(); // element to set default article configuration
