@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Syscover\Core\Services\MySQLService;
 
 class CmsUpdateV2 extends Migration
 {
@@ -12,12 +13,10 @@ class CmsUpdateV2 extends Migration
 	 */
 	public function up()
 	{
-		if(! Schema::hasColumn('cms_article', 'parent_article_id'))
-		{
-			Schema::table('cms_article', function (Blueprint $table) {
-                $table->renameColumn('parent_article_id', 'parent_id');
-			});
-		}
+        if(Schema::hasColumn('cms_article', 'parent_article_id'))
+        {
+		    MySQLService::renameColumn('cms_article', 'parent_article_id', 'parent_id', 'INT', 10, true, true);
+        }
 	}
 
 	/**
