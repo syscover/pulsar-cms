@@ -79,6 +79,10 @@ class ArticleService
         $data = [];
         if($object->has('field_group_id')) $data['customFields'] = $object->get('customFields');
 
+
+        //preg_replace('/\(.*\)/g','', $object->get('publish'));
+        //preg_replace('/\(.*\)/g','', $object->get('date'));
+
         Article::where('id', $object->get('id'))
             ->where('lang_id', $object->get('lang_id'))
             ->update([
@@ -88,8 +92,8 @@ class ArticleService
                 'section_id'            => $object->get('section_id'),
                 'family_id'             => $object->get('family_id'),
                 'status_id'             => $object->get('status_id'),
-                'publish'               => $object->has('publish') ? (new Carbon($object->get('publish'), config('app.timezone')))->toDateTimeString() : null,
-                'date'                  => $object->has('date') ? (new Carbon($object->get('date'), config('app.timezone')))->toDateTimeString() : null,
+                'publish'               => $object->has('publish') ? (new Carbon(preg_replace('/\(.*\)/g','', $object->get('publish')), config('app.timezone')))->toDateTimeString() : null,
+                'date'                  => $object->has('date') ? (new Carbon(preg_replace('/\(.*\)/g','', $object->get('date')), config('app.timezone')))->toDateTimeString() : null,
                 'title'                 => $object->get('title'),
                 'slug'                  => $object->get('slug'),
                 'link'                  => $object->get('link'),

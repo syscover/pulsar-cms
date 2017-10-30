@@ -1,10 +1,6 @@
 <?php namespace Syscover\Cms\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Syscover\Admin\Models\Field;
-use Syscover\Admin\Services\AttachmentService;
-use Syscover\Cms\Models\Tag;
 use Syscover\Cms\Services\ArticleService;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Cms\Models\Article;
