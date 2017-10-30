@@ -21,12 +21,10 @@ class ArticleService
             $object['id'] = $id;
         }
 
-        //preg_replace('/\(.*\)/g','', $object['publish']);
-        //preg_replace('/\(.*\)/g','', $object['date']);
-
         // set values to transform
-        $object['publish'] = empty($object['publish'])? null : (new Carbon($object['publish'], config('app.timezone')))->toDateTimeString();
-        $object['date'] = empty($object['date'])? null : (new Carbon($object['date'], config('app.timezone')))->toDateTimeString();
+        // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
+        $object['publish'] = empty($object['publish'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['publish']), config('app.timezone')))->toDateTimeString();
+        $object['date'] = empty($object['date'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['date']), config('app.timezone')))->toDateTimeString();
         $object['data_lang'] = Article::addLangDataRecord($object['lang_id'], $id);
 
         // get custom fields
@@ -92,6 +90,7 @@ class ArticleService
                 'section_id'            => $object->get('section_id'),
                 'family_id'             => $object->get('family_id'),
                 'status_id'             => $object->get('status_id'),
+                // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
                 'publish'               => $object->has('publish') ? (new Carbon(preg_replace('/\(.*\)/','', $object->get('publish')), config('app.timezone')))->toDateTimeString() : null,
                 'date'                  => $object->has('date') ? (new Carbon(preg_replace('/\(.*\)/','', $object->get('date')), config('app.timezone')))->toDateTimeString() : null,
                 'title'                 => $object->get('title'),
