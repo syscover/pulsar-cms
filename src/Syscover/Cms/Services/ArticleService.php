@@ -77,10 +77,6 @@ class ArticleService
         $data = [];
         if($object->has('field_group_id')) $data['customFields'] = $object->get('customFields');
 
-
-        //preg_replace('/\(.*\)/g','', $object->get('publish'));
-        //preg_replace('/\(.*\)/g','', $object->get('date'));
-
         Article::where('id', $object->get('id'))
             ->where('lang_id', $object->get('lang_id'))
             ->update([
