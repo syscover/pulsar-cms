@@ -1,12 +1,13 @@
 <?php namespace Syscover\Cms\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
+use Laravel\Scout\Searchable;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Admin\Models\User;
 use Syscover\Admin\Traits\CustomizableValues;
 use Syscover\Admin\Traits\Slugable;
 use Syscover\Core\Models\CoreModel;
-use Illuminate\Support\Facades\Validator;
 use Syscover\Admin\Traits\Translatable;
 
 /**
@@ -16,7 +17,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class Article extends CoreModel
 {
-    use CustomizableValues, Translatable, Slugable;
+    use CustomizableValues, Translatable, Slugable, Searchable;
 
 	protected $table        = 'cms_article';
     protected $fillable     = ['id', 'lang_id', 'parent_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];

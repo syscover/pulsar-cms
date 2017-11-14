@@ -22,6 +22,7 @@ Syscover\Cms\CmsServiceProvider::class,
 **2 - Execute publish command**
 ```
 php artisan vendor:publish --provider="Syscover\Cms\CmsServiceProvider"
+php artisan vendor:publish --provider="Laravel\Scout\ScoutServiceProvider"
 ```
 
 **3 - Execute optimize command load new classes**
