@@ -40,3 +40,15 @@ php artisan db:seed --class="CmsTableSeeder"
 ```
 php artisan migrate --path=vendor/syscover/pulsar-cms/src/database/migrations/updates
 ```
+
+**5 - Execute command to load all updates**
+```
+php artisan migrate --path=vendor/syscover/pulsar-cms/src/database/migrations/updates
+```
+
+**6 - Cms package implement Laravel Scout, you must indicate registration data or cancel Laravel Scout with the next data**
+```
+SCOUT_DRIVER=null
+ALGOLIA_APP_ID=
+ALGOLIA_SECRET=
+```
