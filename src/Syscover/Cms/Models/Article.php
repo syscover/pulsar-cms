@@ -93,4 +93,34 @@ class Article extends CoreModel
     {
         return (new Carbon($value))->toW3cString();
     }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $searchable =  [
+            'id'            => $this->id,
+            'lang_id'       => $this->lang_id,
+            'date'          => $this->date,
+            'title'         => strip_tags($this->title),
+            'slug'          => $this->slug,
+            'sort'          => $this->sort,
+            'excerpt'       => strip_tags($this->excerpt),
+            'article'       => strip_tags($this->article),
+            'categories'    => $this->categories->implode('name', ',')
+        ];
+
+        if(isset($this->data['customFields']) && is_array($this->data['customFields']))
+        {
+            foreach ($this->data['customFields'] as $index => $value)
+            {
+                if(! array_key_exists($index, $searchable)) $searchable[$index] = strip_tags($value);
+            }
+        }
+
+        return $searchable;
+    }
 }

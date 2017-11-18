@@ -30,7 +30,8 @@ class ArticleService
         // get custom fields
         if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
 
-        // create new object
+        // create new object,
+        // to create article execute method searcheable from scout to index in algolia
         $article = Article::create($object);
 
         // get object with builder, to get every relations
@@ -102,6 +103,9 @@ class ArticleService
         $article = Article::where('cms_article.id', $object->get('id'))
             ->where('cms_article.lang_id', $object->get('lang_id'))
             ->first();
+
+        if(config('scout.driver') === 'algolia')
+            $article->searchable();
 
         // parse html and manage img of wysiwyg
         $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
