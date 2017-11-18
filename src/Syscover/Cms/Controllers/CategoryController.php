@@ -1,6 +1,7 @@
 <?php namespace Syscover\Cms\Controllers;
 
 use Illuminate\Http\Request;
+use Syscover\Cms\Services\CategoryService;
 use Syscover\Core\Controllers\CoreController;
 use Syscover\Cms\Models\Category;
 
@@ -16,28 +17,8 @@ class CategoryController extends CoreController
      */
     public function store(Request $request)
     {
-        // check if there is id
-        if($request->has('id'))
-        {
-            $id = $request->input('id');
-        }
-        else
-        {
-            $id = Category::max('id');
-            $id++;
-        }
-
-        $object = Category::create([
-            'id'                    => $id,
-            'lang_id'               => $request->input('lang_id'),
-            'name'                  => $request->input('name'),
-            'slug'                  => $request->input('slug'),
-            'sort'                  => $request->input('sort'),
-            'data_lang'             => Category::addLangDataRecord($request->input('lang_id'), $id)
-        ]);
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = CategoryService::create($request->all());
 
         return response()->json($response);
     }
@@ -52,16 +33,8 @@ class CategoryController extends CoreController
      */
     public function update(Request $request, $id, $lang)
     {
-        Category::where('id', $id)->where('lang_id', $lang)->update([
-            'name'                  => $request->input('name'),
-            'slug'                  => $request->input('slug'),
-            'sort'                  => $request->input('sort')
-        ]);
-
-        $object = Category::where('id', $id)->where('lang_id', $lang)->first();
-
         $response['status'] = "success";
-        $response['data']   = $object;
+        $response['data']   = CategoryService::update($request->all(), $id, $lang);
 
         return response()->json($response);
     }

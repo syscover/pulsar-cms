@@ -3,6 +3,7 @@
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
+use Syscover\Cms\Services\CategoryService;
 use Syscover\Core\Services\SQLService;
 use Syscover\Cms\Models\Category;
 
@@ -33,17 +34,7 @@ class AddCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        if(! isset($args['object']['id']))
-        {
-            $id = Category::max('id');
-            $id++;
-
-            $args['object']['id'] = $id;
-        }
-
-        $args['object']['data_lang'] = Category::addLangDataRecord($args['object']['lang_id'], $args['object']['id']);
-
-        return Category::create($args['object']);
+        return CategoryService::create($args['object']);
     }
 }
 
@@ -56,11 +47,7 @@ class UpdateCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        Category::where('id', $args['object']['id'])
-            ->where('lang_id', $args['object']['lang_id'])
-            ->update($args['object']);
-
-        return Category::find($args['object']['id']);
+        return CategoryService::update($args['object'], $args['object']['id'], $args['object']['lang_id']);
     }
 }
 
@@ -74,12 +61,12 @@ class DeleteCategoryMutation extends CategoryMutation
     public function args()
     {
         return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+            'obj_id' => [
+                'name' => 'obj_id',
+                'type' => Type::nonNull(Type::int())
             ],
-            'lang' => [
-                'name' => 'lang',
+            'lang_id' => [
+                'name' => 'lang_id',
                 'type' => Type::nonNull(Type::string())
             ]
         ];
@@ -87,7 +74,7 @@ class DeleteCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Category::class, $args['lang']);
+        $object = SQLService::destroyRecord($args['obj_id'], Category::class, $args['lang_id']);
 
         return $object;
     }

@@ -25,7 +25,7 @@ class ArticleService
         // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
         $object['publish'] = empty($object['publish'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['publish']), config('app.timezone')))->toDateTimeString();
         $object['date'] = empty($object['date'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['date']), config('app.timezone')))->toDateTimeString();
-        $object['data_lang'] = Article::addLangDataRecord($object['lang_id'], $object['id']);
+        $object['data_lang'] = Article::addDataLang($object['lang_id'], $object['id']);
 
         // get custom fields
         if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
