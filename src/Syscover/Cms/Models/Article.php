@@ -110,7 +110,7 @@ class Article extends CoreModel
             'sort'          => $this->sort,
             'excerpt'       => strip_tags($this->excerpt),
             'article'       => strip_tags($this->article),
-            'categories'    => $this->categories->implode('name', ',')
+            'categories'    => $this->categories->where('lang_id', $this->lang_id)->implode('name', ',')
         ];
 
         if(isset($this->data['customFields']) && is_array($this->data['customFields']))
