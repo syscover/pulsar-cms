@@ -104,6 +104,7 @@ class Article extends CoreModel
         $searchable =  [
             'id'            => $this->id,
             'lang_id'       => $this->lang_id,
+            'section_id'    => $this->section_id,
             'date'          => $this->date,
             'title'         => strip_tags($this->title),
             'slug'          => $this->slug,
