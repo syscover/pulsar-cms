@@ -19,6 +19,10 @@ class SectionInput extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The id of section'
             ],
+            'object_id' => [
+                'type' => Type::string(),
+                'description' => 'The string id of section'
+            ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'The name of section'

@@ -50,7 +50,7 @@ class UpdateArticleMutation extends ArticleMutation
 
     public function resolve($root, $args)
     {
-        return ArticleService::update($args['object'], $args['object']['id'], $args['object']['lang_id']);
+        return ArticleService::update($args['object']);
     }
 }
 
@@ -64,12 +64,12 @@ class DeleteArticleMutation extends ArticleMutation
     public function args()
     {
         return [
-            'id' => [
-                'name' => 'id',
-                'type' => Type::nonNull(Type::string())
+            'object_id' => [
+                'name' => 'object_id',
+                'type' => Type::nonNull(Type::int())
             ],
-            'lang' => [
-                'name' => 'lang',
+            'lang_id' => [
+                'name' => 'lang_id',
                 'type' => Type::nonNull(Type::string())
             ]
         ];
@@ -78,17 +78,17 @@ class DeleteArticleMutation extends ArticleMutation
     public function resolve($root, $args)
     {
         // destroy object
-        $object = SQLService::destroyRecord($args['id'], Article::class, $args['lang']);
+        $object = SQLService::destroyRecord($args['object_id'], Article::class, $args['lang_id']);
 
         // detach categories only if delete base land object
         if(base_lang() === $object->lang_id) $object->categories()->detach();
 
         // delete and detach tags
-        Tag::whereIn('id', $object->tags->pluck('id'))->delete();
+        Tag::whereIn('id', $object->tags->pluck('object_id'))->delete();
         $object->tags()->detach();
 
         // destroy attachments
-        AttachmentService::deleteAttachments($args['id'], Article::class, $args['lang']);
+        AttachmentService::deleteAttachments($args['object_id'], Article::class, $args['lang_id']);
 
         return $object;
     }

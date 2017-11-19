@@ -21,6 +21,10 @@ class ArticleInput extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The id of article'
             ],
+            'object_id' => [
+                'type' => Type::int(),
+                'description' => 'The id of article for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'lang of article'

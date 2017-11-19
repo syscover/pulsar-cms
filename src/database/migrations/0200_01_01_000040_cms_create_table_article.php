@@ -17,7 +17,8 @@ class CmsCreateTableArticle extends Migration {
             Schema::create('cms_article', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
-                $table->integer('id')->unsigned();
+                $table->increments('id');
+                $table->integer('object_id')->unsigned();
                 $table->string('lang_id', 2);
                 $table->string('name'); // name of the article
                 $table->integer('parent_id')->unsigned()->nullable(); // set parent article if you need group articles
@@ -40,6 +41,9 @@ class CmsCreateTableArticle extends Migration {
                 $table->timestamps();
                 $table->softDeletes();
 
+                $table->index(['object_id', 'lang_id'], 'ix01_cms_article');
+                $table->unique(['lang_id', 'slug'], 'uk01_cms_article');
+
                 $table->foreign('lang_id', 'fk01_cms_article')
                     ->references('id')
                     ->on('admin_lang')
@@ -51,7 +55,7 @@ class CmsCreateTableArticle extends Migration {
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
                 $table->foreign('section_id', 'fk03_cms_article')
-                    ->references('id')
+                    ->references('object_id')
                     ->on('cms_section')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
@@ -60,9 +64,6 @@ class CmsCreateTableArticle extends Migration {
                     ->on('cms_family')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
-
-                $table->primary(['id', 'lang_id'], 'pk01_cms_article');
-                $table->unique(['lang_id', 'slug'], 'uk01_cms_article');
             });
         }
     }

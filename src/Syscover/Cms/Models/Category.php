@@ -14,7 +14,7 @@ class Category extends CoreModel
     use Translatable;
 
 	protected $table        = 'cms_category';
-    protected $fillable     = ['id', 'obj_id', 'lang_id', 'name', 'slug', 'section_id', 'sort', 'data_lang', 'data'];
+    protected $fillable     = ['id', 'object_id', 'lang_id', 'name', 'slug', 'section_id', 'sort', 'data_lang', 'data'];
     protected $casts        = [
         'data_lang' => 'array',
         'data'      => 'array'

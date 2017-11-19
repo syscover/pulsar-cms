@@ -19,6 +19,10 @@ class ArticleType extends GraphQLType {
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of article'
             ],
+            'object_id' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'The id of category for translate object'
+            ],
             'lang_id' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'lang of article'

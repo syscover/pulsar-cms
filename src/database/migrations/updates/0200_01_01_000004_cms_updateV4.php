@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use \Illuminate\Support\Facades\DB;
 
-class CmsUpdateV3 extends Migration
+class CmsUpdateV4 extends Migration
 {
     public function __construct()
     {
@@ -18,16 +18,16 @@ class CmsUpdateV3 extends Migration
 	 */
 	public function up()
 	{
-        if( ! Schema::hasColumn('cms_category', 'object_id'))
+        if( ! Schema::hasColumn('cms_article', 'object_id'))
         {
-            Schema::table('cms_category', function (Blueprint $table) {
+            Schema::table('cms_article', function (Blueprint $table) {
                 $table->dropPrimary('PRIMARY');
                 $table->renameColumn('id', 'object_id');
             });
 
-            Schema::table('cms_category', function (Blueprint $table) {
+            Schema::table('cms_article', function (Blueprint $table) {
                 $table->increments('id')->first();
-                $table->index(['object_id', 'lang_id'], 'ix01_cms_category');
+                $table->index(['object_id', 'lang_id'], 'ix01_cms_article');
             });
         }
 	}

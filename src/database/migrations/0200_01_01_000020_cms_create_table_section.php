@@ -17,7 +17,8 @@ class CmsCreateTableSection extends Migration {
             Schema::create('cms_section', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
-                $table->string('id', 30);
+                $table->increments('id');
+                $table->string('object_id', 30);
                 $table->string('name');
                 $table->integer('family_id')->unsigned()->nullable();
                 $table->json('attachment_families')->nullable();

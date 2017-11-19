@@ -6,44 +6,42 @@ class CategoryService
 {
     /**
      * @param array     $object     contain properties of family
-     * @return $this|\Illuminate\Database\Eloquent\Model
+     * @return \Syscover\Cms\Models\Category
      */
     public static function create($object)
     {
-        if(! isset($object['obj_id']))
+        if(empty($object['object_id']))
         {
-            $objId = Category::max('obj_id');
-            $objId++;
+            $objectId = Category::max('object_id');
+            $objectId++;
 
-            $object['obj_id'] = $objId;
+            $object['object_id'] = $objectId;
         }
 
-        $object['data_lang'] = Category::addDataLang($object['lang_id'], $object['obj_id']);
+        $object['data_lang'] = Category::addDataLang($object['lang_id'], $object['object_id']);
 
         return Category::create($object);
     }
 
     /**
      * @param array     $object     contain properties of family
-     * @param int       $id         old id of section
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @return \Syscover\Cms\Models\Category
      */
-    public static function update($object, $id, $lang)
+    public static function update($object)
     {
         $object = collect($object);
 
-        Category::where('id', $id)
-            ->where('lang_id', $lang)
+        Category::where('id', $object->get('id'))
             ->update([
                 'name'  => $object->get('name'),
                 'slug'  => $object->get('slug'),
             ]);
 
-        Category::where('obj_id', $object->get('obj_id'))
+        Category::where('object_id', $object->get('object_id'))
             ->update([
                 'section_id' => $object->get('section_id'),
             ]);
 
-        return Category::find($id);
+        return Category::find($object->get('id'));
     }
 }

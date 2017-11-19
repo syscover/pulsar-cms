@@ -17,7 +17,7 @@ class CmsCreateTableFamily extends Migration {
             Schema::create('cms_family', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
-                $table->increments('id')->unsigned();
+                $table->increments('id');
                 $table->string('name');
 
                 // 1 - Wysiwyg

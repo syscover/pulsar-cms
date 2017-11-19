@@ -11,8 +11,7 @@ use Syscover\Core\Models\CoreModel;
 class Section extends CoreModel
 {
 	protected $table        = 'cms_section';
-    public $incrementing    = false;
-    protected $fillable     = ['id', 'name', 'family_id', 'attachment_families'];
+    protected $fillable     = ['id', 'object_id', 'name', 'family_id', 'attachment_families'];
     protected $casts        = [
         'attachment_families'   => 'array'
     ];

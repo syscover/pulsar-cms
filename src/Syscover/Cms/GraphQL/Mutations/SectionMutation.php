@@ -48,10 +48,6 @@ class UpdateSectionMutation extends SectionMutation
     public function args()
     {
         return [
-            'idOld' => [
-                'name' => 'idOld',
-                'type' => Type::nonNull(Type::string())
-            ],
             'object' => [
                 'name' => 'object',
                 'type' => Type::nonNull(GraphQL::type('CmsSectionInput'))
@@ -61,7 +57,7 @@ class UpdateSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        return SectionService::update($args['object'], $args['idOld']);
+        return SectionService::update($args['object']);
     }
 }
 

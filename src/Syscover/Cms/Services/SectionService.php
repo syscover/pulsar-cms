@@ -15,15 +15,14 @@ class SectionService
 
     /**
      * @param array     $object     contain properties of section
-     * @param int       $id         old id of section
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
-    public static function update($object, $id)
+    public static function update($object)
     {
         $object = collect($object);
 
-        Section::where('id', $id)->update([
-            'id'                    => $object->get('id'),
+        Section::where('id', $object->get('id'))->update([
+            'object_id'             => $object->get('object_id'),
             'name'                  => $object->get('name'),
             'family_id'             => $object->get('family_id'),
             'attachment_families'   => json_encode($object->get('attachment_families'))

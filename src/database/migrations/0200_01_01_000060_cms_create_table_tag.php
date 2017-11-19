@@ -17,7 +17,7 @@ class CmsCreateTableTag extends Migration {
             Schema::create('cms_tag', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
-                $table->increments('id')->unsigned();
+                $table->increments('id');
                 $table->string('lang_id', 2);
                 $table->string('name')->nullable();
 

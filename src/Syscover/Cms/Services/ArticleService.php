@@ -13,19 +13,18 @@ class ArticleService
      */
     public static function create($object)
     {
-        // check if there is id
-        if(empty($object['id']))
+        if(empty($object['object_id']))
         {
-            $id = Article::max('id');
-            $id++;
-            $object['id'] = $id;
+            $objectId = Article::max('object_id');
+            $objectId++;
+            $object['object_id'] = $objectId;
         }
 
         // set values to transform
         // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
         $object['publish'] = empty($object['publish'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['publish']), config('app.timezone')))->toDateTimeString();
         $object['date'] = empty($object['date'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['date']), config('app.timezone')))->toDateTimeString();
-        $object['data_lang'] = Article::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = Article::addDataLang($object['lang_id'], $object['object_id']);
 
         // get custom fields
         if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
@@ -41,7 +40,7 @@ class ArticleService
             ->first();
 
         // parse html and manage img of wysiwyg
-        $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
+        $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->object_id);
 
         if($html != null)
         {
@@ -59,7 +58,7 @@ class ArticleService
             $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);
 
             // then save attachments
-            AttachmentService::storeAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $article->id,  $article->lang_id);
+            AttachmentService::storeAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $article->object_id,  $article->lang_id);
         }
 
         return $article;
@@ -67,10 +66,9 @@ class ArticleService
 
     /**
      * @param array     $object     contain properties of article
-     * @param int       $id         old id of section
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
      */
-    public static function update($object, $id, $lang)
+    public static function update($object)
     {
         $object = collect($object);
 
@@ -79,7 +77,6 @@ class ArticleService
         if($object->has('field_group_id')) $data['customFields'] = $object->get('customFields');
 
         Article::where('id', $object->get('id'))
-            ->where('lang_id', $object->get('lang_id'))
             ->update([
                 'name'                  => $object->get('name'),
                 'parent_id'             => $object->get('parent_id'),
@@ -100,15 +97,13 @@ class ArticleService
                 'data'                  => json_encode($data)
             ]);
 
-        $article = Article::where('cms_article.id', $object->get('id'))
-            ->where('cms_article.lang_id', $object->get('lang_id'))
-            ->first();
+        $article = Article::find($object->get('id'));
 
         if(config('scout.driver') === 'algolia')
             $article->searchable();
 
         // parse html and manage img of wysiwyg
-        $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
+        $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->object_id);
 
         if($html != null)
         {
@@ -126,7 +121,7 @@ class ArticleService
             $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);
 
             // then save attachments
-            AttachmentService::updateAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $article->id,  $article->lang_id);
+            AttachmentService::updateAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $article->object_id,  $article->lang_id);
         }
 
         return $article;
