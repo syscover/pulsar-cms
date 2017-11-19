@@ -72,7 +72,7 @@ class DeleteSectionMutation extends SectionMutation
     {
         return [
             'id' => [
-                'name' => 'id',
+                'name' => 'object_id',
                 'type' => Type::nonNull(Type::string())
             ]
         ];
@@ -80,7 +80,7 @@ class DeleteSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Section::class);
+        $object = SQLService::destroyRecord($args['object_id'], Section::class);
 
         return $object;
     }
