@@ -24,6 +24,7 @@ class CmsUpdateV5 extends Migration
                 $table->dropForeign('fk03_cms_article');
             });
 
+
             Schema::table('cms_section', function (Blueprint $table) {
                 $table->dropPrimary('PRIMARY');
             });
@@ -33,6 +34,7 @@ class CmsUpdateV5 extends Migration
                 $table->index('id', 'ix01_cms_section');
 
             });
+
 
             Schema::table('cms_article', function (Blueprint $table) {
                 $table->foreign('section_id', 'fk03_cms_article')
