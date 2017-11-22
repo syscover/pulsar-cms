@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use \Illuminate\Support\Facades\DB;
 
-class CmsUpdateV6 extends Migration
+class CmsUpdateV5 extends Migration
 {
     public function __construct()
     {
