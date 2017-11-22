@@ -68,21 +68,22 @@ class Article extends CoreModel
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'cms_articles_categories', 'article_id', 'category_id');
-
-//        return $this->belongsToMany(
-//            Category::class,
-//            'cms_articles_categories',
-//            'article_id',
-//            'category_id',
-//            'id',
-//            'id'
-//        );
+        return $this->belongsToMany(
+            Category::class,
+            'cms_articles_categories',
+            'article_id',
+            'category_id',
+            'id',
+            'id'
+        );
     }
 
     public function attachments()
     {
-        return $this->morphMany(Attachment::class, 'object')
+        return $this->morphMany(
+            Attachment::class,
+            'object'
+        )
             ->where('admin_attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
 
