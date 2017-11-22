@@ -20,9 +20,9 @@ class CmsUpdateV5 extends Migration
 	{
         if( ! Schema::hasColumn('cms_section', 'ix'))
         {
-//            Schema::table('cms_article', function (Blueprint $table) {
-//                $table->dropForeign('fk03_cms_article');
-//            });
+            Schema::table('cms_article', function (Blueprint $table) {
+                $table->dropForeign('fk03_cms_article');
+            });
 
             Schema::table('cms_section', function (Blueprint $table) {
                 $table->dropPrimary('PRIMARY');
@@ -34,13 +34,13 @@ class CmsUpdateV5 extends Migration
 
             });
 
-//            Schema::table('cms_article', function (Blueprint $table) {
-//                $table->foreign('section_id', 'fk03_cms_article')
-//                    ->references('id')
-//                    ->on('cms_section')
-//                    ->onDelete('restrict')
-//                    ->onUpdate('cascade');
-//            });
+            Schema::table('cms_article', function (Blueprint $table) {
+                $table->foreign('section_id', 'fk03_cms_article')
+                    ->references('id')
+                    ->on('cms_section')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
+            });
         }
 	}
 
