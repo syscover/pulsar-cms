@@ -4,7 +4,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use \Illuminate\Support\Facades\DB;
 
-class CmsUpdateV5 extends Migration
+class CmsUpdateV6 extends Migration
 {
     public function __construct()
     {
@@ -18,12 +18,29 @@ class CmsUpdateV5 extends Migration
 	 */
 	public function up()
 	{
-        if(Schema::hasColumn('cms_articles_categories', 'article_id'))
+        if( ! Schema::hasColumn('cms_section', 'ix'))
         {
-            Schema::table('cms_articles_categories', function (Blueprint $table) {
-                $table->renameColumn('article_id', 'article_object_id');
-                $table->renameColumn('category_id', 'category_object_id');
+//            Schema::table('cms_article', function (Blueprint $table) {
+//                $table->dropForeign('fk03_cms_article');
+//            });
+
+            Schema::table('cms_section', function (Blueprint $table) {
+                $table->dropPrimary('PRIMARY');
             });
+
+            Schema::table('cms_section', function (Blueprint $table) {
+                $table->increments('ix')->first();
+                $table->index('id', 'ix01_cms_section');
+
+            });
+
+//            Schema::table('cms_article', function (Blueprint $table) {
+//                $table->foreign('section_id', 'fk03_cms_article')
+//                    ->references('id')
+//                    ->on('cms_section')
+//                    ->onDelete('restrict')
+//                    ->onUpdate('cascade');
+//            });
         }
 	}
 

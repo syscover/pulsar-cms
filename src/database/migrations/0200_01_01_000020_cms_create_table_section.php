@@ -17,8 +17,8 @@ class CmsCreateTableSection extends Migration {
             Schema::create('cms_section', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
 
-                $table->increments('id');
-                $table->string('object_id', 30);
+                $table->increments('ix');
+                $table->string('id', 30);
                 $table->string('name');
                 $table->integer('family_id')->unsigned()->nullable();
                 $table->json('attachment_families')->nullable();
@@ -32,7 +32,7 @@ class CmsCreateTableSection extends Migration {
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
 
-                $table->primary('id', 'pk01_cms_section');
+                $table->index('id', 'ix01_cms_section');
             });
         }
     }

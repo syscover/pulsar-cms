@@ -15,13 +15,13 @@ class SectionInput extends GraphQLType
     public function fields()
     {
         return [
+            'ix' => [
+                'type' => Type::string(),
+                'description' => 'The index of section'
+            ],
             'id' => [
                 'type' => Type::string(),
                 'description' => 'The id of section'
-            ],
-            'object_id' => [
-                'type' => Type::string(),
-                'description' => 'The string id of section'
             ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),

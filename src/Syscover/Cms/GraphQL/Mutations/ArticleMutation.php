@@ -64,8 +64,8 @@ class DeleteArticleMutation extends ArticleMutation
     public function args()
     {
         return [
-            'object_id' => [
-                'name' => 'object_id',
+            'id' => [
+                'name' => 'id',
                 'type' => Type::nonNull(Type::int())
             ],
             'lang_id' => [
@@ -78,17 +78,17 @@ class DeleteArticleMutation extends ArticleMutation
     public function resolve($root, $args)
     {
         // destroy object
-        $object = SQLService::destroyRecord($args['object_id'], Article::class, $args['lang_id']);
+        $object = SQLService::destroyRecord($args['id'], Article::class, $args['lang_id']);
 
         // detach categories only if delete base land object
         if(base_lang() === $object->lang_id) $object->categories()->detach();
 
         // delete and detach tags
-        Tag::whereIn('id', $object->tags->pluck('object_id'))->delete();
+        Tag::whereIn('id', $object->tags->pluck('id'))->delete();
         $object->tags()->detach();
 
         // destroy attachments
-        AttachmentService::deleteAttachments($args['object_id'], Article::class, $args['lang_id']);
+        AttachmentService::deleteAttachments($args['id'], Article::class, $args['lang_id']);
 
         return $object;
     }

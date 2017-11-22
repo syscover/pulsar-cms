@@ -10,15 +10,15 @@ class CategoryService
      */
     public static function create($object)
     {
-        if(empty($object['object_id']))
+        if(empty($object['id']))
         {
-            $objectId = Category::max('object_id');
-            $objectId++;
+            $id = Category::max('id');
+            $id++;
 
-            $object['object_id'] = $objectId;
+            $object['id'] = $id;
         }
 
-        $object['data_lang'] = Category::addDataLang($object['lang_id'], $object['object_id']);
+        $object['data_lang'] = Category::addDataLang($object['lang_id'], $object['id']);
 
         return Category::create($object);
     }
@@ -31,17 +31,17 @@ class CategoryService
     {
         $object = collect($object);
 
-        Category::where('id', $object->get('id'))
+        Category::where('ix', $object->get('ix'))
             ->update([
                 'name'  => $object->get('name'),
                 'slug'  => $object->get('slug'),
             ]);
 
-        Category::where('object_id', $object->get('object_id'))
+        Category::where('id', $object->get('id'))
             ->update([
                 'section_id' => $object->get('section_id'),
             ]);
 
-        return Category::find($object->get('id'));
+        return Category::find($object->get('ix'));
     }
 }

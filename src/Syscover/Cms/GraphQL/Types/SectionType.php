@@ -14,13 +14,13 @@ class SectionType extends GraphQLType {
     public function fields()
     {
         return [
-            'id' => [
+            'ix' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of section'
             ],
-            'object_id' => [
+            'id' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'The string id of section'
+                'description' => 'The id of section'
             ],
             'name' => [
                 'type' => Type::nonNull(Type::string()),

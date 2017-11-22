@@ -15,13 +15,13 @@ class ArticleType extends GraphQLType {
     public function fields()
     {
         return [
+            'ix' => [
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'The index of article'
+            ],
             'id' => [
                 'type' => Type::nonNull(Type::int()),
                 'description' => 'The id of article'
-            ],
-            'object_id' => [
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'The id of category for translate object'
             ],
             'lang_id' => [
                 'type' => Type::nonNull(Type::string()),

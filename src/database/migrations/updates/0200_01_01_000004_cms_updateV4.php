@@ -18,16 +18,15 @@ class CmsUpdateV4 extends Migration
 	 */
 	public function up()
 	{
-        if( ! Schema::hasColumn('cms_article', 'object_id'))
+        if( ! Schema::hasColumn('cms_article', 'ix'))
         {
             Schema::table('cms_article', function (Blueprint $table) {
                 $table->dropPrimary('PRIMARY');
-                $table->renameColumn('id', 'object_id');
             });
 
             Schema::table('cms_article', function (Blueprint $table) {
-                $table->increments('id')->first();
-                $table->index(['object_id', 'lang_id'], 'ix01_cms_article');
+                $table->increments('ix')->first();
+                $table->index(['id', 'lang_id'], 'ix01_cms_article');
             });
         }
 	}

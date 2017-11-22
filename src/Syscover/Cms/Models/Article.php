@@ -20,7 +20,8 @@ class Article extends CoreModel
     use CustomizableValues, Translatable, Slugable, Searchable;
 
 	protected $table        = 'cms_article';
-    protected $fillable     = ['id', 'object_id', 'lang_id', 'parent_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
+    protected $primaryKey   = 'ix';
+    protected $fillable     = ['ix', 'id', 'lang_id', 'parent_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
     protected $casts        = [
         'data_lang' => 'array',
         'data'      => 'array'
@@ -67,27 +68,33 @@ class Article extends CoreModel
 
     public function categories()
     {
-        return $this->belongsToMany(
-            Category::class,
-            'cms_articles_categories',
-            'article_object_id',
-            'category_object_id',
-            'object_id',
-            'object_id'
-        );
+        return $this->belongsToMany(Category::class, 'cms_articles_categories', 'article_id', 'category_id');
+
+//        return $this->belongsToMany(
+//            Category::class,
+//            'cms_articles_categories',
+//            'article_id',
+//            'category_id',
+//            'id',
+//            'id'
+//        );
     }
 
     public function attachments()
     {
-        return $this->morphMany(
-            Attachment::class,
-            'object',
-            'object_type',
-            'object_id',
-            'object_id'
-        )
+        return $this->morphMany(Attachment::class, 'object')
             ->where('admin_attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
+
+//        return $this->morphMany(
+//            Attachment::class,
+//            'object',
+//            'object_type',
+//            'id',
+//            'id'
+//        )
+//            ->where('admin_attachment.lang_id', $this->lang_id)
+//            ->orderBy('sort', 'asc');
     }
 
     public function tags()
