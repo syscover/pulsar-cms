@@ -32,18 +32,16 @@ class CmsCreateTableCategory extends Migration {
 
                 $table->index(['id', 'lang_id'], 'ix01_cms_category');
 
-                $table->foreign('section_id', 'fk03_cms_category')
-                    ->references('id')
-                    ->on('cms_section')
-                    ->onDelete('restrict')
-                    ->onUpdate('cascade');
-
                 $table->foreign('lang_id', 'fk01_cms_category')
                     ->references('id')
                     ->on('admin_lang')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
-
+                $table->foreign('section_id', 'fk02_cms_category')
+                    ->references('id')
+                    ->on('cms_section')
+                    ->onDelete('restrict')
+                    ->onUpdate('cascade');
             });
         }
     }
