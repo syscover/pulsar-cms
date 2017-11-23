@@ -118,6 +118,8 @@ class Article extends CoreModel
             'id'            => $this->id,
             'lang_id'       => $this->lang_id,
             'section_id'    => $this->section_id,
+            'status_id'     => $this->status_id,
+            'publish'       => $this->publish,
             'date'          => $this->date,
             'title'         => strip_tags($this->title),
             'slug'          => $this->slug,
