@@ -6,7 +6,7 @@ class SectionService
 {
     /**
      * @param array     $object     contain properties of section
-     * @return $this|\Illuminate\Database\Eloquent\Model
+     * @return \Syscover\Cms\Models\Section
      */
     public static function create($object)
     {
@@ -15,7 +15,7 @@ class SectionService
 
     /**
      * @param array     $object     contain properties of section
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     * @return \Syscover\Cms\Models\Section
      */
     public static function update($object)
     {
