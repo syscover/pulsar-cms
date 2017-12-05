@@ -27,9 +27,9 @@ class CmsServiceProvider extends ServiceProvider
         ], 'seeds');
 
         // register tests
-        $this->publishes([
-            __DIR__ . '/../../tests/Feature/' => base_path('/tests/Feature')
-        ], 'tests');
+//        $this->publishes([
+//            __DIR__ . '/../../tests/Feature/' => base_path('/tests/Feature')
+//        ], 'tests');
 
         // register config files
         $this->publishes([

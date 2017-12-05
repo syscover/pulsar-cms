@@ -81,12 +81,12 @@ class Article extends CoreModel
     public function attachments()
     {
         return $this->morphMany(
-            Attachment::class,
-            'object',
-            'object_type',
-            'object_id',
-            'id'
-        )
+                Attachment::class,
+                'object',
+                'object_type',
+                'object_id',
+                'id'
+            )
             ->where('admin_attachment.lang_id', $this->lang_id)
             ->orderBy('sort', 'asc');
     }
