@@ -5,7 +5,7 @@ use Syscover\Cms\Models\Category;
 class CategoryService
 {
     /**
-     * @param array     $object     contain properties of family
+     * @param array     $object     contain properties of category
      * @return \Syscover\Cms\Models\Category
      */
     public static function create($object)
@@ -24,7 +24,7 @@ class CategoryService
     }
 
     /**
-     * @param array     $object     contain properties of family
+     * @param array     $object     contain properties of category
      * @return \Syscover\Cms\Models\Category
      */
     public static function update($object)
