@@ -26,7 +26,7 @@ class CmsCreateTableArticle extends Migration {
                 $table->string('section_id', 30);
                 $table->integer('family_id')->unsigned()->nullable(); // element to set default article configuration
                 $table->tinyInteger('status_id')->unsigned();  // 0 = draft 1 = publish
-                $table->timestamp('publish');     // date when will be publish
+                $table->timestamp('publish')->default(DB::raw('CURRENT_TIMESTAMP'));     // date when will be publish
                 $table->timestamp('date')->nullable(); // date of article
                 $table->string('title', 510)->nullable();
                 $table->string('slug')->nullable();
