@@ -58,7 +58,7 @@ class Article extends CoreModel
 
     public function section()
     {
-        return $this->belongsTo(Section::class, 'section_id');
+        return $this->belongsTo(Section::class, 'section_id', 'id');
     }
 
     public function family()
