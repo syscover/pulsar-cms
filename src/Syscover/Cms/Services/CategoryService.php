@@ -39,7 +39,8 @@ class CategoryService
 
         Category::where('id', $object->get('id'))
             ->update([
-                'section_id' => $object->get('section_id'),
+                'section_id'    => $object->get('section_id'),
+                'sort'          => $object->get('sort')
             ]);
 
         return Category::find($object->get('ix'));

@@ -33,6 +33,7 @@ class CmsCreateTableSection extends Migration {
                     ->onUpdate('cascade');
 
                 $table->index('id', 'ix01_cms_section');
+                $table->unique('id', 'ui01_cms_section');
             });
         }
     }

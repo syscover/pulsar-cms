@@ -71,6 +71,10 @@ class ArticleType extends GraphQLType {
                 'type' => Type::string(),
                 'description' => 'Final section of the url to access the article'
             ],
+            'categories_id' => [
+                'type' => Type::listOf(Type::int()),
+                'description' => 'Categories id'
+            ],
             'categories' => [
                 'type' => Type::listOf(GraphQL::type('CmsCategory')),
                 'description' => 'Categories'
@@ -83,13 +87,13 @@ class ArticleType extends GraphQLType {
                 'type' => Type::boolean(),
                 'description' => 'Set article to open in new window'
             ],
+            'tags' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'Tags of article'
+            ],
             'sort' => [
                 'type' => Type::int(),
                 'description' => 'Sort the article'
-            ],
-            'tags' => [
-                'type' => Type::listOf(GraphQL::type('CmsTag')),
-                'description' => 'Tags of article'
             ],
             'excerpt' => [
                 'type' => Type::string(),
@@ -117,5 +121,10 @@ class ArticleType extends GraphQLType {
     public function resolveCategoriesField($object, $args)
     {
         return $object->categories->where('lang_id', $object->lang_id);
+    }
+
+    public function resolveCategoriesIdField($object, $args)
+    {
+        return $object->categories->where('lang_id', $object->lang_id)->pluck('id');
     }
 }

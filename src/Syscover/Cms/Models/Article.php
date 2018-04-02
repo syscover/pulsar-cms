@@ -6,7 +6,6 @@ use Laravel\Scout\Searchable;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Admin\Models\User;
 use Syscover\Admin\Traits\CustomizableValues;
-use Syscover\Admin\Traits\Slugable;
 use Syscover\Core\Models\CoreModel;
 use Syscover\Admin\Traits\Translatable;
 
@@ -17,12 +16,13 @@ use Syscover\Admin\Traits\Translatable;
 
 class Article extends CoreModel
 {
-    use CustomizableValues, Translatable, Slugable, Searchable;
+    use CustomizableValues, Translatable, Searchable;
 
 	protected $table        = 'cms_article';
     protected $primaryKey   = 'ix';
-    protected $fillable     = ['ix', 'id', 'lang_id', 'parent_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
+    protected $fillable     = ['ix', 'id', 'lang_id', 'parent_id', 'name', 'author_id', 'section_id', 'family_id', 'status_id', 'publish', 'date', 'title', 'slug', 'link', 'blank', 'tags', 'sort', 'excerpt', 'article', 'data_lang', 'data'];
     protected $casts        = [
+        'tags'      => 'array',
         'data_lang' => 'array',
         'data'      => 'array'
     ];
@@ -31,8 +31,7 @@ class Article extends CoreModel
         'author',
         'section',
         'family',
-        'categories',
-        'tags'
+        'categories'
     ];
     public $lazyRelations       = ['attachments'];
 
@@ -49,6 +48,19 @@ class Article extends CoreModel
     {
         return $query->leftJoin('cms_section', 'cms_article.section_id', '=', 'cms_section.id')
             ->select('cms_section.*', 'cms_article.*', 'cms_section.name as section_name', 'cms_article.name as article_name');
+    }
+
+    // Accessors
+    public function getPublishAttribute($value)
+    {
+        // return (new Carbon($value))->toW3cString();
+        return (new Carbon($value))->format('Y-m-d\TH:i:s');
+    }
+
+    public function getDateAttribute($value)
+    {
+        // return (new Carbon($value))->toW3cString();
+        return (new Carbon($value))->format('Y-m-d\TH:i:s');
     }
 
     public function author()
@@ -91,20 +103,10 @@ class Article extends CoreModel
             ->orderBy('sort', 'asc');
     }
 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'cms_articles_tags', 'article_id', 'tag_id');
-    }
-
     public function articles()
     {
         return $this->hasMany(Article::class, 'parent_id', 'id')
             ->builder();
-    }
-
-    public function getPublishAttribute($value)
-    {
-        return (new Carbon($value))->toW3cString();
     }
 
     /**

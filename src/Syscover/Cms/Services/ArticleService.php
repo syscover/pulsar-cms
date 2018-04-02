@@ -3,7 +3,6 @@
 use Carbon\Carbon;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Cms\Models\Article;
-use Syscover\Cms\Models\Tag;
 
 class ArticleService
 {
@@ -22,8 +21,6 @@ class ArticleService
 
         // set values to transform
         // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
-        $object['publish'] = empty($object['publish'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['publish']), config('app.timezone')))->toDateTimeString();
-        $object['date'] = empty($object['date'])? null : (new Carbon(preg_replace('/\(.*\)/','', $object['date']), config('app.timezone')))->toDateTimeString();
         $object['data_lang'] = Article::addDataLang($object['lang_id'], $object['id']);
 
         // get custom fields
@@ -31,13 +28,10 @@ class ArticleService
 
         // create new object,
         // to create article execute method searcheable from scout to index in algolia
-        $article = Article::create($object);
+        $article = Article::create(ArticleService::builder($object));
 
         // get object with builder, to get every relations
-        $article = Article::builder()
-            ->where('cms_article.id', $article->id)
-            ->where('cms_article.lang_id', $article->lang_id)
-            ->first();
+        $article = Article::find($article->ix);
 
         // parse html and manage img of wysiwyg
         $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
@@ -48,7 +42,6 @@ class ArticleService
             $article->save();
         }
 
-        ArticleService::setTags($article, $object, false);
         $article->categories()->sync($object['categories_id']);
 
         // set attachments
@@ -70,34 +63,14 @@ class ArticleService
      */
     public static function update($object)
     {
-        $object = collect($object);
-
         // get custom fields
-        $data = [];
-        if($object->has('field_group_id')) $data['customFields'] = $object->get('customFields');
+        if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
+        if(! empty($object['tags'])) $object['tags'] = json_encode($object['tags']);
+        if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
 
-        Article::where('ix', $object->get('ix'))
-            ->update([
-                'name'                  => $object->get('name'),
-                'parent_id'             => $object->get('parent_id'),
-                'author_id'             => $object->get('author_id'),
-                'section_id'            => $object->get('section_id'),
-                'family_id'             => $object->get('family_id'),
-                'status_id'             => $object->get('status_id'),
-                // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
-                'publish'               => $object->has('publish') ? (new Carbon(preg_replace('/\(.*\)/','', $object->get('publish')), config('app.timezone')))->toDateTimeString() : null,
-                'date'                  => $object->has('date') ? (new Carbon(preg_replace('/\(.*\)/','', $object->get('date')), config('app.timezone')))->toDateTimeString() : null,
-                'title'                 => $object->get('title'),
-                'slug'                  => $object->get('slug'),
-                'link'                  => $object->get('link'),
-                'blank'                 => $object->get('blank'),
-                'sort'                  => $object->get('sort'),
-                'excerpt'               => $object->get('excerpt'),
-                'article'               => $object->get('article'),
-                'data'                  => json_encode($data)
-            ]);
+        Article::where('ix', $object['ix'])->update(ArticleService::builder($object));
 
-        $article = Article::find($object->get('ix'));
+        $article = Article::find($object['ix']);
 
         if(config('scout.driver') === 'algolia')
             $article->searchable();
@@ -111,7 +84,6 @@ class ArticleService
             $article->save();
         }
 
-        ArticleService::setTags($article, $object, true);
         $article->categories()->sync($object['categories_id']);
 
         // set attachments
@@ -127,25 +99,35 @@ class ArticleService
         return $article;
     }
 
-    private static function setTags($article, $object, $destroyPreviousTags = false)
+    private static function builder($object)
     {
-        if($destroyPreviousTags && $article->tags->count() > 0)
-        {
-            Tag::whereIn('id', $article->tags->pluck('id'))
-                ->delete();
-        }
+        $object = collect($object);
+        $data = [];
 
-        if(is_array($object['tags']) && count($object['tags']) > 0)
-        {
-            $tags = [];
-            foreach (array_unique($object['tags']) as $tag)
-            {
-                $tags[] = new Tag([
-                    'lang_id'   => $object['lang_id'],
-                    'name'      => $tag
-                ]);
-            }
-            $article->tags()->saveMany($tags);
-        }
+        if($object->has('name'))                    $data['name'] = $object->get('name');
+        if($object->has('parent_id'))               $data['parent_id'] = $object->get('parent_id');
+        if($object->has('author_id'))               $data['author_id'] = $object->get('author_id');
+        if($object->has('section_id'))              $data['section_id'] = $object->get('section_id');
+        if($object->has('family_id'))               $data['family_id'] = $object->get('family_id');
+        if($object->has('status_id'))               $data['status_id'] = $object->get('status_id');
+        if($object->has('publish'))                 $data['publish'] = date_time_string($object->get('publish'));
+        if($object->has('date'))                    $data['date'] = date_time_string($object->get('date'));
+        if($object->has('title'))                   $data['title'] = $object->get('title');
+        if($object->has('slug'))                    $data['slug'] = $object->get('slug');
+        if($object->has('link'))                    $data['link'] = $object->get('link');
+        if($object->has('blank'))                   $data['blank'] = $object->get('blank');
+        if($object->has('tags'))                    $data['tags'] = $object->get('tags');
+        if($object->has('sort'))                    $data['sort'] = $object->get('sort');
+        if($object->has('excerpt'))                 $data['excerpt'] = $object->get('excerpt');
+        if($object->has('article'))                 $data['article'] = $object->get('article');
+        if($object->has('data_lang'))               $data['data_lang'] = $object->get('data_lang');
+        if($object->has('data'))                    $data['data'] = $object->get('data');
+
+        return $data;
+    }
+
+    private static function check($object)
+    {
+
     }
 }

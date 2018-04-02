@@ -1,13 +1,11 @@
 <?php namespace Syscover\Cms\GraphQL\Mutations;
 
-use Carbon\Carbon;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Cms\Services\ArticleService;
 use Syscover\Core\Services\SQLService;
-use Syscover\Cms\Models\Tag;
 use Syscover\Cms\Models\Article;
 
 class ArticleMutation extends Mutation
@@ -82,10 +80,6 @@ class DeleteArticleMutation extends ArticleMutation
 
         // detach categories only if delete base land object
         if(base_lang() === $object->lang_id) $object->categories()->detach();
-
-        // delete and detach tags
-        Tag::whereIn('id', $object->tags->pluck('id'))->delete();
-        $object->tags()->detach();
 
         // destroy attachments
         AttachmentService::deleteAttachments($args['id'], Article::class, $args['lang_id']);

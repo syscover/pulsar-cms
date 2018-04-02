@@ -33,11 +33,12 @@ class Category extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query;
+        return $query->leftJoin('cms_section', 'cms_category.section_id', '=', 'cms_section.id')
+            ->select('cms_section.*', 'cms_category.*', 'cms_section.name as section_name', 'cms_category.name as category_name');
     }
 
     public function section()
     {
-        return $this->belongsTo(Section::class, 'section_id');
+        return $this->belongsTo(Section::class, 'section_id', 'id');
     }
 }

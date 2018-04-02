@@ -41,7 +41,7 @@ class CategoryInput extends GraphQLType
             ],
             'sort' => [
                 'type' => Type::int(),
-                'description' => 'Activate sort in article'
+                'description' => 'Category sort'
             ],
             'data_lang' => [
                 'type' => Type::listOf(Type::string()),

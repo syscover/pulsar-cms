@@ -60,10 +60,6 @@ class ArticleInput extends GraphQLType
                 'type' => Type::listOf(Type::int()),
                 'description' => 'Id categories'
             ],
-            'tags' => [
-                'type' => Type::listOf(Type::string()),
-                'description' => 'Id tags'
-            ],
             'publish' => [
                 'type' => Type::string(),
                 'description' => 'Set the date to publish your article'
@@ -87,6 +83,10 @@ class ArticleInput extends GraphQLType
             'blank' => [
                 'type' => Type::boolean(),
                 'description' => 'Set article to open in new window'
+            ],
+            'tags' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'Tags of article'
             ],
             'sort' => [
                 'type' => Type::int(),

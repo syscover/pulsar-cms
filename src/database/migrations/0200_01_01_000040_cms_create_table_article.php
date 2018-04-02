@@ -32,6 +32,7 @@ class CmsCreateTableArticle extends Migration {
                 $table->string('slug')->nullable();
                 $table->string('link')->nullable();
                 $table->boolean('blank')->nullable();
+                $table->json('tags')->nullable();
                 $table->integer('sort')->unsigned()->nullable(); // article sort
                 $table->text('excerpt')->nullable();
                 $table->longText('article')->nullable();
