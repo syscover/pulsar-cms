@@ -25,9 +25,9 @@ class SectionService
         if(! empty($object['attachment_families'])) $object['attachment_families'] = json_encode($object['attachment_families']);
 
         SectionService::check($object);
-        Section::where('ix', $object->get('ix'))->update(SectionService::builder($object));
+        Section::where('ix', $object['ix'])->update(SectionService::builder($object));
 
-        return Section::find($object->get('ix'));
+        return Section::find($object['ix']);
     }
 
     private static function builder($object)
