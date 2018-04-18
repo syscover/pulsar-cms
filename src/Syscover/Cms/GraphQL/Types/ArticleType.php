@@ -51,6 +51,10 @@ class ArticleType extends GraphQLType {
                 'type' => Type::int(),
                 'description' => 'The family of article to set our morphology'
             ],
+            'family' => [
+                'type' => GraphQL::type('CmsFamily'),
+                'description' => 'Section object'
+            ],
             'status_id' => [
                 'type' => Type::int(),
                 'description' => 'The status of article, you can publish or draft your article'

@@ -72,8 +72,7 @@ class ArticleService
 
         $article = Article::find($object['ix']);
 
-        if(config('scout.driver') === 'algolia')
-            $article->searchable();
+        if(config('scout.driver') === 'algolia') $article->searchable();
 
         // parse html and manage img of wysiwyg
         $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
@@ -104,6 +103,7 @@ class ArticleService
         $object = collect($object);
         $data = [];
 
+        if($object->has('id'))                      $data['id'] = $object->get('id');
         if($object->has('name'))                    $data['name'] = $object->get('name');
         if($object->has('parent_id'))               $data['parent_id'] = $object->get('parent_id');
         if($object->has('author_id'))               $data['author_id'] = $object->get('author_id');
