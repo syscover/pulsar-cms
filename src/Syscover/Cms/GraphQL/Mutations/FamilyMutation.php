@@ -47,7 +47,7 @@ class UpdateFamilyMutation extends FamilyMutation
 
     public function resolve($root, $args)
     {
-        return FamilyService::update($args['object'], $args['object']['id']);
+        return FamilyService::update($args['object']);
     }
 }
 
