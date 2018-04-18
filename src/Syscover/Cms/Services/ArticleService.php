@@ -104,6 +104,7 @@ class ArticleService
         $data = [];
 
         if($object->has('id'))                      $data['id'] = $object->get('id');
+        if($object->has('lang_id'))                 $data['lang_id'] = $object->get('lang_id');
         if($object->has('name'))                    $data['name'] = $object->get('name');
         if($object->has('parent_id'))               $data['parent_id'] = $object->get('parent_id');
         if($object->has('author_id'))               $data['author_id'] = $object->get('author_id');
