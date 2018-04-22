@@ -126,6 +126,7 @@ class Article extends CoreModel
             'title'         => strip_tags($this->title),
             'slug'          => $this->slug,
             'sort'          => $this->sort,
+            'tags'          => $this->tags,
             'excerpt'       => strip_tags($this->excerpt),
             'article'       => strip_tags($this->article),
             'categories'    => $this->categories->where('lang_id', $this->lang_id)->implode('name', ',')
