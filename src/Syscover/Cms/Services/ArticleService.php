@@ -12,12 +12,7 @@ class ArticleService
      */
     public static function create($object)
     {
-        if(empty($object['id']))
-        {
-            $id = Article::max('id');
-            $id++;
-            $object['id'] = $id;
-        }
+        if(empty($object['id'])) $object['id'] = next_id(Article::class);
 
         // set values to transform
         // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
@@ -101,30 +96,32 @@ class ArticleService
     private static function builder($object)
     {
         $object = collect($object);
-        $data = [];
+        $object = $object->only(
+            'id',
+            'lang_id',
+            'name',
+            'parent_id',
+            'author_id',
+            'section_id',
+            'family_id',
+            'status_id',
+            'publish',
+            'date',
+            'title',
+            'slug',
+            'link',
+            'blank',
+            'tags',
+            'sort',
+            'excerpt',
+            'article',
+            'data_lang',
+            'data');
 
-        if($object->has('id'))                      $data['id'] = $object->get('id');
-        if($object->has('lang_id'))                 $data['lang_id'] = $object->get('lang_id');
-        if($object->has('name'))                    $data['name'] = $object->get('name');
-        if($object->has('parent_id'))               $data['parent_id'] = $object->get('parent_id');
-        if($object->has('author_id'))               $data['author_id'] = $object->get('author_id');
-        if($object->has('section_id'))              $data['section_id'] = $object->get('section_id');
-        if($object->has('family_id'))               $data['family_id'] = $object->get('family_id');
-        if($object->has('status_id'))               $data['status_id'] = $object->get('status_id');
-        if($object->has('publish'))                 $data['publish'] = date_time_string($object->get('publish'));
-        if($object->has('date'))                    $data['date'] = date_time_string($object->get('date'));
-        if($object->has('title'))                   $data['title'] = $object->get('title');
-        if($object->has('slug'))                    $data['slug'] = $object->get('slug');
-        if($object->has('link'))                    $data['link'] = $object->get('link');
-        if($object->has('blank'))                   $data['blank'] = $object->get('blank');
-        if($object->has('tags'))                    $data['tags'] = $object->get('tags');
-        if($object->has('sort'))                    $data['sort'] = $object->get('sort');
-        if($object->has('excerpt'))                 $data['excerpt'] = $object->get('excerpt');
-        if($object->has('article'))                 $data['article'] = $object->get('article');
-        if($object->has('data_lang'))               $data['data_lang'] = $object->get('data_lang');
-        if($object->has('data'))                    $data['data'] = $object->get('data');
+        if($object->has('publish')) $object['publish'] = date_time_string($object->get('publish'));
+        if($object->has('date'))    $object['date'] = date_time_string($object->get('date'));
 
-        return $data;
+        return $object->toArray();
     }
 
     private static function check($object)
