@@ -53,12 +53,14 @@ class Article extends CoreModel
     // Accessors
     public function getPublishAttribute($value)
     {
+        // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
         return (new Carbon($value))->format('Y-m-d\TH:i:s');
     }
 
     public function getDateAttribute($value)
     {
+        // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
         return (new Carbon($value))->format('Y-m-d\TH:i:s');
     }
