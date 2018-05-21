@@ -1,8 +1,8 @@
 <?php namespace Syscover\Cms\Models;
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Scout\Searchable;
+use Carbon\Carbon;
 use Syscover\Admin\Models\Attachment;
 use Syscover\Admin\Models\User;
 use Syscover\Admin\Traits\CustomizableValues;
