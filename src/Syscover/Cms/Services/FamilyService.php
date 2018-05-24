@@ -21,7 +21,7 @@ class FamilyService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('name', 'excerpt_editor_id', 'article_editor_id', 'field_group_id', 'date', 'title', 'slug', 'link', 'categories', 'sort', 'tags', 'article_parent', 'attachments')->toArray();
+        return $object->only(['name', 'excerpt_editor_id', 'article_editor_id', 'field_group_id', 'date', 'title', 'slug', 'link', 'categories', 'sort', 'tags', 'article_parent', 'attachments'])->toArray();
     }
 
     private static function checkCreate($object)
