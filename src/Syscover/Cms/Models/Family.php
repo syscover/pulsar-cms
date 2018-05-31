@@ -29,7 +29,7 @@ class Family extends CoreModel
         'data'                  => 'array'
     ];
     public $with = [
-        'fieldGroup'
+        'field_group'
     ];
 
     private static $rules   = [];
@@ -44,7 +44,7 @@ class Family extends CoreModel
         return $query;
     }
 
-    public function fieldGroup()
+    public function field_group()
     {
         return $this->belongsTo(FieldGroup::class, 'field_group_id');
     }

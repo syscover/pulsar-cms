@@ -104,7 +104,7 @@ class ArticleInput extends GraphQLType
                 'type' => Type::listOf(app(ObjectType::class)),
                 'description' => 'List of attachments added to article'
             ],
-            'customFields' => [
+            'custom_fields' => [
                 'type' => app(ObjectType::class),
                 'description' => 'Properties from custom fields'
             ],

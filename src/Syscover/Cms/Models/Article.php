@@ -134,9 +134,9 @@ class Article extends CoreModel
             'categories'    => $this->categories->where('lang_id', $this->lang_id)->implode('name', ',')
         ];
 
-        if(isset($this->data['customFields']) && is_array($this->data['customFields']))
+        if(isset($this->data['custom_fields']) && is_array($this->data['custom_fields']))
         {
-            foreach ($this->data['customFields'] as $index => $value)
+            foreach ($this->data['custom_fields'] as $index => $value)
             {
                 if(! array_key_exists($index, $searchable)) $searchable[$index] = strip_tags($value);
             }

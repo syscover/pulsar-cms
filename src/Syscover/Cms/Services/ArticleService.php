@@ -19,7 +19,7 @@ class ArticleService
         $object['data_lang'] = Article::addDataLang($object['lang_id'], $object['id']);
 
         // get custom fields
-        if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
+        if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
 
         // create new object,
         // to create article execute method searcheable from scout to index in algolia
@@ -59,7 +59,7 @@ class ArticleService
     public static function update($object)
     {
         // get custom fields
-        if(isset($object['field_group_id'])) $object['data']['customFields'] = $object['customFields'];
+        if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
         if(! empty($object['tags'])) $object['tags'] = json_encode($object['tags']);
         if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
 
