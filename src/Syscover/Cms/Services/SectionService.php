@@ -23,7 +23,7 @@ class SectionService
     private static function builder($object)
     {
         $object = collect($object);
-        return $object->only('id', 'name', 'family_id', 'attachment_families')->toArray();
+        return $object->only(['id', 'name', 'family_id', 'attachment_families'])->toArray();
     }
 
     private static function checkCreate($object)

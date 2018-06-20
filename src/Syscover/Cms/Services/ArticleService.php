@@ -96,7 +96,7 @@ class ArticleService
     private static function builder($object)
     {
         $object = collect($object);
-        $object = $object->only(
+        $object = $object->only([
             'id',
             'lang_id',
             'name',
@@ -116,7 +116,8 @@ class ArticleService
             'excerpt',
             'article',
             'data_lang',
-            'data');
+            'data'
+        ]);
 
         if($object->has('publish')) $object['publish'] = date_time_string($object->get('publish'));
         if($object->has('date'))    $object['date'] = date_time_string($object->get('date'));

@@ -29,7 +29,7 @@ class CategoryService
         $object = collect($object);
         if($filterKeys) return $object->only($filterKeys)->toArray();
 
-        return  $object->only('lang_id', 'name', 'slug', 'section_id', 'sort', 'data_lang', 'data')->toArray();
+        return  $object->only(['lang_id', 'name', 'slug', 'section_id', 'sort', 'data_lang', 'data'])->toArray();
     }
 
     private static function checkCreate($object)
