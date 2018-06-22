@@ -1,6 +1,5 @@
 <?php namespace Syscover\Cms\Services;
 
-use Carbon\Carbon;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Cms\Models\Article;
 
