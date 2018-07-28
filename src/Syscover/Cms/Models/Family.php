@@ -39,11 +39,6 @@ class Family extends CoreModel
         return Validator::make($data, static::$rules);
 	}
 
-    public function scopeBuilder($query)
-    {
-        return $query;
-    }
-
     public function field_group()
     {
         return $this->belongsTo(FieldGroup::class, 'field_group_id');
