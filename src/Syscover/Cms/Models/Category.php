@@ -34,8 +34,9 @@ class Category extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->leftJoin('cms_section', 'cms_category.section_id', '=', 'cms_section.id')
-            ->addSelect('cms_section.*', 'cms_category.*', 'cms_section.name as section_name', 'cms_category.name as category_name');
+        return $query
+            ->leftJoin('cms_section', 'cms_category.section_id', '=', 'cms_section.id')
+            ->addSelect('cms_section.*', 'cms_category.*', 'cms_section.name as cms_section_name', 'cms_category.name as cms_category_name');
     }
 
     public function scopeCalculateFoundRows($query)

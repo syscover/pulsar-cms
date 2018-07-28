@@ -48,8 +48,9 @@ class Article extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->leftJoin('cms_section', 'cms_article.section_id', '=', 'cms_section.id')
-            ->addSelect('cms_section.*', 'cms_article.*', 'cms_section.name as section_name', 'cms_article.name as article_name');
+        return $query
+            ->leftJoin('cms_section', 'cms_article.section_id', '=', 'cms_section.id')
+            ->addSelect('cms_section.*', 'cms_article.*', 'cms_section.name as cms_section_name', 'cms_article.name as cms_article_name');
     }
 
     public function scopeCalculateFoundRows($query)

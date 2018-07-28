@@ -30,8 +30,9 @@ class Section extends CoreModel
 
     public function scopeBuilder($query)
     {
-        return $query->leftJoin('cms_family', 'cms_section.family_id', '=', 'cms_family.id')
-            ->addSelect('cms_family.*', 'cms_section.*', 'cms_family.name as family_name', 'cms_section.name as section_name');
+        return $query
+            ->leftJoin('cms_family', 'cms_section.family_id', '=', 'cms_family.id')
+            ->addSelect('cms_family.*', 'cms_section.*', 'cms_family.name as cms_family_name', 'cms_section.name as cms_section_name');
     }
 
     public function scopeCalculateFoundRows($query)
