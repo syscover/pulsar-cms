@@ -1,5 +1,6 @@
 <?php namespace Syscover\Cms\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Scout\Searchable;
 use Carbon\Carbon;
@@ -49,6 +50,11 @@ class Article extends CoreModel
     {
         return $query->leftJoin('cms_section', 'cms_article.section_id', '=', 'cms_section.id')
             ->select('cms_section.*', 'cms_article.*', 'cms_section.name as section_name', 'cms_article.name as article_name');
+    }
+
+    public function scopeCalculateFoundRows($query)
+    {
+        return $query->select(DB::raw('SQL_CALC_FOUND_ROWS cms_article.ix'));
     }
 
     // Accessors
