@@ -31,8 +31,7 @@ class FamiliesPaginationQuery extends Query
     public function resolve($root, $args)
     {
         return (Object) [
-            // set setEagerLoads to clean eager loads to use FOUND_ROWS() MySql Function
-            'query' => Family::calculateFoundRows()->builder()->setEagerLoads([])
+            'query' => Family::calculateFoundRows()->builder()
         ];
     }
 }
