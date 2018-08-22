@@ -43,6 +43,7 @@ class CmsCreateTableArticle extends Migration {
                 $table->softDeletes();
 
                 $table->index(['id', 'lang_id'], 'ix01_cms_article');
+                $table->index('slug', 'ix02_cms_article');
                 $table->unique(['lang_id', 'slug'], 'uk01_cms_article');
 
                 $table->foreign('lang_id', 'fk01_cms_article')

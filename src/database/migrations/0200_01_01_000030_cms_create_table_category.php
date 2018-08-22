@@ -31,6 +31,7 @@ class CmsCreateTableCategory extends Migration {
                 $table->softDeletes();
 
                 $table->index(['id', 'lang_id'], 'ix01_cms_category');
+                $table->index('slug', 'ix02_cms_category');
 
                 $table->foreign('lang_id', 'fk01_cms_category')
                     ->references('id')
