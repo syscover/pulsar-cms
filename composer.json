@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0",
+        "php": "^7.1.3",
         "laravel/scout": "^3.0"
     },
     "autoload": {
