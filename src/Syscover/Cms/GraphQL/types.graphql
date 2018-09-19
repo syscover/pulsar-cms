@@ -1,0 +1,67 @@
+type CmsFamily {
+    id: ID!
+    name: String!
+    excerpt_editor_id: Int
+    article_editor_id: Int
+    field_group_id: Int
+    date: Boolean
+    title: Boolean
+    slug: Boolean
+    link: Boolean
+    categories: Boolean
+    sort: Boolean
+    tags: Boolean
+    article_parent: Boolean
+    attachments: Boolean
+    data: Object
+}
+
+type CmsSection {
+    ix: ID!
+    id: String!
+    name: String!
+    family_id: Int
+    family: CmsFamily
+    attachment_families: [String]
+}
+
+type CmsCategory {
+    ix: ID!
+    id: String!
+    lang_id: String!
+    name: String!
+    slug: String
+    section_id: String
+    section: CmsSection
+    sort: Int
+    data_lang: [String]
+}
+
+type CmsArticle {
+    ix: ID!
+    id: String!
+    lang_id: String!
+    parent_id: Int
+    name: String!
+    author_id: Int
+    section_id: String
+    section: CmsSection
+    family_id: Int
+    family: CmsFamily
+    status_is: Int
+    publish: String
+    date: String
+    title: String
+    slug: String
+    categories_id: [Int]
+    categories: [CmsCategory]
+    link:String
+    blank: Boolean
+    tags: [String]
+    sort: Int
+    excerpt: String
+    article: string
+    data_lang: [String]
+    data: Object
+    attachments: [AdminAttachment]
+}
