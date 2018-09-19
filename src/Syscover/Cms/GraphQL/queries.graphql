@@ -1,0 +1,7 @@
+# Query to get actions list
+cmsArticles(sql:[CoreSQLInput]): [CmsArticle!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQL@create")
+# Query to get action
+cmsArticle(sql:[CoreSQLInput]): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQL@find")
+# Query to get actions paginated
+cmsArticlesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQL@paginate")
+

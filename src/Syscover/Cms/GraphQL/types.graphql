@@ -55,12 +55,12 @@ type CmsArticle {
     slug: String
     categories_id: [Int]
     categories: [CmsCategory]
-    link:String
+    link: String
     blank: Boolean
     tags: [String]
     sort: Int
     excerpt: String
-    article: string
+    article: String
     data_lang: [String]
     data: Object
     attachments: [AdminAttachment]
