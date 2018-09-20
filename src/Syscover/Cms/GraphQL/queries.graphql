@@ -1,7 +1,24 @@
-# Query to get actions list
-cmsArticles(sql:[CoreSQLInput]): [CmsArticle!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQL@create")
-# Query to get action
-cmsArticle(sql:[CoreSQLInput]): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQL@find")
-# Query to get actions paginated
-cmsArticlesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQL@paginate")
+# Families
+""" Query to get families list """
+cmsFamilies(sql:[CoreSQLInput]): [CmsFamily!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@get")
+""" Query to get family """
+cmsFamily(sql:[CoreSQLInput]): CmsFamily @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@find")
+""" Query to get families paginated """
+cmsFamiliesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@paginate")
+
+# Sections
+""" Query to get sections list """
+cmsSections(sql:[CoreSQLInput]): [CmsSection!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@get")
+""" Query to get section """
+cmsSection(sql:[CoreSQLInput]): CmsSection @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@find")
+""" Query to get sections paginated """
+cmsSectionsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@paginate")
+
+# Articles
+""" Query to get articles list """
+cmsArticles(sql:[CoreSQLInput]): [CmsArticle!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@get")
+""" Query to get article """
+cmsArticle(sql:[CoreSQLInput]): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@find")
+""" Query to get articles paginated """
+cmsArticlesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@paginate")
 

@@ -1,5 +1,5 @@
 type CmsFamily {
-    id: ID!
+    id: Int!
     name: String!
     excerpt_editor_id: Int
     article_editor_id: Int
@@ -17,7 +17,7 @@ type CmsFamily {
 }
 
 type CmsSection {
-    ix: ID!
+    ix: Int!
     id: String!
     name: String!
     family_id: Int
@@ -26,7 +26,7 @@ type CmsSection {
 }
 
 type CmsCategory {
-    ix: ID!
+    ix: Int!
     id: String!
     lang_id: String!
     name: String!
@@ -38,7 +38,7 @@ type CmsCategory {
 }
 
 type CmsArticle {
-    ix: ID!
+    ix: Int!
     id: String!
     lang_id: String!
     parent_id: Int
@@ -48,7 +48,7 @@ type CmsArticle {
     section: CmsSection
     family_id: Int
     family: CmsFamily
-    status_is: Int
+    status_id: Int
     publish: String
     date: String
     title: String
@@ -61,7 +61,7 @@ type CmsArticle {
     sort: Int
     excerpt: String
     article: String
+    attachments: [AdminAttachment]
     data_lang: [String]
     data: Object
-    attachments: [AdminAttachment]
 }

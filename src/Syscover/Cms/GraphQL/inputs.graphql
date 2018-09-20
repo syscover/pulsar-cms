@@ -1,0 +1,26 @@
+input CmsArticleInput {
+    ix: ID
+    id: String
+    lang_id: String!
+    parent_id: Int
+    name: String!
+    author_id: Int
+    section_id: String
+    family_id: Int
+    field_group_id: Int
+    status_id: Int
+    publish: String
+    date: String
+    title: String
+    slug: String
+    categories_id: [Int]
+    link: String
+    blank: Boolean
+    tags: [String]
+    sort: Int
+    excerpt: String
+    article: String
+    attachments: [Object]
+    custom_fields: Object
+    data_lang: [String]
+}

@@ -1,0 +1,7 @@
+# Articles
+#
+cmsCreateArticle(object: AdminActionInput!): AdminAction @field(resolver: "Syscover\\Admin\\GraphQL\\Services\\ActionGraphQLService@create")
+#
+cmsUpdateArticle(object: AdminActionInput!): AdminAction @field(resolver: "Syscover\\Admin\\GraphQL\\Services\\ActionGraphQLService@update")
+#
+cmsDeleteArticle(id: Int!): AdminAction @field(resolver: "Syscover\\Admin\\GraphQL\\Services\\ActionGraphQLService@delete")

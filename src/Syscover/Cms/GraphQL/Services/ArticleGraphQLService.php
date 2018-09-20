@@ -2,9 +2,9 @@
 
 use Syscover\Cms\Models\Article;
 use Syscover\Cms\Services\ArticleService;
-use Syscover\Core\GraphQL\Services\CoreGraphQL;
+use Syscover\Core\GraphQL\Services\CoreGraphQLService;
 
-class ArticleGraphQL extends CoreGraphQL
+class ArticleGraphQLService extends CoreGraphQLService
 {
     protected $model = Article::class;
     protected $service = ArticleService::class;
