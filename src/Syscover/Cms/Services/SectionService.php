@@ -6,16 +6,16 @@ class SectionService
 {
     public static function create($object)
     {
-        SectionService::checkCreate($object);
-        return Section::create(SectionService::builder($object));
+        self::checkCreate($object);
+        return Section::create(self::builder($object));
     }
 
     public static function update($object)
     {
         if(! empty($object['attachment_families'])) $object['attachment_families'] = json_encode($object['attachment_families']);
 
-        SectionService::checkUpdate($object);
-        Section::where('ix', $object['ix'])->update(SectionService::builder($object));
+        self::checkUpdate($object);
+        Section::where('ix', $object['ix'])->update(self::builder($object));
 
         return Section::find($object['ix']);
     }

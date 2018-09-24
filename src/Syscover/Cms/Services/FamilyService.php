@@ -6,14 +6,14 @@ class FamilyService
 {
     public static function create($object)
     {
-        FamilyService::checkCreate($object);
-        return Family::create(FamilyService::builder($object));
+        self::checkCreate($object);
+        return Family::create(self::builder($object));
     }
 
     public static function update($object)
     {
-        FamilyService::checkUpdate($object);
-        Family::where('id', $object['id'])->update(FamilyService::builder($object));
+        self::checkUpdate($object);
+        Family::where('id', $object['id'])->update(self::builder($object));
 
         return Family::find($object['id']);
     }

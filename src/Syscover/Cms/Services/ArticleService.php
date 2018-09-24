@@ -124,8 +124,14 @@ class ArticleService
         return $object->toArray();
     }
 
-    private static function check($object)
+    private static function checkCreate($object)
     {
+//        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a category');
+//        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a category');
+    }
 
+    private static function checkUpdate($object)
+    {
+//        if(empty($object['ix']))    throw new \Exception('You have to define a ix field to update a article');
     }
 }
