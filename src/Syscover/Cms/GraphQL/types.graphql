@@ -1,42 +1,3 @@
-type CmsFamily {
-    id: Int!
-    name: String!
-    excerpt_editor_id: Int
-    article_editor_id: Int
-    field_group_id: Int
-    date: Boolean
-    title: Boolean
-    slug: Boolean
-    link: Boolean
-    categories: Boolean
-    sort: Boolean
-    tags: Boolean
-    article_parent: Boolean
-    attachments: Boolean
-    data: Object
-}
-
-type CmsSection {
-    ix: Int!
-    id: String!
-    name: String!
-    family_id: Int
-    family: CmsFamily
-    attachment_families: [String]
-}
-
-type CmsCategory {
-    ix: Int!
-    id: String!
-    lang_id: String!
-    name: String!
-    slug: String
-    section_id: String
-    section: CmsSection
-    sort: Int
-    data_lang: [String]
-}
-
 type CmsArticle {
     ix: Int!
     id: String!
@@ -64,4 +25,43 @@ type CmsArticle {
     attachments: [AdminAttachment]
     data_lang: [String]
     data: Object
+}
+
+type CmsCategory {
+    ix: Int!
+    id: String!
+    lang_id: String!
+    name: String!
+    slug: String
+    section_id: String
+    section: CmsSection
+    sort: Int
+    data_lang: [String]
+}
+
+type CmsFamily {
+    id: Int!
+    name: String!
+    excerpt_editor_id: Int
+    article_editor_id: Int
+    field_group_id: Int
+    date: Boolean
+    title: Boolean
+    slug: Boolean
+    link: Boolean
+    categories: Boolean
+    sort: Boolean
+    tags: Boolean
+    article_parent: Boolean
+    attachments: Boolean
+    data: Object
+}
+
+type CmsSection {
+    ix: Int!
+    id: String!
+    name: String!
+    family_id: Int
+    family: CmsFamily
+    attachment_families: [String]
 }

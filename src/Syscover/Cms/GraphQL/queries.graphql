@@ -1,28 +1,4 @@
-# Families
-""" Query to get families list """
-cmsFamilies(sql:[CoreSQLInput]): [CmsFamily!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@get")
-""" Query to get family """
-cmsFamily(sql:[CoreSQLInput]): CmsFamily @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@find")
-""" Query to get families paginated """
-cmsFamiliesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@paginate")
-
-# Sections
-""" Query to get sections list """
-cmsSections(sql:[CoreSQLInput]): [CmsSection!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@get")
-""" Query to get section """
-cmsSection(sql:[CoreSQLInput]): CmsSection @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@find")
-""" Query to get sections paginated """
-cmsSectionsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@paginate")
-
-# Categories
-""" Query to get categories list """
-cmsCategories(sql:[CoreSQLInput]): [CmsCategory!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@get")
-""" Query to get category """
-cmsCategory(sql:[CoreSQLInput]): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@find")
-""" Query to get categories paginated """
-cmsCategoriesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@paginate")
-
-# Articles
+# Article
 """ Query to get articles list """
 cmsArticles(sql:[CoreSQLInput]): [CmsArticle!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@get")
 """ Query to get article """
@@ -30,3 +6,26 @@ cmsArticle(sql:[CoreSQLInput]): CmsArticle @field(resolver: "Syscover\\Cms\\Grap
 """ Query to get articles paginated """
 cmsArticlesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@paginate")
 
+# Category
+""" Query to get categories list """
+cmsCategories(sql:[CoreSQLInput]): [CmsCategory!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@get")
+""" Query to get category """
+cmsCategory(sql:[CoreSQLInput]): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@find")
+""" Query to get categories paginated """
+cmsCategoriesPagination(sql:[CoreSQLInput] filters:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@paginate")
+
+# Family
+""" Query to get families list """
+cmsFamilies(sql:[CoreSQLInput]): [CmsFamily!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@get")
+""" Query to get family """
+cmsFamily(sql:[CoreSQLInput]): CmsFamily @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@find")
+""" Query to get families paginated """
+cmsFamiliesPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@paginate")
+
+# Section
+""" Query to get sections list """
+cmsSections(sql:[CoreSQLInput]): [CmsSection!]! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@get")
+""" Query to get section """
+cmsSection(sql:[CoreSQLInput]): CmsSection @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@find")
+""" Query to get sections paginated """
+cmsSectionsPagination(sql:[CoreSQLInput]): CorePagination! @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@paginate")

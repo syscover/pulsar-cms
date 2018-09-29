@@ -20,7 +20,44 @@ input CmsArticleInput {
     sort: Int
     excerpt: String
     article: String
-    attachments: [Object]
+    attachments: [AdminAttachmentInput]
     custom_fields: Object
     data_lang: [String]
+}
+
+input CmsCategoryInput {
+    ix: Int
+    id: Int
+    lang_id: String!
+    name: String!
+    slug: String
+    section_id: String
+    sort: Int
+    data_lang: [String]
+}
+
+input CmsFamilyInput {
+    id: Int
+    name: String!
+    excerpt_editor_id: Int
+    article_editor_id: Int
+    field_group_id: Int
+    date: Boolean
+    title: Boolean
+    slug: Boolean
+    link: Boolean
+    categories: Boolean
+    sort: Boolean
+    tags: Boolean
+    article_parent: Boolean
+    attachments: Boolean
+    data: Object
+}
+
+input CmsSectionInput {
+    ix: Int
+    id: String
+    name: String!
+    family_id: Int
+    attachment_families: [String]
 }

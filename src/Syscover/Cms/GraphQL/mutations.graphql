@@ -1,7 +1,19 @@
-# Articles
-#
-cmsCreateArticle(object: AdminActionInput!): AdminAction @field(resolver: "Syscover\\Admin\\GraphQL\\Services\\ActionGraphQLService@create")
-#
-cmsUpdateArticle(object: AdminActionInput!): AdminAction @field(resolver: "Syscover\\Admin\\GraphQL\\Services\\ActionGraphQLService@update")
-#
-cmsDeleteArticle(id: Int!): AdminAction @field(resolver: "Syscover\\Admin\\GraphQL\\Services\\ActionGraphQLService@delete")
+# Article
+cmsCreateArticle(object: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@create")
+cmsUpdateArticle(object: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@update")
+cmsDeleteArticle(id:Int! lang_id:String): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@delete")
+
+# Category
+cmsCreateCategory(object: CmsCategoryInput!): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@create")
+cmsUpdateCategory(object: CmsCategoryInput!): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@update")
+cmsDeleteCategory(id:Int! lang_id:String!): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@delete")
+
+# Family
+cmsCreateFamily(object: CmsFamilyInput!): CmsFamily @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@create")
+cmsUpdateFamily(object: CmsFamilyInput!): CmsFamily @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@update")
+cmsDeleteFamily(id:Int!): CmsFamily @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@delete")
+
+# Section
+cmsCreateSection(object: CmsSectionInput!): CmsSection @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@create")
+cmsUpdateSection(object: CmsSectionInput!): CmsSection @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@update")
+cmsDeleteSection(id:String!): CmsSection @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\SectionGraphQLService@delete")
