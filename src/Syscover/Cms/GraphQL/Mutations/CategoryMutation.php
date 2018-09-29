@@ -74,7 +74,7 @@ class DeleteCategoryMutation extends CategoryMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Category::class, $args['lang_id']);
+        $object = SQLService::deleteRecord($args['id'], Category::class, $args['lang_id']);
 
         return $object;
     }

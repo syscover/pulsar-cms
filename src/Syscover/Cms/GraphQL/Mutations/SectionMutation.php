@@ -80,7 +80,7 @@ class DeleteSectionMutation extends SectionMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Section::class);
+        $object = SQLService::deleteRecord($args['id'], Section::class);
 
         return $object;
     }

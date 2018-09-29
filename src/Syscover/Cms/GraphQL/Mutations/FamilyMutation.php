@@ -70,7 +70,7 @@ class DeleteFamilyMutation extends FamilyMutation
 
     public function resolve($root, $args)
     {
-        $object = SQLService::destroyRecord($args['id'], Family::class);
+        $object = SQLService::deleteRecord($args['id'], Family::class);
 
         return $object;
     }

@@ -76,7 +76,7 @@ class DeleteArticleMutation extends ArticleMutation
     public function resolve($root, $args)
     {
         // destroy object
-        $object = SQLService::destroyRecord($args['id'], Article::class, $args['lang_id']);
+        $object = SQLService::deleteRecord($args['id'], Article::class, $args['lang_id']);
 
         // detach categories only if delete base land object
         if(base_lang() === $object->lang_id) $object->categories()->detach();
