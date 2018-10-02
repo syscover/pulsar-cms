@@ -8,18 +8,18 @@ use Syscover\Core\Services\SQLService;
 
 class ArticleGraphQLService extends CoreGraphQLService
 {
-    protected $model = Article::class;
-    protected $service = ArticleService::class;
+    protected $modelClassName = Article::class;
+    protected $serviceClassName = ArticleService::class;
 
     public function delete($root, array $args)
     {
-        $object = SQLService::deleteRecord($args['id'], $this->model, $args['lang_id']);
+        $object = SQLService::deleteRecord($args['id'], $this->modelClassName, $args['lang_id']);
 
         // detach categories only if delete base land object
         if(base_lang() === $object->lang_id) $object->categories()->detach();
 
         // delete attachments
-        AttachmentService::deleteAttachments($args['id'], $this->model, $args['lang_id']);
+        AttachmentService::deleteAttachments($args['id'], $this->modelClassName, $args['lang_id']);
 
         return $object;
     }
