@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ['jwt.auth', 'jwt.refresh']], function () {
+Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
 
 //    /*
 //    |----------------------------------
