@@ -19,7 +19,7 @@ class CmsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
         // register translations
-        $this->loadTranslationsFrom(__DIR__ .  '/../../lang', 'cms');
+        $this->loadTranslationsFrom(__DIR__ .  '/../../resources/lang', 'cms');
 
         // register seeds
         $this->publishes([
