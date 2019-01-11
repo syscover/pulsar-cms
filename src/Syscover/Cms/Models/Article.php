@@ -63,14 +63,14 @@ class Article extends CoreModel
     {
         // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
-        return (new Carbon($value))->format('Y-m-d\TH:i:s');
+        return $value ? (new Carbon($value))->format('Y-m-d\TH:i:s') : null;
     }
 
     public function getDateAttribute($value)
     {
         // https://es.wikipedia.org/wiki/ISO_8601
         // return (new Carbon($value))->toW3cString();
-        return (new Carbon($value))->format('Y-m-d\TH:i:s');
+        return $value ? (new Carbon($value))->format('Y-m-d\TH:i:s') : null;
     }
 
     public function author()
