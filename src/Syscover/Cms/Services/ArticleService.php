@@ -21,11 +21,27 @@ class ArticleService
         if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
 
         // create new object,
-        // to create article execute method searcheable from scout to index in algolia
+        // create, make record in scout search engine, but without relations
         $article = Article::create(ArticleService::builder($object));
 
         // get object with builder, to get every relations
         $article = Article::find($article->ix);
+
+        // we update record if has scout search engine, for register relations
+        if (
+            config('scout.driver') === 'algolia' ||
+            config('scout.driver') === 'pulsar-search'
+        ) {
+            if($article->status_id === 2)
+            {
+                $article->searchable();
+            }
+            else
+            {
+                $article->unsearchable();
+            }
+        }
+
 
         // parse html and manage img of wysiwyg
         $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
@@ -58,20 +74,32 @@ class ArticleService
     public static function update($object)
     {
         // get custom fields
-        if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
-        if(! empty($object['tags'])) $object['tags'] = json_encode($object['tags']);
-        if(! empty($object['data'])) $object['data'] = json_encode($object['data']);
+        if (isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
+        if (! empty($object['tags'])) $object['tags'] = json_encode($object['tags']);
+        if (! empty($object['data'])) $object['data'] = json_encode($object['data']);
 
         Article::where('ix', $object['ix'])->update(ArticleService::builder($object));
 
         $article = Article::find($object['ix']);
 
-        if(config('scout.driver') === 'algolia') $article->searchable();
+        if (
+            config('scout.driver') === 'algolia' ||
+            config('scout.driver') === 'pulsar-search'
+        ) {
+            if($article->status_id === 2)
+            {
+                $article->searchable();
+            }
+            else
+            {
+                $article->unsearchable();
+            }
+        }
 
         // parse html and manage img of wysiwyg
         $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
 
-        if($html != null)
+        if ($html != null)
         {
             $article->article = $html;
             $article->save();
@@ -80,7 +108,7 @@ class ArticleService
         $article->categories()->sync($object['categories_id']);
 
         // set attachments
-        if(is_array($object['attachments']))
+        if (is_array($object['attachments']))
         {
             // first save libraries to get id
             $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);

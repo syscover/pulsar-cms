@@ -15,6 +15,11 @@ class ArticleGraphQLService extends CoreGraphQLService
     {
         $object = SQLService::deleteRecord($args['id'], $this->modelClassName, $args['lang_id']);
 
+        if (
+            config('scout.driver') === 'algolia' ||
+            config('scout.driver') === 'pulsar-search'
+        ) $object->unsearchable();
+
         // detach categories only if delete base land object
         if(base_lang() === $object->lang_id) $object->categories()->detach();
 
