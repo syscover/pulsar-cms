@@ -28,18 +28,12 @@ class ArticleService
         $article = Article::find($article->ix);
 
         // we update record if has scout search engine, for register relations
-        if (
-            config('scout.driver') === 'algolia' ||
-            config('scout.driver') === 'pulsar-search'
-        ) {
+        if (has_scout())
+        {
             if($article->status_id === 2)
-            {
                 $article->searchable();
-            }
             else
-            {
                 $article->unsearchable();
-            }
         }
 
 
@@ -82,18 +76,12 @@ class ArticleService
 
         $article = Article::find($object['ix']);
 
-        if (
-            config('scout.driver') === 'algolia' ||
-            config('scout.driver') === 'pulsar-search'
-        ) {
+        if (has_scout())
+        {
             if($article->status_id === 2)
-            {
                 $article->searchable();
-            }
             else
-            {
                 $article->unsearchable();
-            }
         }
 
         // parse html and manage img of wysiwyg
