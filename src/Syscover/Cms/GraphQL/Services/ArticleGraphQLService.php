@@ -9,7 +9,7 @@ use Syscover\Core\Services\SQLService;
 class ArticleGraphQLService extends CoreGraphQLService
 {
     protected $model = Article::class;
-    protected $serviceClassName = ArticleService::class;
+    protected $service = ArticleService::class;
 
     public function delete($root, array $args)
     {
