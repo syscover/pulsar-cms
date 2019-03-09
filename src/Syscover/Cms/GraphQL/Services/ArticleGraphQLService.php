@@ -1,10 +1,10 @@
 <?php namespace Syscover\Cms\GraphQL\Services;
 
+use Syscover\Core\GraphQL\Services\CoreGraphQLService;
+use Syscover\Core\Services\SQLService;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Cms\Models\Article;
 use Syscover\Cms\Services\ArticleService;
-use Syscover\Core\GraphQL\Services\CoreGraphQLService;
-use Syscover\Core\Services\SQLService;
 
 class ArticleGraphQLService extends CoreGraphQLService
 {
