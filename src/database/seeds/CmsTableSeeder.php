@@ -9,8 +9,8 @@ class CmsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(CmsPackageTableSeeder::class);
-        $this->call(CmsResourceTableSeeder::class);
+        $this->call(CmsPackageSeeder::class);
+        $this->call(CmsResourceSeeder::class);
         $this->call(CmsAttachmentMimeSeeder::class);
 
         Model::reguard();

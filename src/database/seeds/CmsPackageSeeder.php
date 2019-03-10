@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Syscover\Admin\Models\Package;
 
-class CmsPackageTableSeeder extends Seeder
+class CmsPackageSeeder extends Seeder
 {
     public function run()
     {
@@ -15,5 +15,5 @@ class CmsPackageTableSeeder extends Seeder
 
 /*
  * Command to run:
- * php artisan db:seed --class="CmsPackageTableSeeder"
+ * php artisan db:seed --class="CmsPackageSeeder"
  */

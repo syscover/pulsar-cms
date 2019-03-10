@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Syscover\Admin\Models\Resource;
 
-class CmsResourceTableSeeder extends Seeder {
+class CmsResourceSeeder extends Seeder {
 
     public function run()
     {
@@ -19,5 +19,5 @@ class CmsResourceTableSeeder extends Seeder {
 
 /*
  * Command to run:
- * php artisan db:seed --class="CmsResourceTableSeeder"
+ * php artisan db:seed --class="CmsResourceSeeder"
  */
