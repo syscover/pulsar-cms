@@ -15,7 +15,7 @@ class ArticleService
 
         // set values to transform
         // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
-        $object['data_lang'] = Article::addDataLang($object['lang_id'], $object['id']);
+        $object['data_lang'] = Article::getDataLang($object['lang_id'], $object['id']);
 
         // get custom fields
         if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
