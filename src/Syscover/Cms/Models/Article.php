@@ -8,7 +8,7 @@ use Syscover\Admin\Models\Attachment;
 use Syscover\Admin\Models\User;
 use Syscover\Admin\Traits\CustomizableValues;
 use Syscover\Core\Models\CoreModel;
-use Syscover\Admin\Traits\Translatable;
+use Syscover\Admin\Traits\Langable;
 
 /**
  * Class Article
@@ -17,7 +17,7 @@ use Syscover\Admin\Traits\Translatable;
 
 class Article extends CoreModel
 {
-    use CustomizableValues, Translatable, Searchable;
+    use CustomizableValues, Langable, Searchable;
 
 	protected $table        = 'cms_article';
     protected $primaryKey   = 'ix';
