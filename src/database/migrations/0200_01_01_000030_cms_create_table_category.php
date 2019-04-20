@@ -19,7 +19,7 @@ class CmsCreateTableCategory extends Migration {
 
                 $table->increments('ix');
                 $table->integer('id')->unsigned();
-                $table->string('lang_id', 2);
+                $table->integer('lang_id')->unsigned();
                 $table->string('name');
                 $table->string('slug')->nullable();
                 $table->string('section_id', 30)->nullable();
@@ -30,15 +30,15 @@ class CmsCreateTableCategory extends Migration {
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['id', 'lang_id'], 'ix01_cms_category');
-                $table->index('slug', 'ix02_cms_category');
+                $table->index(['id', 'lang_id'], 'cms_category_id_lang_id_idx');
+                $table->index('slug', 'cms_category_slug_idx');
 
-                $table->foreign('lang_id', 'fk01_cms_category')
+                $table->foreign('lang_id', 'cms_category_lang_id_fk')
                     ->references('id')
                     ->on('admin_lang')
                     ->onDelete('restrict')
                     ->onUpdate('cascade');
-                $table->foreign('section_id', 'fk02_cms_category')
+                $table->foreign('section_id', 'cms_category_section_id_fk')
                     ->references('id')
                     ->on('cms_section')
                     ->onDelete('restrict')

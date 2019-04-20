@@ -1,46 +1,56 @@
 <?php namespace Syscover\Cms\Services;
 
 use Syscover\Cms\Models\Category;
+use Syscover\Core\Exceptions\ModelNotChangeException;
 
 class CategoryService
 {
-    public static function create($object)
+    public function store(array $data)
     {
-        self::checkCreate($object);
+        $this->validate($data, [
+            'lang_id'           => 'required|numeric',
+            'name'              => 'required|between:1,255',
+            'slug'              => 'required|between:1,255',
+            'section_id'        => 'nullable|between:0,30|exists:cms_section,id',
+            'sort'              => 'nullable|min:0|numeric',
+        ]);
 
-        if(empty($object['id'])) $object['id'] = next_id(Category::class);
+        if(empty($data['id'])) $object['id'] = next_id(Category::class);
 
-        $object['data_lang'] = Category::getDataLang($object['lang_id'], $object['id']);
+        $data['data_lang'] = Category::getDataLang($data['lang_id'], $data['id']);
 
-        return Category::create(self::builder($object));
+        return Category::create($data);
     }
 
-    public static function update($object)
+    public function update(array $data, int $ix)
     {
-        self::checkUpdate($object);
-        Category::where('ix', $object['ix'])->update(self::builder($object));
-        Category::where('id', $object['id'])->update(self::builder($object, ['section_id', 'sort']));
+        $this->validate($data, [
+            'ix'                => 'required|integer',
+            'id'                => 'required|integer',
+            'lang_id'           => 'required|numeric',
+            'name'              => 'required|between:1,255',
+            'slug'              => 'required|between:1,255',
+            'section_id'        => 'nullable|between:0,30|exists:cms_section,id',
+            'sort'              => 'nullable|min:0|numeric',
+        ]);
 
-        return Category::find($object['ix']);
-    }
+        $object = Category::findOrFail($ix);
+        $oldId  = $object->id; // retrieve the id for common update
 
-    private static function builder($object, $filterKeys = null)
-    {
-        $object = collect($object);
-        if($filterKeys) return $object->only($filterKeys)->toArray();
+        $object->fill($data);
 
-        return  $object->only(['id', 'lang_id', 'name', 'slug', 'section_id', 'sort', 'data_lang', 'data'])->toArray();
-    }
+        // check is model has changed
+        if ($object->isClean()) throw new ModelNotChangeException('At least one value must change');
 
-    private static function checkCreate($object)
-    {
-        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a category');
-        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a category');
-    }
+        // save changes
+        $object->save();
 
-    private static function checkUpdate($object)
-    {
-        if(empty($object['ix']))    throw new \Exception('You have to define a ix field to update a category');
-        if(empty($object['id']))    throw new \Exception('You have to define a id field to update a category');
+        // save changes in all object, with the same id
+        // this method is exclusive form elements multi language
+        $commonData = $object->only('section_id', 'sort');
+
+        Category::where('id', $oldId)->update($commonData);
+
+        return $object;
     }
 }
