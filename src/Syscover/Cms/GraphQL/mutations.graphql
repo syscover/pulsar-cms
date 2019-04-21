@@ -1,12 +1,12 @@
 # Article
-cmsCreateArticle(payload: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@create")
+cmsCreateArticle(payload: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@store")
 cmsUpdateArticle(payload: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@update")
-cmsDeleteArticle(id:Int! lang_id:Int): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@delete")
+cmsDeleteArticle(id:Int! lang_id:String): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@delete")
 
 # Category
 cmsCreateCategory(payload: CmsCategoryInput!): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@store")
 cmsUpdateCategory(payload: CmsCategoryInput!): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@update")
-cmsDeleteCategory(id:Int! lang_id:Int!): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@delete")
+cmsDeleteCategory(id:Int! lang_id:String!): CmsCategory @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\CategoryGraphQLService@delete")
 
 # Family
 cmsCreateFamily(payload: CmsFamilyInput!): CmsFamily @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\FamilyGraphQLService@create")

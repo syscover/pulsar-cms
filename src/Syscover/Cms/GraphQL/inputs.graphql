@@ -1,7 +1,7 @@
 input CmsArticleInput {
-    ix: ID
-    id: String
-    lang_id: Int!
+    ix: Int
+    id: Int
+    lang_id: String!
     parent_id: Int
     name: String!
     author_id: Int
@@ -28,7 +28,7 @@ input CmsArticleInput {
 input CmsCategoryInput {
     ix: Int
     id: Int
-    lang_id: Int!
+    lang_id: String!
     name: String!
     slug: String
     section_id: String

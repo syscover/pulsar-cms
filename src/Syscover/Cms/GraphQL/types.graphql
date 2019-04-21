@@ -1,7 +1,7 @@
 type CmsArticle {
     ix: Int!
-    id: String!
-    lang_id: Int!
+    id: Int!
+    lang_id: String!
     parent_id: Int
     name: String!
     author_id: Int
@@ -30,7 +30,7 @@ type CmsArticle {
 type CmsCategory {
     ix: Int!
     id: String!
-    lang_id: Int!
+    lang_id: String!
     name: String!
     slug: String
     section_id: String

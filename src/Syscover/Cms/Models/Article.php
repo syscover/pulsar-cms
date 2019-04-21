@@ -127,6 +127,7 @@ class Article extends CoreModel
     public function toSearchableArray()
     {
         $searchable =  [
+            'ix'            => $this->ix,
             'id'            => $this->id,
             'lang_id'       => $this->lang_id,
             'section_id'    => $this->section_id,

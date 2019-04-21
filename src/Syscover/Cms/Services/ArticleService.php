@@ -1,111 +1,119 @@
 <?php namespace Syscover\Cms\Services;
 
+use Syscover\Core\Services\Service;
+use Syscover\Core\Exceptions\ModelNotChangeException;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Cms\Models\Article;
 
-class ArticleService
+class ArticleService extends Service
 {
-    /**
-     * @param array     $object     contain properties of article
-     * @return $this|\Illuminate\Database\Eloquent\Model
-     */
-    public static function create($object)
+    public function store(array $data)
     {
-        if(empty($object['id'])) $object['id'] = next_id(Article::class);
+        $this->validate($data, [
+            'lang_id'       => 'required|size:2|exists:admin_lang,id',
+            'name'          => 'required|between:1,255',
+            'author_id'     => 'required|exists:admin_user,id',
+            'section_id'    => 'required|exists:cms_section,id',
+            'status_id'     => 'required|integer'
+        ]);
 
-        // set values to transform
-        // use preg_replace to format date from Google Chrome, attach (Hota de verano romance) string
-        $object['data_lang'] = Article::getDataLang($object['lang_id'], $object['id']);
+        if(empty($data['id'])) $data['id'] = next_id(Article::class);
+
+        $data['data_lang'] = Article::getDataLang($data['lang_id'], $data['id']);
 
         // get custom fields
-        if(isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
+        if(isset($data['field_group_id'])) $data['data']['custom_fields'] = $data['custom_fields'];
 
-        // create new object,
-        // create, make record in scout search engine, but without relations
-        $article = Article::create(ArticleService::builder($object));
+        $object = Article::create($data);
 
         // get object with builder, to get every relations
-        $article = Article::find($article->ix);
+        $object = $object->fresh();
 
         // we update record if has scout search engine, for register relations
         if (has_scout())
         {
-            if($article->status_id === 2)
-                $article->searchable();
-            else
-                $article->unsearchable();
+            // status 2 is public
+            if($object->status_id === 2) $object->searchable(); else $object->unsearchable();
         }
 
-
         // parse html and manage img of wysiwyg
-        $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
+        $html = AttachmentService::manageWysiwygAttachment($object->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $object->id);
 
         if($html != null)
         {
-            $article->article = $html;
-            $article->save();
+            $object->article = $html;
+            $object->save();
         }
 
-        $article->categories()->sync($object['categories_id']);
+        $object->categories()->sync($data['categories_id']);
 
         // set attachments
-        if(is_array($object['attachments']))
+        if(is_array($data['attachments']))
         {
             // first save libraries to get id
-            $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);
+            $attachments = AttachmentService::storeAttachmentsLibrary($data['attachments']);
 
             // then save attachments
-            AttachmentService::storeAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $article->id,  $article->lang_id);
+            AttachmentService::storeAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $object->id,  $object->lang_id);
         }
 
-        return $article;
+        return $object;
     }
 
-    /**
-     * @param array     $object     contain properties of article
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
-     */
-    public static function update($object)
+    public function update(array $data, int $ix)
     {
+        $this->validate($data, [
+            'ix'            => 'required|integer',
+            'id'            => 'required|integer',
+            'lang_id'       => 'required|size:2|exists:admin_lang,id',
+            'name'          => 'required|between:1,255',
+            'author_id'     => 'required|exists:admin_user,id',
+            'section_id'    => 'required|exists:cms_section,id',
+            'status_id'     => 'required|integer'
+        ]);
+
+        $object = Article::findOrFail($ix);
+
         // get custom fields
-        if (isset($object['field_group_id'])) $object['data']['custom_fields'] = $object['custom_fields'];
-        if (! empty($object['tags'])) $object['tags'] = json_encode($object['tags']);
-        if (! empty($object['data'])) $object['data'] = json_encode($object['data']);
+        if (isset($data['field_group_id'])) $data['data']['custom_fields'] = $data['custom_fields'];
 
-        Article::where('ix', $object['ix'])->update(ArticleService::builder($object));
+        $object->fill($data);
 
-        $article = Article::find($object['ix']);
+        // check is model has changed
+        if ($object->isClean()) throw new ModelNotChangeException('At least one value must change');
 
+        // save changes
+        $object->save();
+
+        // we update record if has scout search engine, for register relations
         if (has_scout())
         {
-            if($article->status_id === 2)
-                $article->searchable();
-            else
-                $article->unsearchable();
+            // status 2 is public
+            if($object->status_id === 2) $object->searchable(); else $object->unsearchable();
         }
 
         // parse html and manage img of wysiwyg
-        $html = AttachmentService::manageWysiwygAttachment($article->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $article->id);
+        $html = AttachmentService::manageWysiwygAttachment($object->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $object->id);
 
-        if ($html != null)
+        if($html != null)
         {
-            $article->article = $html;
-            $article->save();
+            $object->article = $html;
+            $object->save();
         }
 
-        $article->categories()->sync($object['categories_id']);
+        $object->categories()->sync($data['categories_id']);
 
         // set attachments
-        if (is_array($object['attachments']))
+        if (is_array($data['attachments']))
         {
             // first save libraries to get id
-            $attachments = AttachmentService::storeAttachmentsLibrary($object['attachments']);
+            $attachments = AttachmentService::storeAttachmentsLibrary($data['attachments']);
 
             // then save attachments
-            AttachmentService::updateAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $article->id,  $article->lang_id);
+            AttachmentService::updateAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $object->id,  $object->lang_id);
         }
 
-        return $article;
+        return $object;
     }
 
     private static function builder($object)
@@ -138,16 +146,5 @@ class ArticleService
         if($object->has('date'))    $object['date'] = date_time_string($object->get('date'));
 
         return $object->toArray();
-    }
-
-    private static function checkCreate($object)
-    {
-//        if(empty($object['lang_id']))   throw new \Exception('You have to define a lang_id field to create a category');
-//        if(empty($object['name']))      throw new \Exception('You have to define a name field to create a category');
-    }
-
-    private static function checkUpdate($object)
-    {
-//        if(empty($object['ix']))    throw new \Exception('You have to define a ix field to update a article');
     }
 }
