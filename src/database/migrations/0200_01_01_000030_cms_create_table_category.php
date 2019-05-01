@@ -19,7 +19,7 @@ class CmsCreateTableCategory extends Migration {
 
                 $table->increments('ix');
                 $table->integer('id')->unsigned();
-                $table->integer('lang_id')->unsigned();
+                $table->string('lang_id', 2);
                 $table->string('name');
                 $table->string('slug')->nullable();
                 $table->string('section_id', 30)->nullable();
