@@ -115,36 +115,4 @@ class ArticleService extends Service
 
         return $object;
     }
-
-    private static function builder($object)
-    {
-        $object = collect($object);
-        $object = $object->only([
-            'id',
-            'lang_id',
-            'name',
-            'parent_id',
-            'author_id',
-            'section_id',
-            'family_id',
-            'status_id',
-            'publish',
-            'date',
-            'title',
-            'slug',
-            'link',
-            'blank',
-            'tags',
-            'sort',
-            'excerpt',
-            'article',
-            'data_lang',
-            'data'
-        ]);
-
-        if($object->has('publish')) $object['publish'] = date_time_string($object->get('publish'));
-        if($object->has('date'))    $object['date'] = date_time_string($object->get('date'));
-
-        return $object->toArray();
-    }
 }
