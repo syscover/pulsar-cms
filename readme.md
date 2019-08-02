@@ -44,3 +44,24 @@ SCOUT_DRIVER=null
 ALGOLIA_APP_ID=
 ALGOLIA_SECRET=
 ```
+
+**6 - Add graphQL routes to graphql/schema.graphql file**
+```
+# Cms
+#import ./../vendor/syscover/pulsar-cms/src/Syscover/Cms/GraphQL/inputs.graphql
+#import ./../vendor/syscover/pulsar-cms/src/Syscover/Cms/GraphQL/types.graphql
+
+type Query {
+    // others imports
+
+    # Cms
+    #import ./../vendor/syscover/pulsar-cms/src/Syscover/Cms/GraphQL/queries.graphql
+}
+
+type Mutation {
+    // others imports
+
+    # Cms
+    #import ./../vendor/syscover/pulsar-cms/src/Syscover/Cms/GraphQL/mutations.graphql
+}
+```
