@@ -4,6 +4,7 @@ use Syscover\Core\Services\Service;
 use Syscover\Core\Exceptions\ModelNotChangeException;
 use Syscover\Admin\Services\AttachmentService;
 use Syscover\Cms\Models\Article;
+use Syscover\Core\Services\SlugService;
 
 class ArticleService extends Service
 {
@@ -17,7 +18,9 @@ class ArticleService extends Service
             'status_id'     => 'required|integer'
         ]);
 
-        if(empty($data['id'])) $data['id'] = next_id(Article::class);
+        $data['slug'] = SlugService::checkSlug('Syscover\\Cms\\Models\\Article', $data['slug'], null, 'slug', $data['lang_id']);
+
+        if(empty($data['id']) || base_lang() === $data['lang_id']) $data['id'] = next_id(Article::class);
 
         $data['data_lang'] = Article::getDataLang($data['lang_id'], $data['id']);
 
