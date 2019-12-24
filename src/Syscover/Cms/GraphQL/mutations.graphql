@@ -1,5 +1,6 @@
 # Article
 cmsCreateArticle(payload: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@store")
+cmsCloneArticle(payload: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@clone")
 cmsUpdateArticle(payload: CmsArticleInput!): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@update")
 cmsDeleteArticle(id:Int! lang_id:String): CmsArticle @field(resolver: "Syscover\\Cms\\GraphQL\\Services\\ArticleGraphQLService@delete")
 

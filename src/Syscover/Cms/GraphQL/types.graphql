@@ -14,7 +14,6 @@ type CmsArticle {
     date: String
     title: String
     slug: String
-    categories_id: [Int]
     categories: [CmsCategory]
     link: String
     blank: Boolean

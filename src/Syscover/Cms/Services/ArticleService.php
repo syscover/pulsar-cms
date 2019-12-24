@@ -20,7 +20,8 @@ class ArticleService extends Service
 
         $data['slug'] = SlugService::checkSlug('Syscover\\Cms\\Models\\Article', $data['slug'], null, 'slug', $data['lang_id']);
 
-        if(empty($data['id']) || base_lang() === $data['lang_id']) $data['id'] = next_id(Article::class);
+        // check if has id or can to come from create-lang
+        if(empty($data['id'])) $data['id'] = next_id(Article::class);
 
         $data['data_lang'] = Article::getDataLang($data['lang_id'], $data['id']);
 
@@ -114,6 +115,98 @@ class ArticleService extends Service
 
             // then save attachments
             AttachmentService::updateAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $object->id,  $object->lang_id);
+        }
+
+        return $object;
+    }
+
+    public function clone(array $data)
+    {
+        $this->validate($data, [
+            'lang_id'       => 'required|size:2|exists:admin_lang,id',
+            'name'          => 'required|between:1,255',
+            'author_id'     => 'required|exists:admin_user,id',
+            'section_id'    => 'required|exists:cms_section,id',
+            'status_id'     => 'required|integer'
+        ]);
+
+        $object = null;
+
+        // get articles from other languages
+        $articlesToClone    = Article::where('id', $data['id'])->get();
+        
+        // get new id for article cloned
+        $cloneId            = next_id(Article::class);
+
+        foreach($articlesToClone as $articleToClone)
+        {
+            if ($articleToClone->lang_id === base_lang())
+            {
+                $cloneData = array_merge($articleToClone->toArray(), $data);
+
+                // get custom fields
+                if(isset($cloneData['field_group_id'])) $cloneData['data']['custom_fields'] = $cloneData['custom_fields'];
+            } 
+            else
+            {
+                $cloneData = $articleToClone->toArray();
+            }
+            
+            // delete index to avoid error to create other article with the same ix
+            unset($cloneData['ix']);
+
+            // set new id
+            $cloneData['id'] = $cloneId;
+
+            // check slug
+            $cloneData['slug'] = SlugService::checkSlug('Syscover\\Cms\\Models\\Article', $cloneData['slug'], null, 'slug', $cloneData['lang_id']);
+
+            // create article
+            $cloneObject = Article::create($cloneData);
+
+            // get object with builder, to get every relations
+            $cloneObject = $cloneObject->fresh();
+
+            // we update record if has scout search engine, for register relations
+            if (has_scout())
+            {
+                // status 2 is public
+                if($cloneObject->status_id === 2) $cloneObject->searchable(); else $cloneObject->unsearchable();
+            }
+
+            // parse html and manage img of wysiwyg
+            // $html = AttachmentService::manageWysiwygAttachment($object->article, 'storage/app/public/cms/articles', 'storage/cms/articles', $object->id);
+            
+            /* 
+            if($html != null)
+            {
+                $object->article = $html;
+                $object->save();
+            } 
+            */
+
+            if ($articleToClone->lang_id === base_lang())
+            {
+                $cloneObject->categories()->sync($cloneData['categories_id']);
+
+                // set attachments
+                if(is_array($cloneData['attachments']))
+                {
+                    // first save libraries to get id
+                    $attachments = AttachmentService::storeAttachmentsLibrary($cloneData['attachments']);
+
+                    // then save attachments
+                    AttachmentService::cloneAttachments($attachments, 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $cloneObject->id,  $cloneObject->lang_id);
+                }
+
+                $object = $cloneObject;
+            }
+            else
+            {
+                info('entra ' . $articleToClone->lang_id);
+                info($articleToClone->attachments->where('lang_id', $cloneObject->lang_id)->toArray());
+                AttachmentService::cloneAttachments($articleToClone->attachments->where('lang_id', $cloneObject->lang_id)->toArray(), 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $cloneObject->id,  $cloneObject->lang_id);
+            }
         }
 
         return $object;

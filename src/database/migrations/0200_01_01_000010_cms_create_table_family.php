@@ -40,7 +40,6 @@ class CmsCreateTableFamily extends Migration {
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index('slug', 'ix01_cms_family');
                 $table->foreign('field_group_id', 'fk01_cms_family')
                     ->references('id')
                     ->on('admin_field_group')
