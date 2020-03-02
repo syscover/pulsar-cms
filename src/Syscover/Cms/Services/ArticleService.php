@@ -203,8 +203,6 @@ class ArticleService extends Service
             }
             else
             {
-                info('entra ' . $articleToClone->lang_id);
-                info($articleToClone->attachments->where('lang_id', $cloneObject->lang_id)->toArray());
                 AttachmentService::cloneAttachments($articleToClone->attachments->where('lang_id', $cloneObject->lang_id)->toArray(), 'storage/app/public/cms/articles', 'storage/cms/articles', Article::class, $cloneObject->id,  $cloneObject->lang_id);
             }
         }
